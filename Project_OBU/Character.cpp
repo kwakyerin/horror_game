@@ -50,6 +50,19 @@ void Character::Draw(Gdiplus::Graphics& graphics) {
 
         Gdiplus::UnitPixel
     );
+
+    Gdiplus::Pen collisionPen(
+        Gdiplus::Color(255, 255, 0, 0),
+        1.0f
+    );
+
+    graphics.DrawRectangle(
+        &collisionPen,
+        static_cast<int>(x),
+        static_cast<int>(y),
+        32,
+        40
+    );
 }
 
 void Character::Move(float deltaTime) {
@@ -96,6 +109,17 @@ void Character::Move(float deltaTime) {
         currentFrame = 1;
         animationTimer = 0.0f;
     }
+}
+
+RECT Character::GetCollisionRect() const {
+    RECT collisionRect;
+
+    collisionRect.left = static_cast<LONG>(x);
+    collisionRect.top = static_cast<LONG>(y);
+    collisionRect.right = static_cast<LONG>(x + 32.0f);
+    collisionRect.bottom = static_cast<LONG>(y + 40.0f);
+
+    return collisionRect;
 }
 
 

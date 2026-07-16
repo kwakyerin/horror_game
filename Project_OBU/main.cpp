@@ -68,7 +68,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			SRCCOPY
 		);
 
-		// 정리
+
 		SelectObject(memoryDC, oldBitmap);
 		DeleteObject(backBuffer);
 		DeleteDC(memoryDC);
@@ -103,7 +103,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int nCmdShow)
 	RegisterClass(&wc);
 
 	HWND hwnd = CreateWindow(TEXT("MyWindow"), TEXT("게임화면"), WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT,
-		900, 700, NULL, NULL, hInstance, NULL);
+		755, 600, NULL, NULL, hInstance, NULL);
 
 	ShowWindow(hwnd, nCmdShow);
 	UpdateWindow(hwnd);

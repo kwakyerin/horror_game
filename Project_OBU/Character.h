@@ -23,4 +23,6 @@ public:
 	~Character();
 	void Move(float deltaTime);
 	void Draw(Gdiplus::Graphics& graphics);
+
+	RECT GetCollisionRect() const;//충돌박스
 };
