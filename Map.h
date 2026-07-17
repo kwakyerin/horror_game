@@ -11,9 +11,15 @@ enum TileType
 {
     TILE_GRASS = 0,
     TILE_TREE_TOP,
-    TILE_TREE_MIDDLE,
     TILE_TREE_BOTTOM,
-    TILE_ROAD
+    TILE_ROAD,
+    TILE_DUMMY,
+    TILE_MINITREE,
+    TILE_ROCK,
+    WELL_01,
+    WELL_02,
+    WELL_03,
+    WELL_04
 };
 
 class Map
@@ -29,9 +35,14 @@ private:
 
     GameImage grassImage;
 
-    //이미지 추가할 때 동시에 사용
     GameImage treeTopImage;
-    GameImage treeMiddleImage;
     GameImage treeBottomImage;
     GameImage roadImage;
+    GameImage dummyImage;
+    GameImage minitreeImage;
+    GameImage rockImage;
+    GameImage well_01Image;
+    GameImage well_02Image;
+    GameImage well_03Image;
+    GameImage well_04Image;
 };
