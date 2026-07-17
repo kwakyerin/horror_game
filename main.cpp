@@ -89,6 +89,15 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
     case WM_CREATE:
     {
+        if (!VillageMap.LoadImages())
+        {
+            MessageBox(
+                hWnd,
+                L"맵 이미지 로드 실패",
+                L"Error",
+                MB_OK
+            );
+        }
 
         return 0;
     }
@@ -97,7 +106,27 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
     {
         hDC = BeginPaint(hWnd, &ps);
 
-        VillageMap.Draw(hDC);
+        RECT rt;
+        GetClientRect(hWnd, &rt);
+
+        HDC memDC = CreateCompatibleDC(hDC);
+        HBITMAP memBitmap = CreateCompatibleBitmap(
+            hDC,
+            rt.right,
+            rt.bottom
+        );
+        HBITMAP oldBitmap =
+            (HBITMAP)SelectObject(memDC, memBitmap);
+
+        FillRect(memDC, &rt, (HBRUSH)GetStockObject(WHITE_BRUSH));
+
+        VillageMap.Draw(memDC);
+
+        BitBlt(hDC, 0, 0,rt.right,rt.bottom,memDC,0, 0,SRCCOPY);
+
+        SelectObject(memDC, oldBitmap);
+        DeleteObject(memBitmap);
+        DeleteDC(memDC);
 
         EndPaint(hWnd, &ps);
         return 0;
