@@ -19,7 +19,11 @@ enum TileType
     WELL_01,
     WELL_02,
     WELL_03,
-    WELL_04
+    WELL_04,
+    TREE_01,
+    TREE_02,
+    TREE_03,
+    TREE_04,
 };
 
 class Map
@@ -33,6 +37,8 @@ public:
 private:
     int map[Map_Height][Map_Width];
 
+
+    //마을 이미지
     GameImage grassImage;
 
     GameImage treeTopImage;
@@ -45,4 +51,12 @@ private:
     GameImage well_02Image;
     GameImage well_03Image;
     GameImage well_04Image;
+
+    GameImage tree_01Image;
+    GameImage tree_02Image;
+    GameImage tree_03Image;
+    GameImage tree_04Image;
+
+    //마을 가는 길
+
 };

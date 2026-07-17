@@ -3,6 +3,7 @@
 
 Map::Map()
 {
+    //바닥
     for (int y = 0; y < Map_Height; y++)
     {
         for (int x = 0; x < Map_Width; x++)
@@ -11,16 +12,7 @@ Map::Map()
         }
     }
 
-    // 나무가 세로 3칸일 경우
-    /*
-    map[3][5] = TILE_TREE_TOP;
-    map[4][5] = TILE_TREE_MIDDLE;
-    map[5][5] = TILE_TREE_BOTTOM;
-    */
-
-
     //길
-
     for (int i = 4; i < 6; i++) {
         for (int j = 0; j < 5; j++) {
             map[i][j] = TILE_ROAD;
@@ -41,7 +33,7 @@ Map::Map()
 
     //더미(잠시 생략)
 
-    //나무
+    //작은 나무
     map[2][1] = 1;
     map[3][1] = 2;
 
@@ -50,6 +42,9 @@ Map::Map()
 
     map[13][4] = 1;
     map[14][4] = 2;
+
+    //큰 나무
+
 
     //풀숲
     map[3][3] = TILE_MINITREE;
@@ -72,25 +67,34 @@ Map::Map()
     map[8][10] = WELL_02;
     map[9][9] = WELL_03;
     map[9][10] = WELL_04;
+
+    //큰 나무
+    map[7][7] = TREE_01;
+    map[8][7] = TREE_03;
+    map[7][8] = TREE_02;
+    map[8][8] = TREE_04;
 }
 
 bool Map::LoadImages()
 {
     bool result = true;
 
+    //바닥
     result &= grassImage.Load(
         L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\Grass.png"
     );
 
-    
+    //작은 나무(위)
     result &= treeTopImage.Load(
         L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\Tree_top.png"
     );
 
+    //작은 나무(아래)
     result &= treeBottomImage.Load(
         L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\Tree_bottom.png"
     );
     
+    //길
     result &= roadImage.Load(
         L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\Road.png"
     );
@@ -99,14 +103,17 @@ bool Map::LoadImages()
         L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\Dummy_01.png"
     );
 
+    //수풀
     result &= minitreeImage.Load(
         L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\Grass_02.png"
     );
     
+    //돌
     result &= rockImage.Load(
         L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\Rock.png"
     );
 
+    //우물
     result &= well_01Image.Load(
         L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\Well_01.png"
     );
@@ -118,6 +125,20 @@ bool Map::LoadImages()
     );
     result &= well_04Image.Load(
         L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\Well_04.png"
+    );
+
+    //큰 나무
+    result &= tree_01Image.Load(
+        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\Tree_01.png"
+    );
+    result &= tree_02Image.Load(
+        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\Tree_02.png"
+    );
+    result &= tree_03Image.Load(
+        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\Tree_03.png"
+    );
+    result &= tree_04Image.Load(
+        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\Tree_04.png"
     );
 
     return result;
@@ -185,6 +206,26 @@ void Map::Draw(HDC hdc)
             case WELL_04:
                 grassImage.Draw(hdc, drawX, drawY);
                 well_04Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case TREE_01:
+                grassImage.Draw(hdc, drawX, drawY);
+                tree_01Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case TREE_02:
+                grassImage.Draw(hdc, drawX, drawY);
+                tree_02Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case TREE_03:
+                grassImage.Draw(hdc, drawX, drawY);
+                tree_03Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case TREE_04:
+                grassImage.Draw(hdc, drawX, drawY);
+                tree_04Image.Draw(hdc, drawX, drawY);
                 break;
             }
         }

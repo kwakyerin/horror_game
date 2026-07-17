@@ -19,24 +19,14 @@ bool GameImage::Load(const wchar_t* filename)
 
     if (bitmap == nullptr)
     {
-        MessageBox(
-            nullptr,
-            L"이미지 객체 생성 실패",
-            L"오류",
-            MB_OK
-        );
+        MessageBox( nullptr,L"이미지 객체 생성 실패",L"오류",MB_OK );
 
         return false;
     }
 
     if (bitmap->GetLastStatus() != Ok)
     {
-        MessageBox(
-            nullptr,
-            L"이미지 로드 실패",
-            L"오류",
-            MB_OK
-        );
+        MessageBox( nullptr,L"이미지 로드 실패",L"오류",MB_OK );
 
         delete bitmap;
         bitmap = nullptr;
@@ -59,11 +49,6 @@ void GameImage::Draw(HDC hdc, int x, int y)
 
     Graphics graphics(hdc);
 
-    graphics.DrawImage(
-        bitmap,
-        x,
-        y,
-        width,
-        height
-    );
+    graphics.DrawImage( bitmap,x,y,width,height );
+
 }
