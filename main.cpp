@@ -1,40 +1,83 @@
 #include <windows.h>
 #include <tchar.h>
 #include "Map.h"
+#include "Image.h"
+
+#pragma comment(lib, "gdiplus.lib")
+
+Map VillageMap;
 
 HINSTANCE g_hInst;
 LPCTSTR lpszClass = L"OBU_Project";
 LPCTSTR lpszWindowName = L"OBU_Project";
 LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam);
 
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdParam, int nCmdShow)
+int WINAPI WinMain(
+    HINSTANCE hInstance,
+    HINSTANCE hPrevInstance,
+    LPSTR lpszCmdParam,
+    int nCmdShow)
 {
-	HWND hWnd;
-	MSG Message;
-	WNDCLASSEX WndClass;
-	g_hInst = hInstance;
-	WndClass.cbSize = sizeof(WndClass);
-	WndClass.style = CS_HREDRAW | CS_VREDRAW;
-	WndClass.lpfnWndProc = (WNDPROC)WndProc;
-	WndClass.cbClsExtra = 0;
-	WndClass.cbWndExtra = 0;
-	WndClass.hInstance = hInstance;
-	WndClass.hIcon = LoadIcon(NULL, IDI_APPLICATION);
-	WndClass.hCursor = LoadCursor(NULL, IDC_ARROW);
-	WndClass.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);
-	WndClass.lpszMenuName = NULL;
-	WndClass.lpszClassName = lpszClass;
-	WndClass.hIconSm = LoadIcon(NULL, IDI_APPLICATION);
-	RegisterClassEx(&WndClass);
-	hWnd = CreateWindow(lpszClass, lpszWindowName, WS_OVERLAPPEDWINDOW, 0, 0, 775, 600, NULL, (HMENU)NULL, hInstance, NULL);
-	ShowWindow(hWnd, nCmdShow);
-	UpdateWindow(hWnd);
-	while (GetMessage(&Message, 0, 0, 0)) {
-		TranslateMessage(&Message);
-		DispatchMessage(&Message);
-	}
-	return Message.wParam;
+    Gdiplus::GdiplusStartupInput gdiplusInput;
+    ULONG_PTR gdiplusToken = 0;
+
+    Gdiplus::Status status = Gdiplus::GdiplusStartup(
+        &gdiplusToken,
+        &gdiplusInput,
+        nullptr
+    );
+
+    if (status != Gdiplus::Ok)
+    {
+        MessageBox(
+            nullptr,
+            L"GDI+ 초기화 실패",
+            L"Error",
+            MB_OK
+        );
+
+        return 0;
+    }
+
+    HWND hWnd;
+    MSG Message = {};
+    WNDCLASSEX WndClass = {};
+
+    g_hInst = hInstance;
+
+    WndClass.cbSize = sizeof(WNDCLASSEX);
+    WndClass.style = CS_HREDRAW | CS_VREDRAW;
+    WndClass.lpfnWndProc = WndProc;
+    WndClass.cbClsExtra = 0;
+    WndClass.cbWndExtra = 0;
+    WndClass.hInstance = hInstance;
+    WndClass.hIcon = LoadIcon(nullptr, IDI_APPLICATION);
+    WndClass.hCursor = LoadCursor(nullptr, IDC_ARROW);
+    WndClass.hbrBackground =
+        static_cast<HBRUSH>(GetStockObject(WHITE_BRUSH));
+    WndClass.lpszMenuName = nullptr;
+    WndClass.lpszClassName = lpszClass;
+    WndClass.hIconSm = LoadIcon(nullptr, IDI_APPLICATION);
+
+    RegisterClassEx(&WndClass);
+
+    hWnd = CreateWindow(lpszClass,lpszWindowName,WS_OVERLAPPEDWINDOW,0,0,775,600,nullptr,nullptr,hInstance,nullptr);
+
+    ShowWindow(hWnd, nCmdShow);
+    UpdateWindow(hWnd);
+
+    while (GetMessage(&Message, nullptr, 0, 0))
+    {
+        TranslateMessage(&Message);
+        DispatchMessage(&Message);
+    }
+
+    Gdiplus::GdiplusShutdown(gdiplusToken);
+
+    return static_cast<int>(Message.wParam);
 }
+
+
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
@@ -44,27 +87,21 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 	switch (uMsg) {
 
-	case WM_CREATE:
-		break;
+    case WM_CREATE:
+    {
 
-	case WM_PAINT:
-		hDC = BeginPaint(hWnd, &ps);
+        return 0;
+    }
 
-		for (int y = 0; y < Map_Height; y++)
-		{
-			for (int x = 0; x < Map_Width; x++)
-			{
-				int left = x * 40;
-				int top = y * 40;
-				int right = left + 40;
-				int bottom = top + 40;
+    case WM_PAINT:
+    {
+        hDC = BeginPaint(hWnd, &ps);
 
-				Rectangle(hDC, left, top, right, bottom);
-			}
-		}
+        VillageMap.Draw(hDC);
 
-		EndPaint(hWnd, &ps);
-		break;
+        EndPaint(hWnd, &ps);
+        return 0;
+    }
 
 	case WM_DESTROY:
 		PostQuitMessage(0);
