@@ -17,6 +17,28 @@ Map::Map()
     map[4][5] = TILE_TREE_MIDDLE;
     map[5][5] = TILE_TREE_BOTTOM;
     */
+
+
+    //±æ
+
+    for (int i = 4; i < 6; i++) {
+        for (int j = 0; j < 5; j++) {
+            map[i][j] = TILE_ROAD;
+        }
+    }
+
+    for (int i = 0; i < 18; i++) {
+        for (int j = 5; j < 7; j++) {
+            map[i][j] = TILE_ROAD;
+        }
+    }
+
+    for (int i = 12; i < 14; i++) {
+        for (int j = 7; j < 25; j++) {
+            map[i][j] = TILE_ROAD;
+        }
+    }
+
 }
 
 bool Map::LoadImages()
@@ -39,11 +61,11 @@ bool Map::LoadImages()
     result &= treeBottomImage.Load(
         L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\TreeBottom.png"
     );
-
+    */
     result &= roadImage.Load(
         L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\Road.png"
     );
-    */
+    
 
     return result;
 }
