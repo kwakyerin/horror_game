@@ -57,7 +57,8 @@ enum TileType
     House_29,
     House_30,
     Wood,
-    FlOWER
+    FlOWER,
+    ROCK_06
 
 };
 
@@ -134,6 +135,8 @@ private:
     GameImage house_28Image;
     GameImage house_29Image;
     GameImage house_30Image;
+
+    GameImage rock_06Image;
 
     //마을 가는 길
 

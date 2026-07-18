@@ -49,9 +49,6 @@ Map::Map()
     map[13][4] = 1;
     map[14][4] = 2;
 
-    //Å« ³ª¹«
-
-
     //Ç®½£
     map[3][3] = TILE_MINITREE;
     map[3][4] = TILE_MINITREE;
@@ -79,6 +76,16 @@ Map::Map()
     map[8][7] = TREE_03;
     map[7][8] = TREE_02;
     map[8][8] = TREE_04;
+
+    map[3][10] = TREE_01;
+    map[4][10] = TREE_03;
+    map[3][11] = TREE_02;
+    map[4][11] = TREE_04;
+
+    map[0][8] = TREE_01;
+    map[1][8] = TREE_03;
+    map[0][9] = TREE_02;
+    map[1][9] = TREE_04;
 
     //Áý
     map[9][14] = 16;
@@ -112,10 +119,17 @@ Map::Map()
     for (int i = 19; i >=13; i--) {
         map[11][i] = Wood;
     }
+    map[11][21] = Wood;
+    map[11][22] = Wood;
 
+    //²É Ç®½£
     map[11][9] = FlOWER;
     map[11][10] = FlOWER;
-    
+    map[14][20] = FlOWER;
+    map[14][21] = FlOWER;
+
+    //µ¹_06
+    map[4][8] = ROCK_06;
 }
 
 bool Map::LoadImages()
@@ -281,8 +295,14 @@ bool Map::LoadImages()
         L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\Wood.png"
     );
 
+    //²É
     result &= flowerImage.Load(
         L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\Grass_03.png"
+    );
+
+    //µ¹(2 ¹öÀü)
+    result &= rock_06Image.Load(
+        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\Rock_06.png"
     );
 
     return result;
@@ -521,6 +541,11 @@ void Map::Draw(HDC hdc)
             case FlOWER:
                 grassImage.Draw(hdc, drawX, drawY);
                 flowerImage.Draw(hdc, drawX, drawY);
+                break;
+                
+            case ROCK_06:
+                grassImage.Draw(hdc, drawX, drawY);
+                rock_06Image.Draw(hdc, drawX, drawY);
                 break;
             }
         }
