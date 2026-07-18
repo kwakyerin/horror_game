@@ -73,7 +73,9 @@ enum TileType
     House_42,
     House_43,
     House_44,
-    House_45
+    House_45,
+    Sea_01,
+    Sea_02
 };
 
 enum MapType {
@@ -168,6 +170,10 @@ private:
 
     GameImage rock_06Image;
 
+
     //마을 가는 길
+
+    GameImage Sea_01Image;
+    GameImage Sea_02Image;
 
 };

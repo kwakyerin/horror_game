@@ -228,6 +228,14 @@ bool Map::LoadImages()
         L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\Rock_06.png"
     );
 
+    //바다(1,2)
+    result &= Sea_01Image.Load(
+        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\Sea_01.png"
+    );
+    result &= Sea_02Image.Load(
+        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\Sea_02.png"
+    );
+
     return result;
 }
 
@@ -532,6 +540,17 @@ void Map::Draw(HDC hdc)
                 grassImage.Draw(hdc, drawX, drawY);
                 house_45Image.Draw(hdc, drawX, drawY);
                 break;
+
+            //마을 가는 길 
+            case Sea_01:
+               // grassImage.Draw(hdc, drawX, drawY);
+                Sea_01Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case Sea_02:
+                //grassImage.Draw(hdc, drawX, drawY);
+                Sea_02Image.Draw(hdc, drawX, drawY);
+                break;
             }
         }
     }
@@ -710,13 +729,62 @@ void Map::changeMap(MapType newMap)
 
     case Govillage:
 
-        // 마을 가는 길 배치
-        map[5][5] = TILE_ROAD;
-        map[5][6] = TILE_ROAD;
-        map[5][7] = TILE_ROAD;
+        //길
+        for (int i = 0; i < 25; i++) {
+            map[4][i] = TILE_ROAD;
+            map[5][i] = TILE_ROAD;
+        }
 
-        map[8][10] = TREE_01;
-        map[9][10] = TREE_02;
+        //바다
+        for (int i = 0; i < 25; i++) {
+            map[11][i] = Sea_01;
+        }
+
+        for (int i = 0; i < 25; i++) {
+
+            for (int j = 12; j < 18; j++) {
+                map[j][i] = Sea_02;
+            }
+        }
+
+        //큰 나무
+        map[6][6] = TREE_01;
+        map[7][6] = TREE_03;
+        map[6][7] = TREE_02;
+        map[7][7] = TREE_04;
+
+        map[8][2] = TREE_01;
+        map[9][2] = TREE_03;
+        map[8][3] = TREE_02;
+        map[9][3] = TREE_04;
+
+        map[1][8] = TREE_01;
+        map[2][8] = TREE_03;
+        map[1][9] = TREE_02;
+        map[2][9] = TREE_04;
+
+        map[7][15] = TREE_01;
+        map[8][15] = TREE_03;
+        map[7][16] = TREE_02;
+        map[8][16] = TREE_04;
+
+        //작은 나무
+        map[2][2] = 1;
+        map[3][2] = 2;
+
+        map[2][3] = 1;
+        map[3][3] = 2;
+
+        map[8][20] = 1;
+        map[9][20] = 2;
+
+        //작은 풀숲
+        map[0][15] = TILE_MINITREE;
+        map[2][18] = TILE_MINITREE;
+
+        map[7][11] = TILE_MINITREE;
+        map[8][12] = TILE_MINITREE;
+        map[8][13] = TILE_MINITREE;
 
         break;
 
