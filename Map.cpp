@@ -6,145 +6,8 @@ Map::Map()
 
     currentMap = Village;
 
-    //바닥
-    for (int y = 0; y < Map_Height; y++)
-    {
-        for (int x = 0; x < Map_Width; x++)
-        {
-            map[y][x] = TILE_GRASS;
-        }
-    }
+    changeMap(Govillage);
 
-    //길
-    for (int i = 4; i < 6; i++) {
-        for (int j = 0; j < 5; j++) {
-            map[i][j] = TILE_ROAD;
-        }
-    }
-
-    for (int i = 0; i < 18; i++) {
-        for (int j = 5; j < 7; j++) {
-            map[i][j] = TILE_ROAD;
-        }
-    }
-
-    for (int i = 12; i < 14; i++) {
-        for (int j = 7; j < 25; j++) {
-            map[i][j] = TILE_ROAD;
-        }
-    }
-
-    map[2][10] = TILE_ROAD;
-    map[2][9] = TILE_ROAD;
-    map[2][8] = TILE_ROAD;
-    map[2][7] = TILE_ROAD;
-    map[2][11] = TILE_ROAD;
-    map[2][12] = TILE_ROAD;
-
-    map[10][20] = 3;
-    map[11][20] = 3;
-
-    //더미(잠시 생략)
-    map[9][13] = 4;
-    map[9][12] = 4;
-
-    //작은 나무
-    map[2][1] = 1;
-    map[3][1] = 2;
-
-    map[10][8] = 1;
-    map[11][8] = 2;
-
-    map[13][4] = 1;
-    map[14][4] = 2;
-
-    //풀숲
-    map[3][3] = TILE_MINITREE;
-    map[3][4] = TILE_MINITREE;
-    map[2][4] = TILE_MINITREE;
-    map[6][2] = TILE_MINITREE;
-    map[6][3] = TILE_MINITREE;
-
-    map[14][11] = TILE_MINITREE;
-    map[14][13] = TILE_MINITREE;
-    map[14][14] = TILE_MINITREE;
-
-    //돌
-    map[8][0] = TILE_ROCK;
-    map[9][1] = TILE_ROCK;
-    map[16][4] = TILE_ROCK;
-
-    //우물
-    map[8][9] = WELL_01;
-    map[8][10] = WELL_02;
-    map[9][9] = WELL_03;
-    map[9][10] = WELL_04;
-
-    //큰 나무
-    map[7][7] = TREE_01;
-    map[8][7] = TREE_03;
-    map[7][8] = TREE_02;
-    map[8][8] = TREE_04;
-
-    map[3][10] = TREE_01;
-    map[4][10] = TREE_03;
-    map[3][11] = TREE_02;
-    map[4][11] = TREE_04;
-
-    map[0][8] = TREE_01;
-    map[1][8] = TREE_03;
-    map[0][9] = TREE_02;
-    map[1][9] = TREE_04;
-
-    //집
-    map[9][14] = 16;
-    map[9][15] = 17;
-    map[9][16] = 18;
-    map[9][17] = 19;
-    map[9][18] = 20;
-    map[9][19] = 21;
-    map[9][20] = 22;
-    map[9][21] = 23;
-    map[8][14] = 24;
-    map[8][15] = 25;
-    map[8][16] = 26;
-    map[8][17] = 27;
-    map[8][18] = 28;
-    map[8][19] = 29;
-    map[8][20] = 30;
-    map[8][21] = 31;
-    map[7][14] = 32;
-    map[7][15] = 33;
-    map[7][16] = 34;
-    map[7][17] = 35;
-    map[7][18] = 36;
-    map[7][19] = 37;
-    map[7][20] = 38;
-    map[7][21] = 39;
-    map[6][14] = 40;
-    map[6][15] = 43;
-    map[6][16] = 44;
-    map[6][17] = 50;
-    map[6][18] = 60;
-
-    //나무 울타리
-
-    for (int i = 19; i >=13; i--) {
-        map[11][i] = Wood;
-    }
-    map[11][21] = Wood;
-    map[11][22] = Wood;
-    map[11][23] = Wood;
-
-    //꽃 풀숲
-    map[11][9] = FlOWER;
-    map[11][10] = FlOWER;
-    map[14][20] = FlOWER;
-    map[14][21] = FlOWER;
-
-    //돌_06
-    map[4][8] = ROCK_06;
-    map[5][7] = ROCK_06;
 }
 
 bool Map::LoadImages()
@@ -676,4 +539,203 @@ void Map::Draw(HDC hdc)
 
 void Map::changeMap(MapType newMap)
 {
+    currentMap = newMap;
+
+    for (int y = 0; y < Map_Height; y++)
+    {
+        for (int x = 0; x < Map_Width; x++)
+        {
+            map[y][x] = TILE_GRASS;
+        }
+    }
+
+    switch (currentMap)
+    {
+    case Village:
+
+        //바닥
+        for (int y = 0; y < Map_Height; y++)
+        {
+            for (int x = 0; x < Map_Width; x++)
+            {
+                map[y][x] = TILE_GRASS;
+            }
+        }
+
+        //길
+        for (int i = 4; i < 6; i++) {
+            for (int j = 0; j < 5; j++) {
+                map[i][j] = TILE_ROAD;
+            }
+        }
+
+        for (int i = 0; i < 18; i++) {
+            for (int j = 5; j < 7; j++) {
+                map[i][j] = TILE_ROAD;
+            }
+        }
+
+        for (int i = 12; i < 14; i++) {
+            for (int j = 7; j < 25; j++) {
+                map[i][j] = TILE_ROAD;
+            }
+        }
+
+        map[2][10] = TILE_ROAD;
+        map[2][9] = TILE_ROAD;
+        map[2][8] = TILE_ROAD;
+        map[2][7] = TILE_ROAD;
+        map[2][11] = TILE_ROAD;
+        map[2][12] = TILE_ROAD;
+
+        map[10][20] = 3;
+        map[11][20] = 3;
+
+        //더미(잠시 생략)
+        map[9][13] = 4;
+        map[9][12] = 4;
+
+        //작은 나무
+        map[2][1] = 1;
+        map[3][1] = 2;
+
+        map[10][8] = 1;
+        map[11][8] = 2;
+
+        map[13][4] = 1;
+        map[14][4] = 2;
+
+        //풀숲
+        map[3][3] = TILE_MINITREE;
+        map[3][4] = TILE_MINITREE;
+        map[2][4] = TILE_MINITREE;
+        map[6][2] = TILE_MINITREE;
+        map[6][3] = TILE_MINITREE;
+
+        map[14][11] = TILE_MINITREE;
+        map[14][13] = TILE_MINITREE;
+        map[14][14] = TILE_MINITREE;
+
+        //돌
+        map[8][0] = TILE_ROCK;
+        map[9][1] = TILE_ROCK;
+        map[16][4] = TILE_ROCK;
+
+        //우물
+        map[8][9] = WELL_01;
+        map[8][10] = WELL_02;
+        map[9][9] = WELL_03;
+        map[9][10] = WELL_04;
+
+        //큰 나무
+        map[7][7] = TREE_01;
+        map[8][7] = TREE_03;
+        map[7][8] = TREE_02;
+        map[8][8] = TREE_04;
+
+        map[3][10] = TREE_01;
+        map[4][10] = TREE_03;
+        map[3][11] = TREE_02;
+        map[4][11] = TREE_04;
+
+        map[0][8] = TREE_01;
+        map[1][8] = TREE_03;
+        map[0][9] = TREE_02;
+        map[1][9] = TREE_04;
+
+        map[2][16] = TREE_01;
+        map[3][16] = TREE_03;
+        map[2][17] = TREE_02;
+        map[3][17] = TREE_04;
+
+        //집1(주인공 집)
+        map[9][14] = 22;
+        map[9][15] = 23;
+        map[9][16] = 18;
+        map[9][17] = 19;
+        map[9][18] = 20;
+        map[9][19] = 21;
+        map[9][20] = 16; //문
+        map[9][21] = 17;
+        map[8][20] = 24; //문
+        map[7][20] = House_18; //문
+
+
+        /*
+        map[8][15] = 25;
+        map[8][16] = 26;
+        map[8][17] = 27;
+        map[8][18] = 28;
+        map[8][19] = 29;
+        map[8][20] = 30;
+        map[8][21] = 31;
+        map[7][14] = 32;
+        map[7][15] = 33;
+        map[7][16] = 34;
+        map[7][17] = 35;
+        map[7][18] = 36;
+        map[7][19] = 37;
+        map[7][20] = 38;
+        map[7][21] = 39;
+        map[6][14] = 40;
+        map[6][15] = 43;
+        map[6][16] = 44;
+        map[6][17] = 50;
+        map[6][18] = 60;*/
+
+        //집2
+        map[1][12] = 16;
+        map[0][12] = 24;
+
+        //나무 울타리
+
+        for (int i = 19; i >= 13; i--) {
+            map[11][i] = Wood;
+        }
+        map[11][21] = Wood;
+        map[11][22] = Wood;
+        map[11][23] = Wood;
+
+        //꽃 풀숲
+        map[11][9] = FlOWER;
+        map[11][10] = FlOWER;
+        map[14][20] = FlOWER;
+        map[14][21] = FlOWER;
+
+        //돌_06
+        map[4][8] = ROCK_06;
+        map[5][7] = ROCK_06;
+
+        break;
+
+    case Govillage:
+
+        // 마을 가는 길 배치
+        map[5][5] = TILE_ROAD;
+        map[5][6] = TILE_ROAD;
+        map[5][7] = TILE_ROAD;
+
+        map[8][10] = TREE_01;
+        map[9][10] = TREE_02;
+
+        break;
+
+    case Temple:
+
+        // 절 맵 배치
+
+        break;
+
+    case Room:
+
+        // 방 맵
+
+        break;
+
+    case Cave:
+
+        // 동굴 맵
+
+        break;
+    }
 }

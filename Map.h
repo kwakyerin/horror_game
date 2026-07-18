@@ -80,7 +80,8 @@ enum MapType {
     Village = 0,
     Govillage,
     Temple,
-    House
+    Room,
+    Cave
 };
 
 class Map
@@ -97,7 +98,7 @@ private:
 
     MapType currentMap;
 
-    //마을 이미지
+    //마을
     GameImage grassImage;
 
     GameImage treeTopImage;
