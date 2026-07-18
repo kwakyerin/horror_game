@@ -58,8 +58,22 @@ enum TileType
     House_30,
     Wood,
     FlOWER,
-    ROCK_06
-
+    ROCK_06,
+    House_31,
+    House_32,
+    House_33,
+    House_34,
+    House_35,
+    House_36,
+    House_37,
+    House_38,
+    House_39,
+    House_40,
+    House_41,
+    House_42,
+    House_43,
+    House_44,
+    House_45
 };
 
 enum MapType {
@@ -135,6 +149,21 @@ private:
     GameImage house_28Image;
     GameImage house_29Image;
     GameImage house_30Image;
+    GameImage house_31Image;
+    GameImage house_32Image;
+    GameImage house_33Image;
+    GameImage house_34Image;
+    GameImage house_35Image;
+    GameImage house_36Image;
+    GameImage house_37Image;
+    GameImage house_38Image;
+    GameImage house_39Image;
+    GameImage house_40Image;
+    GameImage house_41Image;
+    GameImage house_42Image;
+    GameImage house_43Image;
+    GameImage house_44Image;
+    GameImage house_45Image;
 
     GameImage rock_06Image;
 

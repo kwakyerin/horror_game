@@ -34,10 +34,19 @@ Map::Map()
         }
     }
 
+    map[2][10] = TILE_ROAD;
+    map[2][9] = TILE_ROAD;
+    map[2][8] = TILE_ROAD;
+    map[2][7] = TILE_ROAD;
+    map[2][11] = TILE_ROAD;
+    map[2][12] = TILE_ROAD;
+
     map[10][20] = 3;
     map[11][20] = 3;
 
     //더미(잠시 생략)
+    map[9][13] = 4;
+    map[9][12] = 4;
 
     //작은 나무
     map[2][1] = 1;
@@ -113,6 +122,10 @@ Map::Map()
     map[7][20] = 38;
     map[7][21] = 39;
     map[6][14] = 40;
+    map[6][15] = 43;
+    map[6][16] = 44;
+    map[6][17] = 50;
+    map[6][18] = 60;
 
     //나무 울타리
 
@@ -121,6 +134,7 @@ Map::Map()
     }
     map[11][21] = Wood;
     map[11][22] = Wood;
+    map[11][23] = Wood;
 
     //꽃 풀숲
     map[11][9] = FlOWER;
@@ -130,6 +144,7 @@ Map::Map()
 
     //돌_06
     map[4][8] = ROCK_06;
+    map[5][7] = ROCK_06;
 }
 
 bool Map::LoadImages()
@@ -288,6 +303,51 @@ bool Map::LoadImages()
     );
     result &= house_30Image.Load(
         L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\House_30.png"
+    );
+    result &= house_31Image.Load(
+        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\House_31.png"
+    );
+    result &= house_32Image.Load(
+        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\House_32.png"
+    );
+    result &= house_33Image.Load(
+        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\House_33.png"
+    );
+    result &= house_34Image.Load(
+        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\House_34.png"
+    );
+    result &= house_35Image.Load(
+        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\House_35.png"
+    );
+    result &= house_36Image.Load(
+        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\House_36.png"
+    );
+    result &= house_37Image.Load(
+        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\House_37.png"
+    );
+    result &= house_38Image.Load(
+        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\House_38.png"
+    );
+    result &= house_39Image.Load(
+        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\House_39.png"
+    );
+    result &= house_40Image.Load(
+        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\House_40.png"
+    );
+    result &= house_41Image.Load(
+        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\House_41.png"
+    );
+    result &= house_42Image.Load(
+        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\House_42.png"
+    );
+    result &= house_43Image.Load(
+        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\House_43.png"
+    );
+    result &= house_44Image.Load(
+        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\House_44.png"
+    );
+    result &= house_45Image.Load(
+        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\House_45.png"
     );
 
     //울타리
@@ -546,6 +606,68 @@ void Map::Draw(HDC hdc)
             case ROCK_06:
                 grassImage.Draw(hdc, drawX, drawY);
                 rock_06Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case House_31:
+                grassImage.Draw(hdc, drawX, drawY);
+                house_31Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case House_32:
+                grassImage.Draw(hdc, drawX, drawY);
+                house_32Image.Draw(hdc, drawX, drawY);
+                break;
+            case House_33:
+                grassImage.Draw(hdc, drawX, drawY);
+                house_30Image.Draw(hdc, drawX, drawY);
+                break;
+            case House_34:
+                grassImage.Draw(hdc, drawX, drawY);
+                house_34Image.Draw(hdc, drawX, drawY);
+                break;
+            case House_35:
+                grassImage.Draw(hdc, drawX, drawY);
+                house_35Image.Draw(hdc, drawX, drawY);
+                break;
+            case House_36:
+                grassImage.Draw(hdc, drawX, drawY);
+                house_36Image.Draw(hdc, drawX, drawY);
+                break;
+            case House_37:
+                grassImage.Draw(hdc, drawX, drawY);
+                house_37Image.Draw(hdc, drawX, drawY);
+                break;
+            case House_38:
+                grassImage.Draw(hdc, drawX, drawY);
+                house_38Image.Draw(hdc, drawX, drawY);
+                break;
+            case House_39:
+                grassImage.Draw(hdc, drawX, drawY);
+                house_39Image.Draw(hdc, drawX, drawY);
+                break;
+            case House_40:
+                grassImage.Draw(hdc, drawX, drawY);
+                house_40Image.Draw(hdc, drawX, drawY);
+                break;
+            case House_41:
+                grassImage.Draw(hdc, drawX, drawY);
+                house_41Image.Draw(hdc, drawX, drawY);
+                break;
+            case House_42:
+                grassImage.Draw(hdc, drawX, drawY);
+                house_42Image.Draw(hdc, drawX, drawY);
+                break;
+            case House_43:
+                grassImage.Draw(hdc, drawX, drawY);
+                house_43Image.Draw(hdc, drawX, drawY);
+                break;
+            case House_44:
+                grassImage.Draw(hdc, drawX, drawY);
+                house_44Image.Draw(hdc, drawX, drawY);
+                break;
+            case House_45:
+                grassImage.Draw(hdc, drawX, drawY);
+                house_45Image.Draw(hdc, drawX, drawY);
                 break;
             }
         }
