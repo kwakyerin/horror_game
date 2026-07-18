@@ -730,14 +730,23 @@ void Map::changeMap(MapType newMap)
     case Govillage:
 
         //길
-        for (int i = 0; i < 25; i++) {
+        for (int i = 6; i < 25; i++) {
             map[4][i] = TILE_ROAD;
             map[5][i] = TILE_ROAD;
+        }
+
+        for (int i = 0; i < 4; i++) {
+            map[6][i] = TILE_ROAD;
+            map[7][i] = TILE_ROAD;
         }
 
         //바다
         for (int i = 0; i < 25; i++) {
             map[11][i] = Sea_01;
+        }
+
+        for (int i = 0; i < 25; i++) {
+            map[0][i] = Sea_02;
         }
 
         for (int i = 0; i < 25; i++) {
@@ -758,10 +767,10 @@ void Map::changeMap(MapType newMap)
         map[8][3] = TREE_02;
         map[9][3] = TREE_04;
 
-        map[1][8] = TREE_01;
-        map[2][8] = TREE_03;
-        map[1][9] = TREE_02;
-        map[2][9] = TREE_04;
+        map[2][8] = TREE_01;
+        map[3][8] = TREE_03;
+        map[2][9] = TREE_02;
+        map[3][9] = TREE_04;
 
         map[7][15] = TREE_01;
         map[8][15] = TREE_03;
@@ -778,13 +787,27 @@ void Map::changeMap(MapType newMap)
         map[8][20] = 1;
         map[9][20] = 2;
 
+        map[1][5] = 1;
+        map[2][5] = 2;
+
+        map[7][21] = 1;
+        map[8][21] = 2;
+
+        map[2][14] = 1;
+        map[3][14] = 2;
+
         //작은 풀숲
-        map[0][15] = TILE_MINITREE;
         map[2][18] = TILE_MINITREE;
 
         map[7][11] = TILE_MINITREE;
         map[8][12] = TILE_MINITREE;
         map[8][13] = TILE_MINITREE;
+
+        //돌
+        map[8][0] = TILE_ROCK;
+        map[1][11] = TILE_ROCK;
+        map[10][5] = TILE_ROCK;
+        map[7][19] = TILE_ROCK;
 
         break;
 
