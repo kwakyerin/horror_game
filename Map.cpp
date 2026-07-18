@@ -730,10 +730,13 @@ void Map::changeMap(MapType newMap)
     case Govillage:
 
         //±æ
-        for (int i = 6; i < 25; i++) {
+        for (int i = 5; i < 25; i++) {
             map[4][i] = TILE_ROAD;
             map[5][i] = TILE_ROAD;
         }
+
+        map[5][4] = TILE_ROAD;
+        map[6][4] = TILE_ROAD;
 
         for (int i = 0; i < 4; i++) {
             map[6][i] = TILE_ROAD;
