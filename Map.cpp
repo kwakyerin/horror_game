@@ -240,6 +240,29 @@ bool Map::LoadImages()
     result &= BlackImage.Load(
         L"C:\\Horror_Game\\Horror_Game\\Image\\Cave\\Black.png"
     );
+
+    //µ¿±¼ º®
+    result &= CavewallImage.Load(
+        L"C:\\Horror_Game\\Horror_Game\\Image\\Cave\\Cavewall.png"
+    );
+
+    //Å©¸®½ºÅ»
+    result &= Krystal_01Image.Load(
+        L"C:\\Horror_Game\\Horror_Game\\Image\\Cave\\Krystal_01.png"
+    );
+    result &= Krystal_02Image.Load(
+        L"C:\\Horror_Game\\Horror_Game\\Image\\Cave\\Krystal_02.png"
+    );
+
+    //µ¿±¼ ¹Ù´Ú
+    result &= CavebottomImage.Load(
+        L"C:\\Horror_Game\\Horror_Game\\Image\\Cave\\Cavebottom.png"
+    );
+
+    result &= Cavewall_02Image.Load(
+        L"C:\\Horror_Game\\Horror_Game\\Image\\Cave\\Cavewall_02.png"
+    );
+
     return result;
 }
 
@@ -558,6 +581,28 @@ void Map::Draw(HDC hdc)
             case Black:
                 BlackImage.Draw(hdc, drawX, drawY);
                 break;
+
+            case Cavewall:
+                CavewallImage.Draw(hdc, drawX, drawY);
+                break;
+
+            case Krystal_01:
+               // CavebottomImage.Draw(hdc, drawX, drawY);
+                Krystal_01Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case Krystal_02:
+                CavebottomImage.Draw(hdc, drawX, drawY);
+                Krystal_02Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case CaveBottom:
+                CavebottomImage.Draw(hdc, drawX, drawY);
+                break;
+
+            case Cavewall_02:
+                Cavewall_02Image.Draw(hdc, drawX, drawY);
+                break;
             }
         }
     }
@@ -841,6 +886,28 @@ void Map::changeMap(MapType newMap)
             for (int x = 0; x < Map_Width; x++)
             {
                 map[y][x] = Black;
+            }
+        }
+
+        //º®
+
+        for (int i = 4; i < 20; i++) {
+            map[2][i] = Cavewall;
+        }
+
+        for (int i = 4; i < 20; i++) {
+            map[3][i] = Cavewall_02;
+        }
+
+        //Å©¸®½ºÅ»
+        //map[0][0] = Krystal_02;
+        map[10][10] = Krystal_01;
+
+        //¹Ù´Ú
+
+        for (int i = 4; i < 16; i++) {
+            for (int j = 4; j < 20; j++) {
+                map[i][j] = CaveBottom;
             }
         }
 

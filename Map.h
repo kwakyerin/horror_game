@@ -76,7 +76,12 @@ enum TileType
     House_45,
     Sea_01,
     Sea_02,
-    Black
+    Black,
+    Cavewall,
+    Krystal_01,
+    Krystal_02,
+    CaveBottom,
+    Cavewall_02
 };
 
 enum MapType {
@@ -180,5 +185,9 @@ private:
     //µ¿±¼
 
     GameImage BlackImage;
-
+    GameImage CavewallImage;
+    GameImage Krystal_01Image;
+    GameImage Krystal_02Image;
+    GameImage CavebottomImage;
+    GameImage Cavewall_02Image;
 };
