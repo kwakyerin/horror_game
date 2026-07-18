@@ -3,7 +3,7 @@
 
 #include <cmath>
 
-Monster::Monster(const wchar_t* walkPath,const wchar_t* attackPath,float startX,float startY)
+Monster::Monster(const wchar_t* walkPath,const wchar_t* attackPath,float startX,float startY,float detect,float attack)
 {
     x = startX;
     y = startY;
@@ -20,8 +20,8 @@ Monster::Monster(const wchar_t* walkPath,const wchar_t* attackPath,float startX,
     currentFrame = 0;
     animationTimer = 0.0f;
 
-    detectRange = 250.0f;
-    attackRange = 80.0f;
+    detectRange = detect;
+    attackRange = attack;
 
     hasAttacked = false;
     LoadImages(walkPath, attackPath);
@@ -261,9 +261,9 @@ RECT Monster::GetCollisionRect() const
 {
     RECT rect =
     {
-        (LONG)x+22,
+        (LONG)x,
         (LONG)y+20,
-        (LONG)(x + 100),
+        (LONG)(x + 128),
         (LONG)(y + 128)
     };
 

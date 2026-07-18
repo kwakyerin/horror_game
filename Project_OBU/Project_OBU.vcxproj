@@ -126,6 +126,7 @@
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Monster.cpp" />
+    <ClCompile Include="MonsterSpawner.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="images\character\character_3_frame16x20.png" />
@@ -133,6 +134,7 @@
   <ItemGroup>
     <ClInclude Include="Character.h" />
     <ClInclude Include="Monster.h" />
+    <ClInclude Include="MonsterSpawner.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

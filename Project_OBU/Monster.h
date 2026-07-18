@@ -5,6 +5,7 @@
 
 
 class Character;
+
 enum class MonsterState
 {
     Wander,
@@ -44,7 +45,7 @@ private:
 
 public:
 
-    Monster(const wchar_t* walkPath,const wchar_t* attackPath,float startX,float startY);
+    Monster(const wchar_t* walkPath,const wchar_t* attackPath,float startX,float startY,float detect,float attack);
     ~Monster();
 
     bool LoadImages(const wchar_t* walkPath, const wchar_t* attackPath);
