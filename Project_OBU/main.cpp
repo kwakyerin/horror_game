@@ -188,11 +188,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int nCmdShow)
 
 			if (oni != nullptr && player != nullptr)
 			{
-				oni->Update(
-					deltaTime,
-					player->GetX(),
-					player->GetY()
-				);
+				oni->Update(deltaTime, *player);
 			}
 
 			// 화면 다시 그리기 요청

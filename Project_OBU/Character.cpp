@@ -1,12 +1,13 @@
 #include "Character.h"
 
 Character::Character(const wchar_t* path) :
-	x(450.0f),
-	y (350.0f),
-	moveSpeed(120.0f),
-	currentFrame(0),
-	animationTimer(0),
-	direction(Direction::Down),
+    x(450.0f),
+    y(350.0f),
+    moveSpeed(120.0f),
+    currentFrame(0),
+    animationTimer(0),
+    direction(Direction::Down),
+    hp(15),
 	image(nullptr)
 {
 	LoadImage(path);
@@ -133,5 +134,18 @@ float Character::GetY() const {
 void Character::SetPosition(float newX, float newY) {
     x = newX;
     y = newY;
+}
+
+int Character::GetHP() const
+{
+    return hp;
+}
+
+void Character::Damage(int damage)
+{
+    hp -= damage;
+
+    if (hp < 0)
+        hp = 0;
 }
 

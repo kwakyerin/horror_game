@@ -1,4 +1,5 @@
 #include "Monster.h"
+#include "Character.h"
 
 #include <cmath>
 
@@ -22,6 +23,7 @@ Monster::Monster(const wchar_t* walkPath,const wchar_t* attackPath,float startX,
     detectRange = 250.0f;
     attackRange = 80.0f;
 
+    hasAttacked = false;
     LoadImages(walkPath, attackPath);
 }
 
@@ -59,12 +61,11 @@ bool Monster::LoadImages(
     return true;
 }
 
-void Monster::Update(
-    float deltaTime,
-    float playerX,
-    float playerY)
+void Monster::Update(float deltaTime,Character& character)
 {
-    CheckState(playerX, playerY);
+    float characterX = character.GetX();
+    float characterY = character.GetY();
+    CheckState(characterX, characterY);
 
     switch (state)
     {
@@ -73,49 +74,58 @@ void Monster::Update(
         break;
 
     case MonsterState::Chase:
-        UpdateChase(deltaTime, playerX, playerY);
+        UpdateChase(deltaTime, characterX, characterY);
         break;
 
     case MonsterState::Attack:
-        UpdateAttack(deltaTime);
+        UpdateAttack(deltaTime,character);
         break;
     }
 
     UpdateAnimation(deltaTime);
 }
 
-void Monster::CheckState(
-    float playerX,
-    float playerY)
+void Monster::CheckState(float characterX,float characterY)
 {
-    float dx = playerX - x;
-    float dy = playerY - y;
+    float dx = characterX - x;
+    float dy = characterY - y;
+
+    MonsterState newState=state;
 
     float distance =
         sqrt(dx * dx + dy * dy);
 
     if (distance <= attackRange)
     {
-        state = MonsterState::Attack;
+        newState = MonsterState::Attack;
     }
     else if (distance <= detectRange)
     {
-        state = MonsterState::Chase;
+        newState = MonsterState::Chase;
     }
     else
     {
-        state = MonsterState::Wander;
+        newState = MonsterState::Wander;
+    }
+
+    if (state != newState)
+    {
+        state = newState;
+        currentFrame = 0;
+        animationTimer = 0.0f;
+        hasAttacked = false;
     }
 }
 
 void Monster::UpdateWander(float deltaTime)
 {
+    //맵 완성 후 작성 예정
 }
 
-void Monster::UpdateChase(float deltaTime, float playerX, float playerY)
+void Monster::UpdateChase(float deltaTime, float characterX, float characterY)
 {
-    float dx = playerX - x;
-    float dy = playerY - y;
+    float dx = characterX - x;
+    float dy = characterY - y;
 
     float distance = sqrt(dx * dx + dy * dy);
 
@@ -138,8 +148,13 @@ void Monster::UpdateChase(float deltaTime, float playerX, float playerY)
     }
 }
 
-void Monster::UpdateAttack(float deltaTime)
+void Monster::UpdateAttack(float deltaTime,Character& character)
 {
+    if (currentFrame == 1 && !hasAttacked)
+    {
+        character.Damage(1);
+        hasAttacked = true;
+    }
 }
 
 void Monster::UpdateAnimation(float deltaTime)
@@ -149,19 +164,35 @@ void Monster::UpdateAnimation(float deltaTime)
     if (animationTimer >= 0.1f)
     {
         animationTimer = 0.0f;
-
         currentFrame++;
 
-        if (currentFrame >= 8)
+        int maxFrame;
+
+        if (state == MonsterState::Attack)
+            maxFrame = 3;
+        else
+            maxFrame = 8;
+
+        if (currentFrame >= maxFrame)
         {
             currentFrame = 0;
+
+            if (state == MonsterState::Attack)
+                hasAttacked = false;
         }
     }
 }
 
 void Monster::Draw(Gdiplus::Graphics& graphics)
 {
-    if (walkImage == nullptr)
+    Gdiplus::Image* currentImage = nullptr;
+
+    if (state == MonsterState::Attack)
+        currentImage = attackImage;
+    else
+        currentImage = walkImage;
+
+    if (currentImage == nullptr)
         return;
 
     int sourceX = currentFrame * 128;
@@ -169,7 +200,7 @@ void Monster::Draw(Gdiplus::Graphics& graphics)
     if (facingLeft)
     {
         graphics.DrawImage(
-            walkImage,
+            currentImage,
             Gdiplus::Rect(
                 static_cast<int>(x) + 128,
                 static_cast<int>(y),
@@ -184,7 +215,7 @@ void Monster::Draw(Gdiplus::Graphics& graphics)
     else
     {
         graphics.DrawImage(
-            walkImage,
+            currentImage,
             Gdiplus::Rect(
                 static_cast<int>(x),
                 static_cast<int>(y),
