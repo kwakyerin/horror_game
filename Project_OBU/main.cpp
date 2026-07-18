@@ -1,12 +1,16 @@
 #include <windows.h>
 #include <gdiplus.h>
 #include "Character.h"
+#include "Monster.h"
 
 #pragma comment(lib, "gdiplus.lib")
 
 using namespace Gdiplus;
 
 Character* player = nullptr;
+
+Monster* oni = nullptr;
+
 ULONG_PTR gdiplusToken;
 
 RECT wallRect =
@@ -21,6 +25,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	case WM_CREATE:
 	{
 		player = new Character(L"images\\character\\character_3_frame16x20.png");
+		oni = new Monster(L"Images\\monster_oni\\Walk.png",L"Images\\monster_oni\\Attack.png",500.0f,300.0f);//몬스터 생성 위치 
 		return 0;
 	}
 
@@ -58,6 +63,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		if (player)
 		{
 			player->Draw(graphics);
+		}
+
+		if (oni != nullptr)
+		{
+			oni->Draw(graphics);
 		}
 
 		Gdiplus::Pen wallPen(
@@ -174,6 +184,15 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int nCmdShow)
 				{
 					player->SetPosition(oldX, oldY);
 				}
+			}
+
+			if (oni != nullptr && player != nullptr)
+			{
+				oni->Update(
+					deltaTime,
+					player->GetX(),
+					player->GetY()
+				);
 			}
 
 			// 화면 다시 그리기 요청
