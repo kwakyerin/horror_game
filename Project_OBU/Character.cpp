@@ -114,12 +114,24 @@ void Character::Move(float deltaTime) {
 RECT Character::GetCollisionRect() const {
     RECT collisionRect;
 
-    collisionRect.left = static_cast<LONG>(x);
-    collisionRect.top = static_cast<LONG>(y);
-    collisionRect.right = static_cast<LONG>(x + 32.0f);
-    collisionRect.bottom = static_cast<LONG>(y + 40.0f);
+    collisionRect.left = x;
+    collisionRect.top = y;
+    collisionRect.right = x + 32.0f;
+    collisionRect.bottom = y + 40.0f;
 
     return collisionRect;
 }
 
+float Character::GetX() const {
+    return x;
+}
+
+float Character::GetY() const {
+    return y;
+}
+
+void Character::SetPosition(float newX, float newY) {
+    x = newX;
+    y = newY;
+}
 

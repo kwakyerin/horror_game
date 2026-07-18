@@ -9,6 +9,11 @@ using namespace Gdiplus;
 Character* player = nullptr;
 ULONG_PTR gdiplusToken;
 
+RECT wallRect =
+{
+	300,200,450,350
+}; //테스트용 벽
+
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	switch (msg)
@@ -54,6 +59,19 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		{
 			player->Draw(graphics);
 		}
+
+		Gdiplus::Pen wallPen(
+			Gdiplus::Color(255, 0, 0, 255),
+			2
+		);
+
+		graphics.DrawRectangle(
+			&wallPen,
+			static_cast<INT>(wallRect.left),
+			static_cast<INT>(wallRect.top),
+			static_cast<INT>(wallRect.right - wallRect.left),
+			static_cast<INT>(wallRect.bottom - wallRect.top)
+		);
 
 		// 완성된 메모리 화면을 실제 창으로 한 번에 복사
 		BitBlt(
@@ -145,7 +163,17 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int nCmdShow)
 
 			if (player != nullptr)
 			{
+				float oldX = player->GetX();
+				float oldY = player->GetY();
 				player->Move(deltaTime);
+
+				RECT playerRect = player->GetCollisionRect();
+				RECT result;
+
+				if (IntersectRect(&result, &playerRect, &wallRect))
+				{
+					player->SetPosition(oldX, oldY);
+				}
 			}
 
 			// 화면 다시 그리기 요청

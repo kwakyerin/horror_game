@@ -25,4 +25,7 @@ public:
 	void Draw(Gdiplus::Graphics& graphics);
 
 	RECT GetCollisionRect() const;//충돌박스
+	float GetX() const;
+	float GetY() const;
+	void SetPosition(float newX, float newY);
 };
