@@ -54,7 +54,7 @@ int WINAPI WinMain(
     WndClass.hIcon = LoadIcon(nullptr, IDI_APPLICATION);
     WndClass.hCursor = LoadCursor(nullptr, IDC_ARROW);
     WndClass.hbrBackground =
-        static_cast<HBRUSH>(GetStockObject(WHITE_BRUSH));
+        static_cast<HBRUSH>(GetStockObject(BLACK_BRUSH));
     WndClass.lpszMenuName = nullptr;
     WndClass.lpszClassName = lpszClass;
     WndClass.hIconSm = LoadIcon(nullptr, IDI_APPLICATION);

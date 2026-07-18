@@ -6,7 +6,7 @@ Map::Map()
 
     currentMap = Village;
 
-    changeMap(Govillage);
+    changeMap(Cave);
 
 }
 
@@ -236,6 +236,10 @@ bool Map::LoadImages()
         L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\Sea_02.png"
     );
 
+    //µ¿±¼ ¹è°æ
+    result &= BlackImage.Load(
+        L"C:\\Horror_Game\\Horror_Game\\Image\\Cave\\Black.png"
+    );
     return result;
 }
 
@@ -543,13 +547,16 @@ void Map::Draw(HDC hdc)
 
             //¸¶À» °¡´Â ±æ 
             case Sea_01:
-               // grassImage.Draw(hdc, drawX, drawY);
                 Sea_01Image.Draw(hdc, drawX, drawY);
                 break;
 
             case Sea_02:
-                //grassImage.Draw(hdc, drawX, drawY);
                 Sea_02Image.Draw(hdc, drawX, drawY);
+                break;
+
+            //µ¿±¼
+            case Black:
+                BlackImage.Draw(hdc, drawX, drawY);
                 break;
             }
         }
@@ -559,14 +566,6 @@ void Map::Draw(HDC hdc)
 void Map::changeMap(MapType newMap)
 {
     currentMap = newMap;
-
-    for (int y = 0; y < Map_Height; y++)
-    {
-        for (int x = 0; x < Map_Width; x++)
-        {
-            map[y][x] = TILE_GRASS;
-        }
-    }
 
     switch (currentMap)
     {
@@ -835,7 +834,15 @@ void Map::changeMap(MapType newMap)
 
     case Cave:
 
-        // µ¿±¼ ¸Ê
+        //¹è°æ
+
+        for (int y = 0; y < Map_Height; y++)
+        {
+            for (int x = 0; x < Map_Width; x++)
+            {
+                map[y][x] = Black;
+            }
+        }
 
         break;
     }

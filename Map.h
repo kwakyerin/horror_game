@@ -75,7 +75,8 @@ enum TileType
     House_44,
     House_45,
     Sea_01,
-    Sea_02
+    Sea_02,
+    Black
 };
 
 enum MapType {
@@ -175,5 +176,9 @@ private:
 
     GameImage Sea_01Image;
     GameImage Sea_02Image;
+
+    //µ¿±¼
+
+    GameImage BlackImage;
 
 };
