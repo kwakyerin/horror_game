@@ -800,6 +800,9 @@ void Map::changeMap(MapType newMap)
         map[3][14] = 2;
 
         //¿€¿∫ «ÆΩ£
+        map[5][0] = TILE_MINITREE;
+        map[4][2] = TILE_MINITREE;
+
         map[2][18] = TILE_MINITREE;
 
         map[7][11] = TILE_MINITREE;
@@ -812,6 +815,10 @@ void Map::changeMap(MapType newMap)
         map[10][5] = TILE_ROCK;
         map[7][19] = TILE_ROCK;
 
+        //≤…
+        map[2][19] = FlOWER;
+        map[9][8] = FlOWER;
+        map[10][9] = FlOWER;
         break;
 
     case Temple:
