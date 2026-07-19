@@ -91,12 +91,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
     {
         if (!VillageMap.LoadImages())
         {
-            MessageBox(
+            /*MessageBox(
                 hWnd,
                 L"맵 이미지 로드 실패",
                 L"Error",
                 MB_OK
-            );
+            );*/
         }
 
         return 0;

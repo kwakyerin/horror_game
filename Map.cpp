@@ -263,6 +263,11 @@ bool Map::LoadImages()
         L"C:\\Horror_Game\\Horror_Game\\Image\\Cave\\Cavewall_02.png"
     );
 
+    //µ¹
+    result &= Rock_07Image.Load(
+        L"C:\\Horror_Game\\Horror_Game\\Image\\Cave\\Rock_07.png"
+    );
+
     return result;
 }
 
@@ -603,6 +608,11 @@ void Map::Draw(HDC hdc)
             case Cavewall_02:
                 Cavewall_02Image.Draw(hdc, drawX, drawY);
                 break;
+
+            case Rock_07:
+                CavebottomImage.Draw(hdc, drawX, drawY);
+                Rock_07Image.Draw(hdc, drawX, drawY);
+                break;
             }
         }
     }
@@ -910,6 +920,14 @@ void Map::changeMap(MapType newMap)
                 map[i][j] = CaveBottom;
             }
         }
+
+        //µ¹
+        map[14][14] = Rock_07;
+        map[4][5] = Rock_07;
+        map[6][10] = Rock_07;
+        map[12][13] = Rock_07;
+        map[14][6] = Rock_07;
+        map[5][18] = Rock_07;
 
         break;
     }

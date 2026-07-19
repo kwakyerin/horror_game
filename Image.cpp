@@ -26,7 +26,7 @@ bool GameImage::Load(const wchar_t* filename)
 
     if (bitmap->GetLastStatus() != Ok)
     {
-        MessageBox( nullptr,L"이미지 로드 실패",L"오류",MB_OK );
+       // MessageBox( nullptr,L"이미지 로드 실패",L"오류",MB_OK );
 
         delete bitmap;
         bitmap = nullptr;
