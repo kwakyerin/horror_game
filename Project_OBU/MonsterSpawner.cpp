@@ -1,13 +1,7 @@
 #include "MonsterSpawner.h"
 #include <cmath>
 
-MonsterSpawner::MonsterSpawner(
-    float x,
-    float y,
-    float spawnTriggerRange,
-    float monsterDetectRange,
-    float monsterAttackRange,
-    const wchar_t* walkPath,
+MonsterSpawner::MonsterSpawner(float x,float y,float spawnTriggerRange,float monsterDetectRange,float monsterAttackRange,const wchar_t* walkPath,
     const wchar_t* attackPath)
 {
     spawnX = x;

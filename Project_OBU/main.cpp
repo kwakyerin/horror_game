@@ -18,6 +18,15 @@ RECT wallRect =
 {
 	300,200,450,350
 }; //테스트용 벽
+float cameraX = 0.0f;
+float cameraY = 0.0f;
+
+const int TILE_SIZE = 40;
+const int MAP_COLS = 19;
+const int MAP_ROWS = 14;
+
+const int MAP_WIDTH = TILE_SIZE * MAP_COLS;   // 760
+const int MAP_HEIGHT = TILE_SIZE * MAP_ROWS;  // 560
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
@@ -68,6 +77,26 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
 		// GDI+는 메모리 DC에 그림
 		Gdiplus::Graphics graphics(memoryDC);
+		if (player != nullptr)
+		{
+			cameraX = player->GetX() - width / 2.0f;
+			cameraY = player->GetY() - height / 2.0f;
+
+			if (cameraX < 0)
+				cameraX = 0;
+
+			if (cameraY < 0)
+				cameraY = 0;
+
+			if (cameraX > MAP_WIDTH - width)
+				cameraX = MAP_WIDTH - width;
+
+			if (cameraY > MAP_HEIGHT - height)
+				cameraY = MAP_HEIGHT - height;
+		}
+
+		// 화면을 카메라만큼 이동
+		graphics.TranslateTransform(-cameraX, -cameraY);
 
 		if (player)
 		{
@@ -142,7 +171,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int nCmdShow)
 	RegisterClass(&wc);
 
 	HWND hwnd = CreateWindow(TEXT("MyWindow"), TEXT("게임화면"), WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT,
-		755, 600, NULL, NULL, hInstance, NULL);
+		500, 600, NULL, NULL, hInstance, NULL);//창 크기
 
 	ShowWindow(hwnd, nCmdShow);
 	UpdateWindow(hwnd);

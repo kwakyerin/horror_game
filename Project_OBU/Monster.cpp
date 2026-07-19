@@ -7,6 +7,8 @@ Monster::Monster(const wchar_t* walkPath,const wchar_t* attackPath,float startX,
 {
     x = startX;
     y = startY;
+    walkFrameCount = 8;      
+    attackFrameCount = 3;
 
     moveSpeed = 80.0f;
 
@@ -36,9 +38,7 @@ Monster::~Monster()
     attackImage = nullptr;
 }
 
-bool Monster::LoadImages(
-    const wchar_t* walkPath,
-    const wchar_t* attackPath)
+bool Monster::LoadImages(const wchar_t* walkPath,const wchar_t* attackPath)
 {
     walkImage = new Gdiplus::Image(walkPath);
 
@@ -169,9 +169,9 @@ void Monster::UpdateAnimation(float deltaTime)
         int maxFrame;
 
         if (state == MonsterState::Attack)
-            maxFrame = 3;
+            maxFrame = attackFrameCount;
         else
-            maxFrame = 8;
+            maxFrame = walkFrameCount;
 
         if (currentFrame >= maxFrame)
         {

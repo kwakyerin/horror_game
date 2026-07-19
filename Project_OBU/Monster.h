@@ -59,4 +59,8 @@ public:
 
 
     RECT GetCollisionRect() const;
+
+protected:
+    int walkFrameCount;
+    int attackFrameCount;
 };
