@@ -278,6 +278,22 @@ bool Map::LoadImages()
         L"C:\\Horror_Game\\Horror_Game\\Image\\Cave\\Skeleton.png"
     );
 
+    //Å« Å©¸®½ºÅ»
+
+    result &= Krystal_04Image.Load(
+        L"C:\\Horror_Game\\Horror_Game\\Image\\Cave\\Krystal_04.png"
+    );
+    result &= Krystal_05Image.Load(
+        L"C:\\Horror_Game\\Horror_Game\\Image\\Cave\\Krystal_05.png"
+    );
+    result &= Krystal_06Image.Load(
+        L"C:\\Horror_Game\\Horror_Game\\Image\\Cave\\Krystal_06.png"
+    );
+    result &= Krystal_07Image.Load(
+        L"C:\\Horror_Game\\Horror_Game\\Image\\Cave\\Krystal_07.png"
+    );
+
+
     return result;
 }
 
@@ -633,6 +649,26 @@ void Map::Draw(HDC hdc)
                 CavebottomImage.Draw(hdc, drawX, drawY);
                 SkeletonImage.Draw(hdc, drawX, drawY);
                 break;
+
+            case Krystal_04:
+                CavebottomImage.Draw(hdc, drawX, drawY);
+                Krystal_04Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case Krystal_05:
+                CavebottomImage.Draw(hdc, drawX, drawY);
+                Krystal_05Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case Krystal_06:
+                CavebottomImage.Draw(hdc, drawX, drawY);
+                Krystal_06Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case Krystal_07:
+                CavebottomImage.Draw(hdc, drawX, drawY);
+                Krystal_07Image.Draw(hdc, drawX, drawY);
+                break;
             }
         }
     }
@@ -940,8 +976,14 @@ void Map::changeMap(MapType newMap)
         map[14][18] = Krystal_02;
         map[15][18] = Krystal_01;
 
+        //ÀÛÀº Å©¸®½ºÅ»
         map[9][9] = Krystal_03;
 
+        //Å« Å©¸®½ºÅ»
+        map[7][15] = Krystal_04;
+        map[7][16] = Krystal_05;
+        map[6][15] = Krystal_06;
+        map[6][16] = Krystal_07;
 
         //¹Ù´Ú
 
@@ -961,7 +1003,7 @@ void Map::changeMap(MapType newMap)
 
         //ÇØ°ñ
 
-        map[8][17] = Skeleton;
+        map[8][19] = Skeleton;
 
         break;
     }

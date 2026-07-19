@@ -84,7 +84,11 @@ enum TileType
     Cavewall_02,
     Rock_07,
     Krystal_03,
-    Skeleton
+    Skeleton,
+    Krystal_04,
+    Krystal_05,
+    Krystal_06,
+    Krystal_07
 };
 
 enum MapType {
@@ -196,4 +200,8 @@ private:
     GameImage Rock_07Image;
     GameImage Krystal_03Image;
     GameImage SkeletonImage;
+    GameImage Krystal_04Image;
+    GameImage Krystal_05Image;
+    GameImage Krystal_06Image;
+    GameImage Krystal_07Image;
 };
