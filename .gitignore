@@ -1,6 +1,23 @@
+# Visual Studio
 .vs/
-x64/
 Debug/
 Release/
-*.user
+x64/
+x86/
+
+# Build files
+*.obj
+*.exe
+*.pdb
+*.ilk
+*.idb
+*.log
+*.tlog
+*.lastbuildstate
+*.VC.db
 *.suo
+*.ipch
+
+# User files
+*.vcxproj.user
+*.user
