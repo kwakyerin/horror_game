@@ -268,6 +268,16 @@ bool Map::LoadImages()
         L"C:\\Horror_Game\\Horror_Game\\Image\\Cave\\Rock_07.png"
     );
 
+    //ÀÛÀº Å©¸®½ºÅ»
+    result &= Krystal_03Image.Load(
+        L"C:\\Horror_Game\\Horror_Game\\Image\\Cave\\Krystal_03.png"
+    );
+
+    //ÇØ°ñ
+    result &= SkeletonImage.Load(
+        L"C:\\Horror_Game\\Horror_Game\\Image\\Cave\\Skeleton.png"
+    );
+
     return result;
 }
 
@@ -592,7 +602,7 @@ void Map::Draw(HDC hdc)
                 break;
 
             case Krystal_01:
-               // CavebottomImage.Draw(hdc, drawX, drawY);
+                CavebottomImage.Draw(hdc, drawX, drawY);
                 Krystal_01Image.Draw(hdc, drawX, drawY);
                 break;
 
@@ -612,6 +622,16 @@ void Map::Draw(HDC hdc)
             case Rock_07:
                 CavebottomImage.Draw(hdc, drawX, drawY);
                 Rock_07Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case Krystal_03:
+                CavebottomImage.Draw(hdc, drawX, drawY);
+                Krystal_03Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case Skeleton:
+                CavebottomImage.Draw(hdc, drawX, drawY);
+                SkeletonImage.Draw(hdc, drawX, drawY);
                 break;
             }
         }
@@ -733,7 +753,7 @@ void Map::changeMap(MapType newMap)
         map[8][20] = 24; //¹®
         map[7][20] = House_18; //¹®
 
-
+        //°Çµé X
         /*
         map[8][15] = 25;
         map[8][16] = 26;
@@ -873,6 +893,7 @@ void Map::changeMap(MapType newMap)
         map[2][19] = FlOWER;
         map[9][8] = FlOWER;
         map[10][9] = FlOWER;
+
         break;
 
     case Temple:
@@ -910,16 +931,25 @@ void Map::changeMap(MapType newMap)
         }
 
         //Å©¸®½ºÅ»
-        //map[0][0] = Krystal_02;
-        map[10][10] = Krystal_01;
+        map[3][4] = Krystal_02;
+        map[4][4] = Krystal_01;
+
+        map[12][15] = Krystal_02;
+        map[13][15] = Krystal_01;
+
+        map[14][18] = Krystal_02;
+        map[15][18] = Krystal_01;
+
+        map[9][9] = Krystal_03;
+
 
         //¹Ù´Ú
 
-        for (int i = 4; i < 16; i++) {
+        /*for (int i = 4; i < 16; i++) {
             for (int j = 4; j < 20; j++) {
                 map[i][j] = CaveBottom;
             }
-        }
+        }*/
 
         //µ¹
         map[14][14] = Rock_07;
@@ -928,6 +958,10 @@ void Map::changeMap(MapType newMap)
         map[12][13] = Rock_07;
         map[14][6] = Rock_07;
         map[5][18] = Rock_07;
+
+        //ÇØ°ñ
+
+        map[8][17] = Skeleton;
 
         break;
     }
