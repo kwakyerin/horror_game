@@ -1,9 +1,10 @@
 #include "Character.h"
 
 Character::Character(const wchar_t* path) :
+
     x(450.0f),
     y(350.0f),
-    moveSpeed(400.0f),
+    moveSpeed(450.0f),
     currentFrame(0),
     animationTimer(0),
     direction(Direction::Down),
@@ -56,8 +57,7 @@ void Character::Draw(Gdiplus::Graphics& graphics) {
     );
 
     Gdiplus::Pen collisionPen(
-        Gdiplus::Color(255, 255, 0, 0),
-        1.0f
+        Gdiplus::Color(255, 255, 0, 0), 1.0f
     );
 
     graphics.DrawRectangle(

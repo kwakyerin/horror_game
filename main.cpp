@@ -110,7 +110,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             L"Image\\character\\character_3_frame16x20.png"
         );
 
-        SetTimer(hWnd, 1, 16, nullptr);
+        SetTimer(hWnd, 1, 7, nullptr);
 
         return 0;
     }
