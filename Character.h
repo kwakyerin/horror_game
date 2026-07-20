@@ -9,6 +9,7 @@ enum class Direction {
 	Right,
 	Up
 };
+
 class Character {
 private:
 	float x, y;
@@ -25,7 +26,8 @@ public:
 	void Move(float deltaTime);
 	void Draw(Gdiplus::Graphics& graphics);
 
-	RECT GetCollisionRect() const;//충돌박스
+	//충돌박스
+	RECT GetCollisionRect() const;
 	float GetX() const;
 	float GetY() const;
 	void SetPosition(float newX, float newY);

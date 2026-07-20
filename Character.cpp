@@ -3,7 +3,7 @@
 Character::Character(const wchar_t* path) :
     x(450.0f),
     y(350.0f),
-    moveSpeed(120.0f),
+    moveSpeed(400.0f),
     currentFrame(0),
     animationTimer(0),
     direction(Direction::Down),
@@ -29,10 +29,13 @@ bool Character::LoadImage(const wchar_t* path) {
 }
 
 void Character::Draw(Gdiplus::Graphics& graphics) {
+
     if (image == nullptr)
         return;
+    
     int sourceX = currentFrame*16;
     int sourceY = static_cast<int>(direction) * 20;
+    
     graphics.DrawImage(
         image,          
         // 화면에 그릴 위치와 크기
@@ -40,7 +43,7 @@ void Character::Draw(Gdiplus::Graphics& graphics) {
             static_cast<int>(x),    // 화면 X
             static_cast<int>(y),    // 화면 Y
             32,                     // 출력 너비
-            40                      // 출력 높이
+            32                      // 출력 높이
         ),
 
         // 원본 이미지에서 잘라올 위치
@@ -62,7 +65,7 @@ void Character::Draw(Gdiplus::Graphics& graphics) {
         static_cast<int>(x),
         static_cast<int>(y),
         32,
-        40
+        32
     );
 }
 
@@ -118,7 +121,7 @@ RECT Character::GetCollisionRect() const {
     collisionRect.left = x;
     collisionRect.top = y;
     collisionRect.right = x + 32.0f;
-    collisionRect.bottom = y + 40.0f;
+    collisionRect.bottom = y + 32.0f;
 
     return collisionRect;
 }

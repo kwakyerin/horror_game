@@ -2,10 +2,22 @@
 #include <tchar.h>
 #include "Map.h"
 #include "Image.h"
+#include "Character.h"
+#include "MonsterSpawner.h"
 
 #pragma comment(lib, "gdiplus.lib")
 
 Map VillageMap;
+
+Character* player = nullptr;
+MonsterSpawner* oniSpawner = nullptr;
+
+ULONG_PTR gdiplusToken;
+
+RECT wallRect =
+{
+    300,200,450,350
+};
 
 HINSTANCE g_hInst;
 LPCTSTR lpszClass = L"OBU_Project";
@@ -13,13 +25,13 @@ LPCTSTR lpszWindowName = L"OBU_Project";
 LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam);
 
 int WINAPI WinMain(
+
     HINSTANCE hInstance,
     HINSTANCE hPrevInstance,
     LPSTR lpszCmdParam,
     int nCmdShow)
 {
     Gdiplus::GdiplusStartupInput gdiplusInput;
-    ULONG_PTR gdiplusToken = 0;
 
     Gdiplus::Status status = Gdiplus::GdiplusStartup(
         &gdiplusToken,
@@ -85,22 +97,24 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 	HDC hDC;
 
-	switch (uMsg) {
+    switch (uMsg) {
 
     case WM_CREATE:
     {
         if (!VillageMap.LoadImages())
         {
-            /*MessageBox(
-                hWnd,
-                L"맵 이미지 로드 실패",
-                L"Error",
-                MB_OK
-            );*/
+           // MessageBox(hWnd, L"맵 이미지 로드 실패", L"Error", MB_OK);
         }
+
+        player = new Character(
+            L"Image\\character\\character_3_frame16x20.png"
+        );
+
+        SetTimer(hWnd, 1, 16, nullptr);
 
         return 0;
     }
+
 
     case WM_PAINT:
     {
@@ -122,7 +136,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
         VillageMap.Draw(memDC);
 
-        BitBlt(hDC, 0, 0,rt.right,rt.bottom,memDC,0, 0,SRCCOPY);
+        Graphics graphics(memDC);
+
+        if (player)
+        {
+            player->Draw(graphics);
+        }
+
+        BitBlt(hDC, 0, 0, rt.right, rt.bottom, memDC, 0, 0, SRCCOPY);
 
         SelectObject(memDC, oldBitmap);
         DeleteObject(memBitmap);
@@ -132,10 +153,36 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         return 0;
     }
 
-	case WM_DESTROY:
-		PostQuitMessage(0);
-		break;
-	}
+    case WM_TIMER:
+    {
+        if (wParam == 1 && player)
+        {
+            const float deltaTime = 0.016f;
+
+            player->Move(deltaTime);
+
+            InvalidateRect(hWnd, nullptr, FALSE);
+        }
+
+        return 0;
+    }
+
+
+    case WM_DESTROY:
+    {
+        KillTimer(hWnd, 1);
+
+        delete player;
+        player = nullptr;
+
+        /*delete oniSpawner;
+        oniSpawner = nullptr;*/
+
+        PostQuitMessage(0);
+        return 0;
+    }
+
+    }
 
 	return DefWindowProc(hWnd, uMsg, wParam, lParam);
 }

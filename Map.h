@@ -2,6 +2,7 @@
 
 #include <Windows.h>
 #include "Image.h"
+#include "Map.h"
 
 const int Map_Width = 25;
 const int Map_Height = 18;
@@ -106,6 +107,8 @@ public:
 
     bool LoadImages();
     void Draw(HDC hdc);
+   // void Draw(HDC hdc);
+   // void Draw(HDC hdc, int cameraX, int cameraY);
     void changeMap(MapType newMap);
 
 private:

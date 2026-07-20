@@ -6,7 +6,7 @@ Map::Map()
 
     currentMap = Village;
 
-    changeMap(Cave);
+    changeMap(Village);
 
 }
 
