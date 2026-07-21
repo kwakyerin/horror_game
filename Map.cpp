@@ -257,7 +257,7 @@ bool Map::LoadImages()
 
     //µ¿±¼ ¹Ù´Ú
     result &= CavebottomImage.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Cave\\Cavebottom.png"
+        L"Image\\Cave\\Cavebottom.png"
     );
 
     result &= Cavewall_02Image.Load(
