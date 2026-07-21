@@ -2,11 +2,9 @@
 #include "Map.h"
 #include "Character.h"
 #include "Monster.h"
-
 #include <cmath>
 
-MonsterSpawner::MonsterSpawner(float x,float y,float spawnTriggerRange,float monsterDetectRange,float monsterAttackRange,const wchar_t* walkPath,
-    const wchar_t* attackPath)
+MonsterSpawner::MonsterSpawner(float x,float y,float spawnTriggerRange,float monsterDetectRange,float monsterAttackRange,const wchar_t* walkPath,const wchar_t* attackPath)
 {
     spawnX = x;
     spawnY = y;
@@ -28,9 +26,7 @@ MonsterSpawner::~MonsterSpawner()
     monster = nullptr;
 }
 
-void MonsterSpawner::Update(
-    float deltaTime,
-    Character* player)
+void MonsterSpawner::Update(float deltaTime,Character* player)
 {
     if (player == nullptr)
         return;
@@ -46,6 +42,7 @@ void MonsterSpawner::Update(
 
         if (distance <= spawnRange)
         {
+
             monster = new Monster(
                 walkImagePath,
                 attackImagePath,

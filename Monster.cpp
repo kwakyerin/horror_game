@@ -67,6 +67,7 @@ void Monster::Update(float deltaTime,Character& character)
     float characterY = character.GetY();
     CheckState(characterX, characterY);
 
+
     switch (state)
     {
     case MonsterState::Wander:

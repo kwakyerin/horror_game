@@ -1138,7 +1138,7 @@ bool Map::IsBlocked(float x, float y)
     case Krystal_07:
     case Cavewall:
     case Cavewall_02:
-    case Black:
+    //case Black:
 
         return true;
     }
