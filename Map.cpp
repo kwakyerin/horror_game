@@ -1046,13 +1046,43 @@ bool Map::IsBlocked(float x, float y)
     return false;
 }
 
+//맵 순간이동
 void Map::Maptransform(Character& character) {
 
     int tileX = static_cast<int>(character.GetX()) / Tile_Size;
     int tileY = static_cast<int>(character.GetY()) / Tile_Size;
 
-    if (currentMap == MapType::Village &&tileX == 0 &&tileY == 4){
+    //마을->마을 가는길
+    if (currentMap == MapType::Village && tileX == 0 && (tileY == 3 || tileY == 4))
+    {
         changeMap(MapType::Govillage);
         character.SetPosition(700.0f, 128.0f);
     }
+
+    //마을 가는길->마을
+    if (currentMap == MapType::Govillage && tileX == 23 && (tileY == 3 || tileY == 4))
+    {
+        changeMap(MapType::Village);
+        character.SetPosition(700.0f, 128.0f);
+
+        //스폰지역
+        if (tileY == 3)
+            character.SetPosition(1 * Tile_Size, 3 * Tile_Size);
+        else
+            character.SetPosition(1 * Tile_Size, 4 * Tile_Size);
+    }
+
+    //마을->사찰
+    if (currentMap == MapType::Temple && tileX == 23 && (tileY == 4 || tileY == 5))
+    {
+        changeMap(MapType::Village);
+        character.SetPosition(700.0f, 128.0f);
+    }
+
+    //마을->주인공 집
+
+    //마을->숲
+
+    //사찰->동굴
+    
 }
