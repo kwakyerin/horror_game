@@ -17,242 +17,242 @@ bool Map::LoadImages()
 
     //바닥
     result &= grassImage.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\Grass.png"
+        L"Image\\Village\\Grass.png"
     );
 
     //작은 나무(위)
     result &= treeTopImage.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\Tree_top.png"
+        L"Image\\Village\\Tree_top.png"
     );
 
     //작은 나무(아래)
     result &= treeBottomImage.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\Tree_bottom.png"
+        L"Image\\Village\\Tree_bottom.png"
     );
     
     //길
     result &= roadImage.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\Road.png"
+        L"Image\\Village\\Road.png"
     );
 
     result &= dummyImage.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\Dummy_01.png"
+        L"Image\\Village\\Dummy_01.png"
     );
 
     //수풀
     result &= minitreeImage.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\Grass_02.png"
+        L"Image\\Village\\Grass_02.png"
     );
     
     //돌
     result &= rockImage.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\Rock.png"
+        L"Image\\Village\\Rock.png"
     );
 
     //우물
     result &= well_01Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\Well_01.png"
+        L"Image\\Village\\Well_01.png"
     );
     result &= well_02Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\Well_02.png"
+        L"Image\\Village\\Well_02.png"
     );
     result &= well_03Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\Well_03.png"
+        L"Image\\Village\\Well_03.png"
     );
     result &= well_04Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\Well_04.png"
+        L"Image\\Village\\Well_04.png"
     );
 
     //큰 나무
     result &= tree_01Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\Tree_01.png"
+        L"Image\\Village\\Tree_01.png"
     );
     result &= tree_02Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\Tree_02.png"
+        L"Image\\Village\\Tree_02.png"
     );
     result &= tree_03Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\Tree_03.png"
+        L"Image\\Village\\Tree_03.png"
     );
     result &= tree_04Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\Tree_04.png"
+        L"Image\\Village\\Tree_04.png"
     );
 
     //집
     result &= house_01Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\House_01.png"
+        L"Image\\Village\\House_01.png"
     );
     result &= house_02Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\House_02.png"
+        L"Image\\Village\\House_02.png"
     );
     result &= house_03Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\House_03.png"
+        L"Image\\Village\\House_03.png"
     );
     result &= house_04Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\House_04.png"
+        L"Image\\Village\\House_04.png"
     );
     result &= house_05Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\House_05.png"
+        L"Image\\Village\\House_05.png"
     );
     result &= house_06Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\House_06.png"
+        L"Image\\Village\\House_06.png"
     );
     result &= house_07Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\House_07.png"
+        L"Image\\Village\\House_07.png"
     );
     result &= house_08Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\House_08.png"
+        L"Image\\Village\\House_08.png"
     );
     result &= house_09Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\House_09.png"
+        L"Image\\Village\\House_09.png"
     );
     result &= house_10Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\House_10.png"
+        L"Image\\Village\\House_10.png"
     );
     result &= house_11Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\House_11.png"
+        L"Image\\Village\\House_11.png"
     );
     result &= house_12Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\House_12.png"
+        L"Image\\Village\\House_12.png"
     );
     result &= house_13Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\House_13.png"
+        L"Image\\Village\\House_13.png"
     );
     result &= house_14Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\House_14.png"
+        L"Image\\Village\\House_14.png"
     );
     result &= house_15Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\House_15.png"
+        L"Image\\Village\\House_15.png"
     );
     result &= house_16Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\House_16.png"
+        L"Image\\Village\\House_16.png"
     );
     result &= house_17Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\House_17.png"
+        L"Image\\Village\\House_17.png"
     );
     result &= house_18Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\House_18.png"
+        L"Image\\Village\\House_18.png"
     );
     result &= house_19Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\House_19.png"
+        L"Image\\Village\\House_19.png"
     );
     result &= house_20Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\House_20.png"
+        L"Image\\Village\\House_20.png"
     );
     result &= house_21Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\House_21.png"
+        L"Image\\Village\\House_21.png"
     );
     result &= house_22Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\House_22.png"
+        L"Image\\Village\\House_22.png"
     );
     result &= house_23Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\House_23.png"
+        L"Image\\Village\\House_23.png"
     );
     result &= house_24Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\House_24.png"
+        L"Image\\Village\\House_24.png"
     );
     result &= house_25Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\House_25.png"
+        L"Image\\Village\\House_25.png"
     );
     result &= house_26Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\House_26.png"
+        L"Image\\Village\\House_26.png"
     );
     result &= house_27Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\House_27.png"
+        L"Image\\Village\\House_27.png"
     );
     result &= house_28Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\House_28.png"
+        L"Image\\Village\\House_28.png"
     );
     result &= house_29Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\House_29.png"
+        L"Image\\Village\\House_29.png"
     );
     result &= house_30Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\House_30.png"
+        L"Image\\Village\\House_30.png"
     );
     result &= house_31Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\House_31.png"
+        L"Image\\Village\\House_31.png"
     );
     result &= house_32Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\House_32.png"
+        L"Image\\Village\\House_32.png"
     );
     result &= house_33Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\House_33.png"
+        L"Image\\Village\\House_33.png"
     );
     result &= house_34Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\House_34.png"
+        L"Image\\Village\\House_34.png"
     );
     result &= house_35Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\House_35.png"
+        L"Image\\Village\\House_35.png"
     );
     result &= house_36Image.Load(
         L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\House_36.png"
     );
     result &= house_37Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\House_37.png"
+        L"Image\\Village\\House_37.png"
     );
     result &= house_38Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\House_38.png"
+        L"Image\\Village\\House_38.png"
     );
     result &= house_39Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\House_39.png"
+        L"Image\\Village\\House_39.png"
     );
     result &= house_40Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\House_40.png"
+        L"Image\\Village\\House_40.png"
     );
     result &= house_41Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\House_41.png"
+        L"Image\\Village\\House_41.png"
     );
     result &= house_42Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\House_42.png"
+        L"Image\\Village\\House_42.png"
     );
     result &= house_43Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\House_43.png"
+        L"Image\\Village\\House_43.png"
     );
     result &= house_44Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\House_44.png"
+        L"Image\\Village\\House_44.png"
     );
     result &= house_45Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\House_45.png"
+        L"Image\\Village\\House_45.png"
     );
 
     //울타리
     result &= woodImage.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\Wood.png"
+        L"Image\\Village\\Wood.png"
     );
 
     //꽃
     result &= flowerImage.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\Grass_03.png"
+        L"Image\\Village\\Grass_03.png"
     );
 
     //돌(2 버전)
     result &= rock_06Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\Rock_06.png"
+        L"Image\\Village\\Rock_06.png"
     );
 
     //바다(1,2)
     result &= Sea_01Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\Sea_01.png"
+        L"Image\\Village\\Sea_01.png"
     );
     result &= Sea_02Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\Sea_02.png"
+        L"Image\\Village\\Sea_02.png"
     );
 
     //동굴 배경
     result &= BlackImage.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Cave\\Black.png"
+        L"Image\\Cave\\Black.png"
     );
 
     //동굴 벽
     result &= CavewallImage.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Cave\\Cavewall.png"
+        L"Image\\Cave\\Cavewall.png"
     );
 
     //크리스탈
     result &= Krystal_01Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Cave\\Krystal_01.png"
+        L"Image\\Cave\\Krystal_01.png"
     );
     result &= Krystal_02Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Cave\\Krystal_02.png"
+        L"Image\\Cave\\Krystal_02.png"
     );
 
     //동굴 바닥
@@ -261,45 +261,45 @@ bool Map::LoadImages()
     );
 
     result &= Cavewall_02Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Cave\\Cavewall_02.png"
+        L"Image\\Cave\\Cavewall_02.png"
     );
 
     //돌
     result &= Rock_07Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Cave\\Rock_07.png"
+        L"Image\\Cave\\Rock_07.png"
     );
 
     //작은 크리스탈
     result &= Krystal_03Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Cave\\Krystal_03.png"
+        L"Image\\Cave\\Krystal_03.png"
     );
 
     //해골
     result &= SkeletonImage.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Cave\\Skeleton.png"
+        L"Image\\Cave\\Skeleton.png"
     );
 
     //큰 크리스탈
 
     result &= Krystal_04Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Cave\\Krystal_04.png"
+        L"Image\\Cave\\Krystal_04.png"
     );
     result &= Krystal_05Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Cave\\Krystal_05.png"
+        L"Image\\Cave\\Krystal_05.png"
     );
     result &= Krystal_06Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Cave\\Krystal_06.png"
+        L"Image\\Cave\\Krystal_06.png"
     );
     result &= Krystal_07Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Cave\\Krystal_07.png"
+        L"Image\\Cave\\Krystal_07.png"
     );
 
     //동굴 입구
     result &= Entrance_01Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Cave\\Entrance_01.png"
+        L"Image\\Cave\\Entrance_01.png"
     );
     result &= Entrance_02Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Cave\\Entrance_02.png"
+        L"Image\\Cave\\Entrance_02.png"
     );
 
     return result;
