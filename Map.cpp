@@ -294,6 +294,13 @@ bool Map::LoadImages()
         L"C:\\Horror_Game\\Horror_Game\\Image\\Cave\\Krystal_07.png"
     );
 
+    //동굴 입구
+    result &= Entrance_01Image.Load(
+        L"C:\\Horror_Game\\Horror_Game\\Image\\Cave\\Entrance_01.png"
+    );
+    result &= Entrance_02Image.Load(
+        L"C:\\Horror_Game\\Horror_Game\\Image\\Cave\\Entrance_02.png"
+    );
 
     return result;
 }
@@ -670,7 +677,18 @@ void Map::Draw(HDC hdc)
                 CavebottomImage.Draw(hdc, drawX, drawY);
                 Krystal_07Image.Draw(hdc, drawX, drawY);
                 break;
+
+            case Entrance_01:
+               // CavebottomImage.Draw(hdc, drawX, drawY);
+                Entrance_01Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case Entrance_02:
+                // CavebottomImage.Draw(hdc, drawX, drawY);
+                Entrance_02Image.Draw(hdc, drawX, drawY);
+                break;
             }
+
         }
     }
 }
@@ -987,6 +1005,8 @@ void Map::changeMap(MapType newMap)
         map[6][16] = Krystal_07;
 
         //바닥
+        map[2][6] = CaveBottom;
+        map[3][6] = CaveBottom;
 
         for (int i = 4; i < 20; i++) {
             map[10][i] = CaveBottom;
@@ -1043,6 +1063,14 @@ void Map::changeMap(MapType newMap)
 
         map[15][19] = CaveBottom;
 
+        //아래로 내려가는 길
+        map[16][11] = CaveBottom;
+        map[17][11] = CaveBottom;
+        map[16][12] = CaveBottom;
+        map[17][12] = CaveBottom;
+        map[16][13] = CaveBottom;
+        map[17][13] = CaveBottom;
+
         //돌
         map[14][14] = Rock_07;
         map[4][5] = Rock_07;
@@ -1054,6 +1082,7 @@ void Map::changeMap(MapType newMap)
         //해골
 
         map[8][19] = Skeleton;
+        map[11][5] = Skeleton;
 
         break;
     }
@@ -1098,6 +1127,7 @@ bool Map::IsBlocked(float x, float y)
     case Krystal_05:
     case Krystal_06:
     case Krystal_07:
+    case Cavewall:
     case Cavewall_02:
 
         return true;

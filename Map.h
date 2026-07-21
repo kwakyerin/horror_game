@@ -88,7 +88,10 @@ enum TileType
     Krystal_04,
     Krystal_05,
     Krystal_06,
-    Krystal_07
+    Krystal_07,
+    Entrance_01,
+    Entrance_02
+
 };
 
 enum MapType {
@@ -210,4 +213,6 @@ private:
     GameImage Krystal_05Image;
     GameImage Krystal_06Image;
     GameImage Krystal_07Image;
+    GameImage Entrance_01Image;
+    GameImage Entrance_02Image;
 };
