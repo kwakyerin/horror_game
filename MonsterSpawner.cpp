@@ -1,4 +1,8 @@
 #include "MonsterSpawner.h"
+#include "Map.h"
+#include "Character.h"
+#include "Monster.h"
+
 #include <cmath>
 
 MonsterSpawner::MonsterSpawner(float x,float y,float spawnTriggerRange,float monsterDetectRange,float monsterAttackRange,const wchar_t* walkPath,

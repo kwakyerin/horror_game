@@ -100,7 +100,8 @@ enum MapType {
     Govillage,
     Temple,
     Room,
-    Cave
+    Cave,
+    Cave_02
 
 };
 
@@ -115,6 +116,8 @@ public:
     void changeMap(MapType newMap);
     void Maptransform(Character& character);
     bool IsBlocked(float x, float y);
+
+    MapType GetCurrentMap() const;
 
 private:
 

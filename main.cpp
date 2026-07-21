@@ -106,8 +106,16 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
            // MessageBox(hWnd, L"맵 이미지 로드 실패", L"Error", MB_OK);
         }
 
-        player = new Character(
-            L"Image\\character\\character_3_frame16x20.png"
+        player = new Character( L"Image\\character\\character_3_frame16x20.png");
+
+        oniSpawner = new MonsterSpawner(
+            500.0f,    // 몬스터 생성 위치 X
+            200.0f,    // 몬스터 생성 위치 Y
+            100.0f,    // 플레이어가 400 안으로 오면 생성
+            250.0f,    // 몬스터 탐지 범위
+            80.0f,     // 몬스터 공격 범위
+            L"Images\\monster_oni\\Walk.png",
+            L"Images\\monster_oni\\Attack.png"
         );
 
         SetTimer(hWnd, 1, 7, nullptr);
@@ -164,6 +172,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             VillageMap.Maptransform(*player);
 
             InvalidateRect(hWnd, nullptr, FALSE);
+
+            if (VillageMap.GetCurrentMap() == MapType::Cave)
+            {
+                oniSpawner->Update(deltaTime, player);
+            }
         }
 
         return 0;

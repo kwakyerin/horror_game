@@ -1005,8 +1005,14 @@ void Map::changeMap(MapType newMap)
         map[6][16] = Krystal_07;
 
         //바닥
-        map[2][6] = CaveBottom;
-        map[3][6] = CaveBottom;
+        map[8][0] = CaveBottom;
+        map[8][1] = CaveBottom;
+        map[8][2] = CaveBottom;
+        map[8][3] = CaveBottom;
+        map[9][0] = CaveBottom;
+        map[9][1] = CaveBottom;
+        map[9][2] = CaveBottom;
+        map[9][3] = CaveBottom;
 
         for (int i = 4; i < 20; i++) {
             map[10][i] = CaveBottom;
@@ -1113,6 +1119,9 @@ bool Map::IsBlocked(float x, float y)
     case WELL_03:
     case WELL_04:
 
+    case Sea_01:
+    case Sea_02:
+
     /*case House_01:
     case House_02:
     case House_03:
@@ -1129,6 +1138,7 @@ bool Map::IsBlocked(float x, float y)
     case Krystal_07:
     case Cavewall:
     case Cavewall_02:
+    case Black:
 
         return true;
     }
@@ -1157,19 +1167,26 @@ void Map::Maptransform(Character& character) {
 
         //마을로 넘어갈 때 스폰지역
         if (tileY == 3)
-            character.SetPosition(1 * Tile_Size, 3 * Tile_Size);
-        else
             character.SetPosition(1 * Tile_Size, 4 * Tile_Size);
+        else
+            character.SetPosition(1 * Tile_Size, 5 * Tile_Size);
     }
 
-    //마을->사찰
+    //마을->동굴
     if (currentMap == MapType::Village && tileY == 0 && (tileX == 5 || tileX == 6))
     {
         changeMap(MapType::Cave);
-        character.SetPosition(700.0f, 128.0f);
 
-        //넘어갈 때 스폰지역
+        character.SetPosition(0 * Tile_Size, 9 * Tile_Size);
 
+    }
+
+    //동굴->마을
+    if (currentMap == MapType::Cave &&tileX == 0 &&tileY == 8)
+    {
+        changeMap(MapType::Village);
+
+        character.SetPosition(5 * Tile_Size, 2 * Tile_Size);
     }
 
     //마을->주인공 집
@@ -1178,4 +1195,9 @@ void Map::Maptransform(Character& character) {
 
     //사찰->동굴
     
+}
+
+MapType Map::GetCurrentMap() const
+{
+    return currentMap;
 }

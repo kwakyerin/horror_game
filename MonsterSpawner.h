@@ -1,11 +1,10 @@
 #pragma once
-
 #include <windows.h>
 #include <gdiplus.h>
-#include "Monster.h"
-#include "Character.h"
+
 class Monster;
-class Carahcter;
+class Character;
+
 class MonsterSpawner {
 private:
     float spawnX;
@@ -23,8 +22,15 @@ private:
     const wchar_t* attackImagePath;
 
 public:
-    MonsterSpawner(float x,float y,float spawnTriggerRange,float monsterDetectRange,float monsterAttackRange,const wchar_t* walkPath,
-        const wchar_t* attackPath);
+    MonsterSpawner(
+        float x,
+        float y,
+        float spawnTriggerRange,
+        float monsterDetectRange,
+        float monsterAttackRange,
+        const wchar_t* walkPath,
+        const wchar_t* attackPath
+    );
 
     ~MonsterSpawner();
 

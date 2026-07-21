@@ -3,7 +3,6 @@
 #include <Windows.h>
 #include <gdiplus.h>
 
-
 class Character;
 
 enum class MonsterState
