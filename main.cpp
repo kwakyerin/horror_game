@@ -109,13 +109,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         player = new Character( L"Image\\character\\character_3_frame16x20.png");
 
         oniSpawner = new MonsterSpawner(
-            0 * Tile_Size,   // 타일 X = 15
-            0 * Tile_Size,    // 타일 Y = 6
+            15 * Tile_Size,   // 타일 X = 15 (큰 크리스탈 쪽으로 가까이 가면 뜸)
+            8 * Tile_Size,    // 타일 Y = 6
             100.0f,    // 플레이어가 400 안으로 오면 생성
             250.0f,    // 몬스터 탐지 범위
             80.0f,     // 몬스터 공격 범위
-            L"C:\\Horror_Game\\Horror_Game\\Image\\monster_oni\\Walk.png",
-            L"C:\\Horror_Game\\Horror_Game\\Image\\monster_oni\\Attack.png"
+            L"Image\\monster_oni\\Walk.png",
+            L"Image\\monster_oni\\Attack.png"
         );
 
         SetTimer(hWnd, 1, 7, nullptr);
@@ -196,13 +196,23 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         delete player;
         player = nullptr;
 
-        /*delete oniSpawner;
-        oniSpawner = nullptr;*/
+        delete oniSpawner;
+        oniSpawner = nullptr;
 
         PostQuitMessage(0);
         return 0;
     }
 
+    case WM_KEYDOWN:
+
+        switch (wParam)
+        {
+
+        case VK_ESCAPE:
+            DestroyWindow(hWnd);
+            break;
+        }
+        return 0;
     }
 
 	return DefWindowProc(hWnd, uMsg, wParam, lParam);

@@ -1138,7 +1138,7 @@ bool Map::IsBlocked(float x, float y)
     case Krystal_07:
     case Cavewall:
     case Cavewall_02:
-    //case Black:
+    case Black:
 
         return true;
     }
@@ -1146,7 +1146,7 @@ bool Map::IsBlocked(float x, float y)
     return false;
 }
 
-//맵 순간이동
+//맵 순간이동(수정중)
 void Map::Maptransform(Character& character) {
 
     int tileX = static_cast<int>(character.GetX()) / Tile_Size;
@@ -1177,7 +1177,7 @@ void Map::Maptransform(Character& character) {
     {
         changeMap(MapType::Cave);
 
-        character.SetPosition(0 * Tile_Size, 9 * Tile_Size);
+        character.SetPosition(1 * Tile_Size, 9 * Tile_Size);
 
     }
 
@@ -1188,6 +1188,8 @@ void Map::Maptransform(Character& character) {
 
         character.SetPosition(5 * Tile_Size, 2 * Tile_Size);
     }
+
+    //동굴->동굴 안
 
     //마을->주인공 집
 
