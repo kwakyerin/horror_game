@@ -2,8 +2,8 @@
 #include "Map.h"
 
 Character::Character(const wchar_t* path)
-    : x(0.0f), //캐릭터 스폰지역?
-    y(0.0f),
+    : x(150.0f), //캐릭터 스폰지역
+    y(150.0f),
     moveSpeed(450.0f),
     currentFrame(0),
     animationTimer(0.0f),
