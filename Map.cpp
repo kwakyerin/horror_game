@@ -1035,13 +1035,24 @@ bool Map::IsBlocked(float x, float y)
     case WELL_03:
     case WELL_04:
 
-    case House_01:
+    /*case House_01:
     case House_02:
     case House_03:
-    case House_04:
+    case House_04:*/
 
         return true;
     }
 
     return false;
+}
+
+void Map::Maptransform(Character& character) {
+
+    int tileX = static_cast<int>(character.GetX()) / Tile_Size;
+    int tileY = static_cast<int>(character.GetY()) / Tile_Size;
+
+    if (currentMap == MapType::Village &&tileX == 0 &&tileY == 4){
+        changeMap(MapType::Govillage);
+        character.SetPosition(700.0f, 128.0f);
+    }
 }

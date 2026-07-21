@@ -2,7 +2,8 @@
 
 #include <windows.h>
 #include <gdiplus.h>
-#include "Map.h"
+
+class Map;
 
 enum class Direction {
 	Down,

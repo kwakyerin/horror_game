@@ -2,7 +2,8 @@
 
 #include <Windows.h>
 #include "Image.h"
-#include "Map.h"
+
+class Character;
 
 const int Map_Width = 25;
 const int Map_Height = 18;
@@ -109,6 +110,7 @@ public:
     bool LoadImages();
     void Draw(HDC hdc);
     void changeMap(MapType newMap);
+    void Maptransform(Character& character);
     bool IsBlocked(float x, float y);
 
 private:

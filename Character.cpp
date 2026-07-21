@@ -120,16 +120,6 @@ void Character::Draw(Gdiplus::Graphics& graphics)
         Gdiplus::UnitPixel
     );
 
-    // 충돌 박스 빨간색표시
-    Gdiplus::Pen collisionPen(Gdiplus::Color(255, 255, 0, 0),1.0f);
-
-    graphics.DrawRectangle(
-        &collisionPen,
-        static_cast<int>(x),
-        static_cast<int>(y),
-        32,
-        32
-    );
 }
 
 RECT Character::GetCollisionRect() const
