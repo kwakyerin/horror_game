@@ -1028,6 +1028,7 @@ bool Map::IsBlocked(float x, float y)
     case TILE_TREE_TOP:
     case TILE_TREE_BOTTOM:
     case TILE_MINITREE:
+    case FlOWER:
 
     case WELL_01:
     case WELL_02:

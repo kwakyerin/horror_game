@@ -66,11 +66,12 @@ void Character::Move(float deltaTime, Map& gameMap)
         isMoving = true;
     }
 
+    //충돌체크 박스 크기 여기서 수정 ㄱ
     bool blocked =
-        gameMap.IsBlocked(nextX, nextY) ||
-        gameMap.IsBlocked(nextX + 31.0f, nextY) ||
-        gameMap.IsBlocked(nextX, nextY + 31.0f) ||
-        gameMap.IsBlocked(nextX + 31.0f, nextY + 31.0f);
+        gameMap.IsBlocked(nextX + 4, nextY + 4) ||
+        gameMap.IsBlocked(nextX + 27, nextY + 4) ||
+        gameMap.IsBlocked(nextX + 4, nextY + 27) ||
+        gameMap.IsBlocked(nextX + 27, nextY + 27);
 
     if (!blocked)
     {
@@ -78,6 +79,7 @@ void Character::Move(float deltaTime, Map& gameMap)
         y = nextY;
     }
 
+    //캐릭터 프레임
     if (isMoving)
     {
         animationTimer += deltaTime;
@@ -118,11 +120,8 @@ void Character::Draw(Gdiplus::Graphics& graphics)
         Gdiplus::UnitPixel
     );
 
-    // 충돌 박스 시각화
-    Gdiplus::Pen collisionPen(
-        Gdiplus::Color(255, 255, 0, 0),
-        1.0f
-    );
+    // 충돌 박스 빨간색표시
+    Gdiplus::Pen collisionPen(Gdiplus::Color(255, 255, 0, 0),1.0f);
 
     graphics.DrawRectangle(
         &collisionPen,
