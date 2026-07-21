@@ -1,5 +1,6 @@
 #include "Map.h"
 #include "Image.h"
+#include "Character.h"
 
 Map::Map()
 {
@@ -1007,4 +1008,39 @@ void Map::changeMap(MapType newMap)
 
         break;
     }
+}
+
+//¸Ê Ãæµ¹Ã¼Å©
+bool Map::IsBlocked(float x, float y)
+{
+    int tileX = static_cast<int>(x) / Tile_Size;
+    int tileY = static_cast<int>(y) / Tile_Size;
+
+    if (tileX < 0 || tileX >= Map_Width || tileY < 0 || tileY >= Map_Height)
+    {
+        return true;
+    }
+
+    int tile = map[tileY][tileX];
+
+    switch (tile)
+    {
+    case TILE_TREE_TOP:
+    case TILE_TREE_BOTTOM:
+    case TILE_MINITREE:
+
+    case WELL_01:
+    case WELL_02:
+    case WELL_03:
+    case WELL_04:
+
+    case House_01:
+    case House_02:
+    case House_03:
+    case House_04:
+
+        return true;
+    }
+
+    return false;
 }

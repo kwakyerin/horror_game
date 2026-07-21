@@ -40,8 +40,6 @@ bool GameImage::Load(const wchar_t* filename)
     return true;
 }
 
-// graphics.DrawImage(bitmap, x, y, width, height);Graphics graphics(hdc);
-
 void GameImage::Draw(HDC hdc, int x, int y)
 {
     if (bitmap == nullptr)

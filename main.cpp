@@ -159,7 +159,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         {
             const float deltaTime = 0.016f;
 
-            player->Move(deltaTime);
+            player->Move(deltaTime, VillageMap); //충돌체크(맵 여기서 바꾸기)
 
             InvalidateRect(hWnd, nullptr, FALSE);
         }

@@ -8,8 +8,6 @@ const int Map_Width = 25;
 const int Map_Height = 18;
 const int Tile_Size = 32;
 
-//int currentMap;
-  
 enum TileType
 {
     TILE_GRASS = 0,
@@ -93,25 +91,28 @@ enum TileType
 };
 
 enum MapType {
+
     Village = 0,
     Govillage,
     Temple,
     Room,
     Cave
+
 };
 
 class Map
 {
 public:
+
     Map();
 
     bool LoadImages();
     void Draw(HDC hdc);
-   // void Draw(HDC hdc);
-   // void Draw(HDC hdc, int cameraX, int cameraY);
     void changeMap(MapType newMap);
+    bool IsBlocked(float x, float y);
 
 private:
+
     int map[Map_Height][Map_Width];
 
     MapType currentMap;
