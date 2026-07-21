@@ -209,10 +209,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         {
 
         case VK_ESCAPE:
-            DestroyWindow(hWnd);
-            break;
+            PostQuitMessage(0);
+            return 0;
         }
         return 0;
+
     }
 
 	return DefWindowProc(hWnd, uMsg, wParam, lParam);

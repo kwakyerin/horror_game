@@ -184,7 +184,7 @@ bool Map::LoadImages()
         L"Image\\Village\\House_35.png"
     );
     result &= house_36Image.Load(
-        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\House_36.png"
+        L"Image\\Village\\House_36.png"
     );
     result &= house_37Image.Load(
         L"Image\\Village\\House_37.png"
