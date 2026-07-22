@@ -19,6 +19,10 @@ RECT wallRect =
     300,200,450,350
 };
 
+LARGE_INTEGER frequency;
+LARGE_INTEGER previousTime;
+LARGE_INTEGER currentTime;
+
 HINSTANCE g_hInst;
 LPCTSTR lpszClass = L"OBU_Project";
 LPCTSTR lpszWindowName = L"OBU_Project";
@@ -118,6 +122,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             L"Image\\monster_oni\\Attack.png"
         );
 
+        QueryPerformanceFrequency(&frequency);
+        QueryPerformanceCounter(&previousTime);
+
         SetTimer(hWnd, 1, 7, nullptr);
 
         return 0;
@@ -171,8 +178,16 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
     {
         if (wParam == 1 && player)
         {
-            const float deltaTime = 0.016f;
+            //const float deltaTime = 0.016f;
+            QueryPerformanceCounter(&currentTime);
 
+            float deltaTime =
+                static_cast<float>(
+                    currentTime.QuadPart - previousTime.QuadPart
+                    )
+                / static_cast<float>(frequency.QuadPart);
+
+            previousTime = currentTime;
             //맵 이동 설정은 여기서(플레이어까지)
             player->Move(deltaTime, VillageMap);
             VillageMap.Maptransform(*player);
