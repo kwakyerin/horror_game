@@ -101,7 +101,12 @@ enum TileType
     Closet_01,
     Closet_02,
     Bookshelf_01,
-    Bookshelf_02
+    Bookshelf_02,
+    Dishshelf_01,
+    Dishshelf_02,
+    Roomwall_01,
+    Roomwall_02,
+    Roomwall_03
 
 };
 
@@ -244,5 +249,10 @@ private:
     GameImage Closet_02Image;
     GameImage Bookshelf_01Image;
     GameImage Bookshelf_02Image;
+    GameImage Dishshelf_01Image;
+    GameImage Dishshelf_02Image;
+    GameImage Roomwall_01Image;
+    GameImage Roomwall_02Image;
+    GameImage Roomwall_03Image;
 
 };

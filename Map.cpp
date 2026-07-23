@@ -346,6 +346,25 @@ bool Map::LoadImages()
         L"Image\\Room\\Bookshelf_02.png"
     );
 
+    //그릇선반
+    result &= Dishshelf_01Image.Load(
+        L"Image\\Room\\Dishshelf_01.png"
+    );
+    result &= Dishshelf_02Image.Load(
+        L"Image\\Room\\Dishshelf_02.png"
+    );
+
+    //벽
+    result &= Roomwall_01Image.Load(
+        L"Image\\Room\\Roomwall_01.png"
+    );
+    result &= Roomwall_02Image.Load(
+        L"Image\\Room\\Roomwall_02.png"
+    );
+    result &= Roomwall_03Image.Load(
+        L"Image\\Room\\Roomwall_03.png"
+    );
+
     return result;
 }
 
@@ -770,8 +789,26 @@ void Map::Draw(HDC hdc)
                 Bookshelf_02Image.Draw(hdc, drawX, drawY);
                 break;
 
-            }
+            case Dishshelf_01:
+                Dishshelf_01Image.Draw(hdc, drawX, drawY);
+                break;
 
+            case Dishshelf_02:
+                Dishshelf_02Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case Roomwall_01:
+                Roomwall_01Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case Roomwall_02:
+                Roomwall_02Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case Roomwall_03:
+                Roomwall_03Image.Draw(hdc, drawX, drawY);
+                break;
+            }
         }
     }
 }
@@ -1064,18 +1101,49 @@ void Map::changeMap(MapType newMap)
         map[16][16] = Bottom;
         map[17][16] = Bottom;
 
-        //침대
+        //벽
+        for (int i = 5; i < 18; i++) {
+            map[2][i] = Roomwall_01;
+        }
 
-        map[7][7] = Bed_01;
-        map[8][7] = Bed_02;
+        for (int i = 5; i < 18; i++) {
+            map[3][i] = Roomwall_02;
+        }
+
+        for (int i = 2; i < 17; i++) {
+            map[i][4] = Roomwall_01;
+        }
+
+        for (int i = 2; i < 17; i++) {
+            map[i][18] = Roomwall_01;
+        }
+
+        for (int i = 5; i < 16; i++) {
+            map[16][i] = Roomwall_01;
+        }
+
+        map[16][17] = Roomwall_01;
+
+ 
+        for (int i = 8; i < 18; i++) {
+            map[4][i] = Roomwall_03;
+        }
+
+        //침대
+        map[7][17] = Bed_01;
+        map[8][17] = Bed_02;
 
         //옷장
-        map[6][6] = Closet_01;
-        map[7][6] = Closet_02;
+        map[4][6] = Closet_01;
+        map[5][6] = Closet_02;
 
         //책장
-        map[9][9] = Bookshelf_01;
-        map[10][9] = Bookshelf_02;
+        map[4][5] = Bookshelf_01;
+        map[5][5] = Bookshelf_02;
+
+        //그릇선반
+        map[4][7] = Dishshelf_01;
+        map[5][7] = Dishshelf_02;
 
         break;
 
