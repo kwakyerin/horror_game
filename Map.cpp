@@ -365,6 +365,38 @@ bool Map::LoadImages()
         L"Image\\Room\\Roomwall_03.png"
     );
 
+    //시계
+    result &= ClockImage.Load(
+        L"Image\\Room\\Clock.png"
+    );
+
+    //쌀더미
+    result &= Ricedummy_01Image.Load(
+        L"Image\\Room\\Ricedummy_01.png"
+    );
+    result &= Ricedummy_02Image.Load(
+        L"Image\\Room\\Ricedummy_02.png"
+    );
+
+    //선반
+    result &= Shelf_01Image.Load(
+        L"Image\\Room\\Shelf_01.png"
+    );
+    result &= Shelf_02Image.Load(
+        L"Image\\Room\\Shelf_02.png"
+    );
+    result &= Shelf_03Image.Load(
+        L"Image\\Room\\Shelf_03.png"
+    );
+    result &= Shelf_04Image.Load(
+        L"Image\\Room\\Shelf_04.png"
+    );
+
+    //종이
+    result &= PaperImage.Load(
+        L"Image\\Room\\Paper.png"
+    );
+
     return result;
 }
 
@@ -808,6 +840,42 @@ void Map::Draw(HDC hdc)
             case Roomwall_03:
                 Roomwall_03Image.Draw(hdc, drawX, drawY);
                 break;
+
+            case Clock:
+                Roomwall_02Image.Draw(hdc, drawX, drawY);
+                ClockImage.Draw(hdc, drawX, drawY);
+                break;
+
+            case Ricedummy_01:
+                BottomImage.Draw(hdc, drawX, drawY);
+                Ricedummy_01Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case Ricedummy_02:
+                BottomImage.Draw(hdc, drawX, drawY);
+                Ricedummy_02Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case Shelf_01:
+                Shelf_01Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case Shelf_02:
+                Shelf_02Image.Draw(hdc, drawX, drawY);
+                break;
+                
+            case Shelf_03:
+                Shelf_03Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case Shelf_04:
+                Shelf_04Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case Paper:
+                BottomImage.Draw(hdc, drawX, drawY);
+                PaperImage.Draw(hdc, drawX, drawY);
+                break;
             }
         }
     }
@@ -1145,6 +1213,33 @@ void Map::changeMap(MapType newMap)
         map[4][7] = Dishshelf_01;
         map[5][7] = Dishshelf_02;
 
+        //시계
+        map[3][15] = Clock;
+
+        //쌀더미
+       /* map[13][5] = Ricedummy_01;
+        map[14][5] = Ricedummy_02;
+
+        map[14][5] = Ricedummy_01;
+        map[15][5] = Ricedummy_02;
+
+        map[13][6] = Ricedummy_01;
+        map[14][6] = Ricedummy_02;*/
+
+        //선반
+        map[4][8] = Shelf_01;
+        map[5][8] = Shelf_02;
+        map[4][9] = Shelf_03;
+        map[5][9] = Shelf_04;
+
+        map[4][11] = Shelf_03;
+        map[5][11] = Shelf_04;
+
+        //종이
+        map[7][10] = Paper;
+        map[5][16] = Paper;
+        map[12][13] = Paper;
+        
         break;
 
     case Cave:
@@ -1376,6 +1471,9 @@ bool Map::IsBlocked(float x, float y)
     case Cavewall:
     case Cavewall_02:
     //case Black:
+    case Bed_01:
+    case Bed_02:
+    case Paper:
 
         return true;
     }

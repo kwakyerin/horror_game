@@ -106,8 +106,15 @@ enum TileType
     Dishshelf_02,
     Roomwall_01,
     Roomwall_02,
-    Roomwall_03
-
+    Roomwall_03,
+    Clock,
+    Ricedummy_01,
+    Ricedummy_02,
+    Shelf_01,
+    Shelf_02,
+    Shelf_03,
+    Shelf_04,
+    Paper
 };
 
 enum MapType {
@@ -254,5 +261,13 @@ private:
     GameImage Roomwall_01Image;
     GameImage Roomwall_02Image;
     GameImage Roomwall_03Image;
+    GameImage ClockImage;
+    GameImage Ricedummy_01Image;
+    GameImage Ricedummy_02Image;
+    GameImage Shelf_01Image;
+    GameImage Shelf_02Image;
+    GameImage Shelf_03Image;
+    GameImage Shelf_04Image;
+    GameImage PaperImage;
 
 };
