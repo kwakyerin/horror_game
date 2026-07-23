@@ -90,8 +90,13 @@ enum TileType
     Krystal_06,
     Krystal_07,
     Entrance_01,
-    Entrance_02
-
+    Entrance_02,
+    Status_01,
+    Status_02,
+    Rock_09,
+    Rock_10,
+    Bottom
+    
 };
 
 enum MapType {
@@ -218,4 +223,14 @@ private:
     GameImage Krystal_07Image;
     GameImage Entrance_01Image;
     GameImage Entrance_02Image;
+    GameImage Rock_09Image;
+    GameImage Rock_10Image;
+
+    //동굴 아래쪽
+    GameImage Status_01Image;
+    GameImage Status_02Image;
+
+    //방
+    GameImage BottomImage;
+
 };

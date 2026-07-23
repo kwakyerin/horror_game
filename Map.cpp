@@ -7,7 +7,7 @@ Map::Map()
 
     currentMap = Village;
 
-    changeMap(Cave);
+    changeMap(Room);
 
 }
 
@@ -294,12 +294,32 @@ bool Map::LoadImages()
         L"Image\\Cave\\Krystal_07.png"
     );
 
+    result &= Entrance_01Image.Load(
+        L"Image\\Village\\Rock_09.png"
+    );
+    result &= Entrance_01Image.Load(
+        L"C:\\Horror_Game\\Horror_Game\\Image\\Village\\Rock_10.png"
+    );
+
     //µ¿±¼ ÀÔ±¸
     result &= Entrance_01Image.Load(
         L"Image\\Cave\\Entrance_01.png"
     );
     result &= Entrance_02Image.Load(
         L"Image\\Cave\\Entrance_02.png"
+    );
+
+    //µ¿±¼ Á¶°¢»ó
+    result &= Status_01Image.Load(
+        L"Image\\Cave\\Status_01.png"
+    );
+    result &= Status_02Image.Load(
+        L"Image\\Cave\\Status_02.png"
+    );
+
+    //¹æ¹Ù´Ú
+    result &= BottomImage.Load(
+        L"C:\Horror_Game\Horror_Game\Image\Room"
     );
 
     return result;
@@ -687,6 +707,15 @@ void Map::Draw(HDC hdc)
                 // CavebottomImage.Draw(hdc, drawX, drawY);
                 Entrance_02Image.Draw(hdc, drawX, drawY);
                 break;
+
+            case Status_01:
+                //CavebottomImage.Draw(hdc, drawX, drawY);
+                Status_01Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case Status_02:
+                Status_02Image.Draw(hdc, drawX, drawY);
+                break;
             }
 
         }
@@ -955,11 +984,16 @@ void Map::changeMap(MapType newMap)
 
         // Àý ¸Ê ¹èÄ¡
 
+        /*map[8][8] = Rock_09;
+        map[9][8] = Rock_10;*/
+
         break;
 
     case Room:
 
         // ¹æ ¸Ê
+
+        map[0][0] = Bottom;
 
         break;
 
@@ -1017,7 +1051,7 @@ void Map::changeMap(MapType newMap)
         for (int i = 4; i < 20; i++) {
             map[10][i] = CaveBottom;
             map[11][i] = CaveBottom;
-       }
+        }
         //¹Ù´Ú Ã¹ÁÙ
         for (int i = 6; i < 20; i++) {
             map[4][i] = CaveBottom;
@@ -1069,6 +1103,10 @@ void Map::changeMap(MapType newMap)
 
         map[15][19] = CaveBottom;
 
+        //µ¹
+        map[15][15] = Rock_09;
+        map[15][16] = Rock_10;
+
         //¾Æ·¡·Î ³»·Á°¡´Â ±æ
         map[16][11] = CaveBottom;
         map[17][11] = CaveBottom;
@@ -1091,7 +1129,48 @@ void Map::changeMap(MapType newMap)
         map[11][5] = Skeleton;
 
         break;
+
+    case Cave_02:
+
+        //°ËÀº ¹è°æ
+        for (int y = 0; y < Map_Height; y++)
+        {
+            for (int x = 0; x < Map_Width; x++)
+            {
+                map[y][x] = Black;
+            }
+        }
+
+        //µ¿±¼º®
+        for (int i = 4; i < 20; i++) {
+            map[2][i] = Cavewall;
+        }
+
+        for (int i = 4; i < 20; i++) {
+            map[3][i] = Cavewall_02;
+        }
+
+        //µ¿±¼ ¹Ù´Ú
+        for (int i = 4; i < 17; i++) {
+            for (int j = 4; j < 20; j++) {
+                map[i][j] = CaveBottom;
+            }
+        }
+
+        for (int i = 0; i < 4; i++) {
+            for (int j = 11; j < 14; j++) {
+                map[i][j] = CaveBottom;
+            }
+        }
+
+        //Á¶°¢»ó
+
+        map[15][8] = Status_01;
+        map[14][8] = Status_02;
+
+        break;
     }
+
 }
 
 //¸Ê Ãæµ¹Ã¼Å©
@@ -1113,11 +1192,19 @@ bool Map::IsBlocked(float x, float y)
     case TILE_TREE_BOTTOM:
     case TILE_MINITREE:
     case FlOWER:
+    case Wood:
+
+    case TREE_01:
+    case TREE_02:
+    case TREE_03:
+    case TREE_04:
 
     case WELL_01:
     case WELL_02:
     case WELL_03:
     case WELL_04:
+
+    case ROCK_06:
 
     case Sea_01:
     case Sea_02:
