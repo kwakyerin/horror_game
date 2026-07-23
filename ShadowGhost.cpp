@@ -89,7 +89,7 @@ void ShadowGhost::Update(float deltaTime,Character& character)
         break;
 
     case ShadowState::Warning:
-        UpdateWarning(deltaTime);
+        UpdateWarning(deltaTime,character);
         break;
 
     case ShadowState::Attack:
@@ -154,7 +154,7 @@ void ShadowGhost::TeleportNearCharacter(Character& character)
     y = std::clamp(y, 0.0f, MAP_HEIGHT - 128.0f);
 }
 
-void ShadowGhost::UpdateWarning(float deltaTime)
+void ShadowGhost::UpdateWarning(float deltaTime,Character& character)
 {
     animationTimer += deltaTime;
 
@@ -167,6 +167,23 @@ void ShadowGhost::UpdateWarning(float deltaTime)
 
         if (currentFrame >= warningFrameCount)
         {
+            float dx = character.GetX() - x;
+            float dy = character.GetY() - y;
+
+            if (std::abs(dx) > std::abs(dy))
+            {
+                if (dx > 0)
+                    direction = ShadowDirection::Right;
+                else
+                    direction = ShadowDirection::Left;
+            }
+            else
+            {
+                if (dy > 0)
+                    direction = ShadowDirection::Down;
+                else
+                    direction = ShadowDirection::Up;
+            }
             state = ShadowState::Attack;
 
             currentFrame = 0;
@@ -204,7 +221,7 @@ void ShadowGhost::UpdateAttack(float deltaTime,Character& character)
             return;
         }
     }
-    if (currentFrame >= 12 && !hasAttacked)
+    if (currentFrame >= 6 && !hasAttacked)
     {
         RECT ghostRect = GetCollisionRect();
         RECT characterRect = character.GetCollisionRect();

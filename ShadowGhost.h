@@ -53,7 +53,7 @@ private:
 
     void UpdateWaiting(float deltaTime,Character& character);
 
-    void UpdateWarning(float deltaTime);
+    void UpdateWarning(float deltaTime,Character& character);
 
     void UpdateAttack(float deltaTime,Character& character);
 
