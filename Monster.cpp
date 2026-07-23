@@ -291,7 +291,7 @@ void Monster::SetHasAttacked(bool attacked)
     hasAttacked = attacked;
 }
 
-void Monster::UpdateSpecial(float deltaTime)
+void Monster::UpdateSpecial(float deltaTime,Character&)
 {
 }
 

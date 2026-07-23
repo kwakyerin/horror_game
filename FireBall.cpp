@@ -6,7 +6,7 @@ FireBall::FireBall(float startX,float startY,float directionX,float directionY)
     y(startY),
     dirX(directionX),
     dirY(directionY),
-    speed(300.0f),
+    speed(150.0f),
     image(nullptr),
     active(true),
     currentFrame(0),

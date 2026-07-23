@@ -78,7 +78,7 @@ void MonsterSpawner::Update(float deltaTime,Character* player)
     if (monster != nullptr)
     {
         monster->Update(deltaTime, *player);
-        monster->UpdateSpecial(deltaTime);
+        monster->UpdateSpecial(deltaTime,*player);
     }
 }
 

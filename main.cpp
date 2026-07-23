@@ -160,10 +160,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
         if (VillageMap.GetCurrentMap() == MapType::Cave)
         {
-            if (oniSpawner != nullptr)
-            {
-                oniSpawner->Draw(graphics);
-            }
+           // if (oniSpawner != nullptr)
+            //{
+              //  oniSpawner->Draw(graphics);
+            //}
 
             if (gumihoSpawner != nullptr)
             {
@@ -208,7 +208,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
             if (VillageMap.GetCurrentMap() == MapType::Cave)
             {
-                oniSpawner->Update(deltaTime, player);
+                //oniSpawner->Update(deltaTime, player);
                 gumihoSpawner->Update(deltaTime, player);//여기도 일단 동굴에서 생성하도록 함
             }
         }

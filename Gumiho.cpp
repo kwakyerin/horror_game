@@ -45,19 +45,36 @@ void Gumiho::UpdateAttack(float deltaTime, Character& character)
     }
 }
 
-void Gumiho::UpdateSpecial(float deltaTime)
+void Gumiho::UpdateSpecial(float deltaTime,Character& character)
 {
-    for (FireBall* fireBall : fireBalls)
-    {
-        fireBall->Update(deltaTime);
-    }
-
     for (auto it = fireBalls.begin();
         it != fireBalls.end();)
     {
-        if (!(*it)->IsActive())
+        FireBall* fireBall = *it;
+
+        fireBall->Update(deltaTime);
+
+        RECT fireBallRect =
+            fireBall->GetCollisionRect();
+
+        RECT characterRect =
+            character.GetCollisionRect();
+
+        RECT intersection;
+
+        if (IntersectRect(
+            &intersection,
+            &fireBallRect,
+            &characterRect))
         {
-            delete* it;
+            character.Damage(2);
+
+            fireBall->Deactivate();
+        }
+
+        if (!fireBall->IsActive())
+        {
+            delete fireBall;
             it = fireBalls.erase(it);
         }
         else

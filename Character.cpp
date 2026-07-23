@@ -4,7 +4,7 @@
 Character::Character(const wchar_t* path)
     : x(150.0f), //캐릭터 스폰지역
     y(150.0f),
-    moveSpeed(150.0f),
+    moveSpeed(250.0f),
     currentFrame(0),
     animationTimer(0.0f),
     hp(15),
