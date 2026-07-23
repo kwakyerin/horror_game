@@ -52,6 +52,9 @@ public:
 
     void Draw(Gdiplus::Graphics& graphics);
 
+    virtual void UpdateSpecial(float deltaTime);
+    virtual void DrawSpecial(Gdiplus::Graphics& graphics);
+
     float GetX() const;
     float GetY() const;
 

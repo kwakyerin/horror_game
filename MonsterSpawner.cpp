@@ -78,6 +78,7 @@ void MonsterSpawner::Update(float deltaTime,Character* player)
     if (monster != nullptr)
     {
         monster->Update(deltaTime, *player);
+        monster->UpdateSpecial(deltaTime);
     }
 }
 
@@ -86,5 +87,6 @@ void MonsterSpawner::Draw(Gdiplus::Graphics& graphics)
     if (monster != nullptr)
     {
         monster->Draw(graphics);
+        monster->DrawSpecial(graphics);
     }
 }

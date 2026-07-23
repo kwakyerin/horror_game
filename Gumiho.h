@@ -11,8 +11,8 @@ public:
 	Gumiho(const wchar_t* walkPath, const wchar_t* attackPath, float startX, float startY, float detectRange, float attackRange);
 	~Gumiho();
 
-	void UpdateFireBalls(float deltaTime);
-	void DrawFireBalls(Gdiplus::Graphics& graphics);
+	void UpdateSpecial(float deltaTime) override;
+	void DrawSpecial(Gdiplus::Graphics& graphics) override;
 
 protected:
 	void UpdateAttack(float deltaTime, Character& character)override;

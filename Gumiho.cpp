@@ -45,7 +45,7 @@ void Gumiho::UpdateAttack(float deltaTime, Character& character)
     }
 }
 
-void Gumiho::UpdateFireBalls(float deltaTime)
+void Gumiho::UpdateSpecial(float deltaTime)
 {
     for (FireBall* fireBall : fireBalls)
     {
@@ -67,7 +67,7 @@ void Gumiho::UpdateFireBalls(float deltaTime)
     }
 }
 
-void Gumiho::DrawFireBalls(Gdiplus::Graphics& graphics)
+void Gumiho::DrawSpecial(Gdiplus::Graphics& graphics)
 {
     for (FireBall* fireBall : fireBalls)
     {
