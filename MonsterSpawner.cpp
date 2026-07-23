@@ -3,6 +3,7 @@
 #include "Character.h"
 #include "Monster.h"
 #include "Gumiho.h"
+#include "ShadowGhost.h"
 #include <cmath>
 
 MonsterSpawner::MonsterSpawner(MonsterType type,float x,float y,float spawnTriggerRange,float monsterDetectRange,float monsterAttackRange,const wchar_t* walkPath,const wchar_t* attackPath)
@@ -20,12 +21,15 @@ MonsterSpawner::MonsterSpawner(MonsterType type,float x,float y,float spawnTrigg
 
     spawned = false;
     monster = nullptr;
+    shadowGhost = nullptr;
 }
 
 MonsterSpawner::~MonsterSpawner()
 {
     delete monster;
+    delete shadowGhost;
     monster = nullptr;
+    shadowGhost = nullptr;
 }
 
 void MonsterSpawner::Update(float deltaTime,Character* player)
@@ -68,6 +72,23 @@ void MonsterSpawner::Update(float deltaTime,Character* player)
                     attackRange
                 );
                 break;
+
+            case MonsterType::ShadowGhost:
+                shadowGhost = new ShadowGhost{
+                    walkImagePath,
+                    attackImagePath,
+                    spawnX,
+                    spawnY
+                };
+
+               // MessageBox(
+                   // nullptr,
+                   // L"ShadowGhost »ý¼ºµÊ",
+                    //L"Debug",
+                   // MB_OK
+                //);
+                break;
+
             }
 
             spawned = true;
@@ -80,6 +101,11 @@ void MonsterSpawner::Update(float deltaTime,Character* player)
         monster->Update(deltaTime, *player);
         monster->UpdateSpecial(deltaTime,*player);
     }
+
+    if (shadowGhost != nullptr)
+    {
+        shadowGhost->Update(deltaTime, *player);
+    }
 }
 
 void MonsterSpawner::Draw(Gdiplus::Graphics& graphics)
@@ -88,5 +114,10 @@ void MonsterSpawner::Draw(Gdiplus::Graphics& graphics)
     {
         monster->Draw(graphics);
         monster->DrawSpecial(graphics);
+    }
+
+    if (shadowGhost != nullptr)
+    {
+        shadowGhost->Draw(graphics);
     }
 }

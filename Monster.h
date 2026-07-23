@@ -48,7 +48,7 @@ public:
 
     bool LoadImages(const wchar_t* walkPath, const wchar_t* attackPath);
 
-    void Update(float deltaTime,Character& character);
+    virtual void Update(float deltaTime,Character& character);
 
     void Draw(Gdiplus::Graphics& graphics);
 
@@ -64,6 +64,7 @@ public:
 protected:
     virtual void UpdateAttack(float deltaTime, Character& character);
     void SetMoveSpeed(float speed);
+    void SetPosition(float newX, float newY);//shadowghost 에서 사용할 함수임
 
     int GetCurrentFrame() const;
     bool HasAttacked() const;

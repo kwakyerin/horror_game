@@ -3,11 +3,14 @@
 #include <gdiplus.h>
 
 class Monster;
+class ShadowGhost;
 class Character;
+
 enum class MonsterType
 {
     Oni,
-    Gumiho
+    Gumiho,
+    ShadowGhost
 };
 
 class MonsterSpawner {
@@ -22,6 +25,7 @@ private:
     bool spawned;
 
     Monster* monster;
+    ShadowGhost* shadowGhost;
 
     MonsterType monsterType;
 

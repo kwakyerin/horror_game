@@ -298,3 +298,8 @@ void Monster::UpdateSpecial(float deltaTime,Character&)
 void Monster::DrawSpecial(Gdiplus::Graphics& graphics)
 {
 }
+
+void Monster::SetPosition(float newX, float newY) {
+    x = newX;
+    y = newY;
+}
