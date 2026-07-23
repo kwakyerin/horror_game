@@ -13,5 +13,13 @@ private:
 	Gdiplus::Image* image;
 
 public:
+	KkamakGhost();
+	~KkamakGhost();
 
+	bool LoadImage(const wchar_t* path);
+
+	void Update();
+	void Draw();
+
+	RECT GetCollisionRect() const;
 };
