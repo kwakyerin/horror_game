@@ -5,7 +5,7 @@
 #include <algorithm>
 
 const float MAP_WIDTH = 500.0f;
-const float MAP_HEIGHT = 400.0f;
+const float MAP_HEIGHT = 400.0f;// 임시로 몬스터 생성 위치 정한것임. 맵에 따라 수정
 
 ShadowGhost::ShadowGhost(const wchar_t* warningPath,const wchar_t* attackPath,float startX,float startY)
 {
@@ -52,12 +52,6 @@ bool ShadowGhost::LoadImages(
 
     if (warningImage->GetLastStatus() != Gdiplus::Ok)
     {
-        //MessageBox(
-            //nullptr,
-            //L"그림자 귀신 warning 이미지 로드 실패",
-            //L"Error",
-            //MB_OK
-        //);
         delete warningImage;
         warningImage = nullptr;
     }
@@ -66,12 +60,6 @@ bool ShadowGhost::LoadImages(
 
     if (attackImage->GetLastStatus() != Gdiplus::Ok)
     {
-        //MessageBox(
-            //nullptr,
-            //L"그림자 귀신 attack 이미지 로드 실패",
-            //L"Error",
-            //MB_OK
-        //);
         delete attackImage;
         attackImage = nullptr;
     }
