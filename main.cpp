@@ -4,6 +4,7 @@
 #include "Image.h"
 #include "Character.h"
 #include "MonsterSpawner.h"
+#include "Gumiho.h"
 
 #pragma comment(lib, "gdiplus.lib")
 
@@ -11,6 +12,7 @@ Map VillageMap;
 
 Character* player = nullptr;
 MonsterSpawner* oniSpawner = nullptr;
+MonsterSpawner* gumihoSpawner = nullptr;
 
 ULONG_PTR gdiplusToken;
 
@@ -112,7 +114,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
         player = new Character( L"Image\\character\\character_3_frame16x20.png");
 
-        oniSpawner = new MonsterSpawner(
+        oniSpawner = new MonsterSpawner(MonsterType::Oni,
             15 * Tile_Size,   // 타일 X = 15 (큰 크리스탈 쪽으로 가까이 가면 뜸)
             8 * Tile_Size,    // 타일 Y = 6
             100.0f,    // 플레이어가 400 안으로 오면 생성
@@ -121,6 +123,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             L"Image\\monster_oni\\Walk.png",
             L"Image\\monster_oni\\Attack.png"
         );
+
+        gumihoSpawner = new MonsterSpawner(MonsterType::Gumiho,15*Tile_Size,8*Tile_Size,100.0f,250.0f,80.0f, L"Image\\monster_gumiho\\Run.png",
+            L"Image\\monster_gumiho\\Attack.png");
 
         QueryPerformanceFrequency(&frequency);
         QueryPerformanceCounter(&previousTime);
@@ -153,10 +158,17 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
         Graphics graphics(memDC);
 
-        if (VillageMap.GetCurrentMap() == MapType::Cave &&
-            oniSpawner != nullptr)
+        if (VillageMap.GetCurrentMap() == MapType::Cave)
         {
-            oniSpawner->Draw(graphics);
+            if (oniSpawner != nullptr)
+            {
+                oniSpawner->Draw(graphics);
+            }
+
+            if (gumihoSpawner != nullptr)
+            {
+                gumihoSpawner->Draw(graphics);//일단 임시로 동굴에서 구미호 생성
+            }
         }
 
         if (player)
@@ -197,6 +209,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             if (VillageMap.GetCurrentMap() == MapType::Cave)
             {
                 oniSpawner->Update(deltaTime, player);
+                gumihoSpawner->Update(deltaTime, player);//여기도 일단 동굴에서 생성하도록 함
             }
         }
 

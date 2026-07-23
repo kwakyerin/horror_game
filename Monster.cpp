@@ -270,3 +270,23 @@ RECT Monster::GetCollisionRect() const
 
     return rect;
 }
+
+void Monster::SetMoveSpeed(float speed)
+{
+    moveSpeed = speed;
+}
+
+int Monster::GetCurrentFrame() const
+{
+    return currentFrame;
+}
+
+bool Monster::HasAttacked() const
+{
+    return hasAttacked;
+}
+
+void Monster::SetHasAttacked(bool attacked)
+{
+    hasAttacked = attacked;
+}

@@ -37,7 +37,6 @@ private:
     // 상태별 행동
     void UpdateWander(float deltaTime);
     void UpdateChase(float deltaTime, float characterX, float characterY);
-    void UpdateAttack(float deltaTime, Character& character);
 
     // 애니메이션
     void UpdateAnimation(float deltaTime);
@@ -45,7 +44,7 @@ private:
 public:
 
     Monster(const wchar_t* walkPath,const wchar_t* attackPath,float startX,float startY,float detect,float attack);
-    ~Monster();
+    virtual ~Monster();
 
     bool LoadImages(const wchar_t* walkPath, const wchar_t* attackPath);
 
@@ -60,6 +59,12 @@ public:
     RECT GetCollisionRect() const;
 
 protected:
+    virtual void UpdateAttack(float deltaTime, Character& character);
+    void SetMoveSpeed(float speed);
+
+    int GetCurrentFrame() const;
+    bool HasAttacked() const;
+    void SetHasAttacked(bool attacked);
     int walkFrameCount;
     int attackFrameCount;
 };

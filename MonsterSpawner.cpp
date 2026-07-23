@@ -2,10 +2,12 @@
 #include "Map.h"
 #include "Character.h"
 #include "Monster.h"
+#include "Gumiho.h"
 #include <cmath>
 
-MonsterSpawner::MonsterSpawner(float x,float y,float spawnTriggerRange,float monsterDetectRange,float monsterAttackRange,const wchar_t* walkPath,const wchar_t* attackPath)
+MonsterSpawner::MonsterSpawner(MonsterType type,float x,float y,float spawnTriggerRange,float monsterDetectRange,float monsterAttackRange,const wchar_t* walkPath,const wchar_t* attackPath)
 {
+    monsterType = type;
     spawnX = x;
     spawnY = y;
 
@@ -43,14 +45,30 @@ void MonsterSpawner::Update(float deltaTime,Character* player)
         if (distance <= spawnRange)
         {
 
-            monster = new Monster(
-                walkImagePath,
-                attackImagePath,
-                spawnX,
-                spawnY,
-                detectRange,
-                attackRange
-            );
+            switch (monsterType)
+            {
+            case MonsterType::Oni:
+                monster = new Monster(
+                    walkImagePath,
+                    attackImagePath,
+                    spawnX,
+                    spawnY,
+                    detectRange,
+                    attackRange
+                );
+                break;
+
+            case MonsterType::Gumiho:
+                monster = new Gumiho(
+                    walkImagePath,
+                    attackImagePath,
+                    spawnX,
+                    spawnY,
+                    detectRange,
+                    attackRange
+                );
+                break;
+            }
 
             spawned = true;
         }

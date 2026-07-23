@@ -4,6 +4,11 @@
 
 class Monster;
 class Character;
+enum class MonsterType
+{
+    Oni,
+    Gumiho
+};
 
 class MonsterSpawner {
 private:
@@ -18,11 +23,14 @@ private:
 
     Monster* monster;
 
+    MonsterType monsterType;
+
     const wchar_t* walkImagePath;
     const wchar_t* attackImagePath;
 
 public:
     MonsterSpawner(
+        MonsterType type,
         float x,
         float y,
         float spawnTriggerRange,
