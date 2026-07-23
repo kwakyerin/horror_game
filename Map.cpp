@@ -319,7 +319,31 @@ bool Map::LoadImages()
 
     //¹æ¹Ù´Ú
     result &= BottomImage.Load(
-        L"C:\Horror_Game\Horror_Game\Image\Room"
+        L"Image\\Room\\Bottom.png"
+    );
+
+    //Ä§´ë
+    result &= Bed_01Image.Load(
+        L"Image\\Room\\Bed_01.png"
+    );
+    result &= Bed_02Image.Load(
+        L"Image\\Room\\Bed_02.png"
+    );
+
+    //¿ÊÀå
+    result &= Closet_01Image.Load(
+        L"Image\\Room\\Closet_01.png"
+    );
+    result &= Closet_02Image.Load(
+        L"Image\\Room\\Closet_02.png"
+    );
+
+    //Ã¥Àå
+    result &= Bookshelf_01Image.Load(
+        L"Image\\Room\\Bookshelf_01.png"
+    );
+    result &= Bookshelf_02Image.Load(
+        L"Image\\Room\\Bookshelf_02.png"
     );
 
     return result;
@@ -716,6 +740,36 @@ void Map::Draw(HDC hdc)
             case Status_02:
                 Status_02Image.Draw(hdc, drawX, drawY);
                 break;
+
+            case Bottom:
+                BottomImage.Draw(hdc, drawX, drawY);
+                break;
+
+            case Bed_01:
+                BottomImage.Draw(hdc, drawX, drawY);
+                Bed_01Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case Bed_02:
+                BottomImage.Draw(hdc, drawX, drawY);
+                Bed_02Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case Closet_01:
+                Closet_01Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case Closet_02:
+                Closet_02Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case Bookshelf_01:
+                Bookshelf_01Image.Draw(hdc, drawX, drawY);
+                break;
+            case Bookshelf_02:
+                Bookshelf_02Image.Draw(hdc, drawX, drawY);
+                break;
+
             }
 
         }
@@ -991,9 +1045,37 @@ void Map::changeMap(MapType newMap)
 
     case Room:
 
-        // ¹æ ¸Ê
+        //¹è°æ
+        for (int y = 0; y < Map_Height; y++)
+        {
+            for (int x = 0; x < Map_Width; x++)
+            {
+                map[y][x] = Black;
+            }
+        }
 
-        map[0][0] = Bottom;
+        //¹æ¹Ù´Ú
+        for (int i = 5; i < 16; i++) {
+            for (int j = 5; j < 18; j++) {
+                map[i][j] = Bottom;
+            }
+        }
+
+        map[16][16] = Bottom;
+        map[17][16] = Bottom;
+
+        //Ä§´ë
+
+        map[7][7] = Bed_01;
+        map[8][7] = Bed_02;
+
+        //¿ÊÀå
+        map[6][6] = Closet_01;
+        map[7][6] = Closet_02;
+
+        //Ã¥Àå
+        map[9][9] = Bookshelf_01;
+        map[10][9] = Bookshelf_02;
 
         break;
 
@@ -1225,7 +1307,7 @@ bool Map::IsBlocked(float x, float y)
     case Krystal_07:
     case Cavewall:
     case Cavewall_02:
-    case Black:
+    //case Black:
 
         return true;
     }

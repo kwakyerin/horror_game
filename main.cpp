@@ -110,7 +110,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
         oniSpawner = new MonsterSpawner(
             15 * Tile_Size,   // 타일 X = 15 (큰 크리스탈 쪽으로 가까이 가면 뜸)
-            8 * Tile_Size,    // 타일 Y = 6
+            6 * Tile_Size,    // 타일 Y = 6
             100.0f,    // 플레이어가 400 안으로 오면 생성
             250.0f,    // 몬스터 탐지 범위
             80.0f,     // 몬스터 공격 범위

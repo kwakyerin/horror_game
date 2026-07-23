@@ -95,8 +95,14 @@ enum TileType
     Status_02,
     Rock_09,
     Rock_10,
-    Bottom
-    
+    Bottom,
+    Bed_01,
+    Bed_02,
+    Closet_01,
+    Closet_02,
+    Bookshelf_01,
+    Bookshelf_02
+
 };
 
 enum MapType {
@@ -232,5 +238,11 @@ private:
 
     //¹æ
     GameImage BottomImage;
+    GameImage Bed_01Image;
+    GameImage Bed_02Image;
+    GameImage Closet_01Image;
+    GameImage Closet_02Image;
+    GameImage Bookshelf_01Image;
+    GameImage Bookshelf_02Image;
 
 };
