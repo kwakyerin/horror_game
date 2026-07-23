@@ -139,6 +139,7 @@
     <ClInclude Include="FireBall.h" />
     <ClInclude Include="Gumiho.h" />
     <ClInclude Include="Image.h" />
+    <ClInclude Include="kkamakGhost.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="MonsterSpawner.h" />
