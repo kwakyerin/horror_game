@@ -139,7 +139,54 @@ enum TileType
     Gold_05,
     Gold_06,
     Gold_07,
-    Gold_08
+    Gold_08,
+
+    Pond_01,
+    Pond_02,
+    Pond_03,
+    Pond_04,
+    Pond_05,
+    Pond_06,
+    Pond_07,
+    Pond_08,
+    Pond_09,
+    Bittree,
+    Carrottree,
+    Hole,
+    Product_01,
+    Product_02,
+    Product_03,
+    Product_04,
+    Product_05,
+    Product_06,
+    Product_07,
+    Product_08,
+    Product_09,
+    Product_10,
+    Product_11,
+    Product_12,
+    Product_13,
+    Product_14,
+    Product_15,
+    Product_16,
+    Product_17,
+    Product_18,
+    Product_19,
+    Product_20,
+    Product_21,
+    Product_22,
+    Markettable_01,
+    Markettable_02,
+    Markettable_03,
+    Markettable_04,
+    Markettable_05,
+    Markettable_06,
+
+    Anchor_01,
+    Anchor_02,
+    Anchor_03,
+    Anchor_04
+
 };
 
 enum MapType {
@@ -324,4 +371,54 @@ private:
     GameImage Gold_06Image;
     GameImage Gold_07Image;
     GameImage Gold_08Image;
+
+    GameImage Pond_01Image;
+    GameImage Pond_02Image;
+    GameImage Pond_03Image;
+    GameImage Pond_04Image;
+    GameImage Pond_05Image;
+    GameImage Pond_06Image;
+    GameImage Pond_07Image;
+    GameImage Pond_08Image;
+    GameImage Pond_09Image;
+
+    GameImage Product_01Image;
+    GameImage Product_02Image;
+    GameImage Product_03Image;
+    GameImage Product_04Image;
+    GameImage Product_05Image;
+    GameImage Product_06Image;
+    GameImage Product_07Image;
+    GameImage Product_08Image;
+    GameImage Product_09Image;
+    GameImage Product_10Image;
+    GameImage Product_11Image;
+    GameImage Product_12Image;
+    GameImage Product_13Image;
+    GameImage Product_14Image;
+    GameImage Product_15Image;
+    GameImage Product_16Image;
+    GameImage Product_17Image;
+    GameImage Product_18Image;
+    GameImage Product_19Image;
+    GameImage Product_20Image;
+    GameImage Product_21Image;
+    GameImage Product_22Image;
+
+    GameImage Markettable_01Image;
+    GameImage Markettable_02Image;
+    GameImage Markettable_03Image;
+    GameImage Markettable_04Image;
+    GameImage Markettable_05Image;
+    GameImage Markettable_06Image;
+
+    GameImage BittreeImage;
+    GameImage CarrottreeImage;
+    GameImage HoleImage;
+
+    GameImage Anchor_01Image;
+    GameImage Anchor_02Image;
+    GameImage Anchor_03Image;
+    GameImage Anchor_04Image;
+
 };

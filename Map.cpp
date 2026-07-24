@@ -1,3 +1,6 @@
+#include <cstdlib>
+#include <ctime>
+
 #include "Map.h"
 #include "Image.h"
 #include "Character.h"
@@ -481,6 +484,150 @@ bool Map::LoadImages()
     );
     result &= Treasure_chest_02Image.Load(
         L"Image\\Room\\Treasure_chest_02.png"
+    );
+
+    //연못
+    result &= Pond_01Image.Load(
+        L"Image\\Gomarket\\Pond_01.png"
+    );
+    result &= Pond_02Image.Load(
+        L"Image\\Gomarket\\Pond_02.png"
+    );
+    result &= Pond_03Image.Load(
+        L"Image\\Gomarket\\Pond_03.png"
+    );
+    result &= Pond_04Image.Load(
+        L"Image\\Gomarket\\Pond_04.png"
+    );
+    result &= Pond_05Image.Load(
+        L"Image\\Gomarket\\Pond_05.png"
+    );
+    result &= Pond_06Image.Load(
+        L"Image\\Gomarket\\Pond_06.png"
+    );
+    result &= Pond_07Image.Load(
+        L"Image\\Gomarket\\Pond_07.png"
+    );
+    result &= Pond_08Image.Load(
+        L"Image\\Gomarket\\Pond_08.png"
+    );
+    result &= Pond_09Image.Load(
+        L"Image\\Gomarket\\Pond_09.png"
+    );
+
+    //비트/당근 나무
+    result &= BittreeImage.Load(
+        L"Image\\Gomarket\\Bittree.png"
+    );
+    result &= CarrottreeImage.Load(
+        L"Image\\Gomarket\\Carrottree.png"
+    );
+
+    //구멍
+    result &= HoleImage.Load(
+        L"Image\\Gomarket\\Hole.png"
+    );
+
+    //시장 상품
+    result &= Product_01Image.Load(
+        L"Image\\Market\\Product_01.png"
+    );
+    result &= Product_02Image.Load(
+        L"Image\\Market\\Product_02.png"
+    );
+    result &= Product_03Image.Load(
+        L"Image\\Market\\Product_03.png"
+    );
+    result &= Product_04Image.Load(
+        L"Image\\Market\\Product_04.png"
+    );
+    result &= Product_05Image.Load(
+        L"Image\\Market\\Product_05.png"
+    );
+    result &= Product_06Image.Load(
+        L"Image\\Market\\Product_06.png"
+    );
+    result &= Product_07Image.Load(
+        L"Image\\Market\\Product_07.png"
+    );
+    result &= Product_08Image.Load(
+        L"Image\\Market\\Product_08.png"
+    );
+    result &= Product_09Image.Load(
+        L"Image\\Market\\Product_09.png"
+    );
+    result &= Product_10Image.Load(
+        L"Image\\Market\\Product_10.png"
+    );
+    result &= Product_11Image.Load(
+        L"Image\\Market\\Product_11.png"
+    );
+    result &= Product_12Image.Load(
+        L"Image\\Market\\Product_12.png"
+    );
+    result &= Product_13Image.Load(
+        L"Image\\Market\\Product_13.png"
+    );
+    result &= Product_14Image.Load(
+        L"Image\\Market\\Product_14.png"
+    );
+    result &= Product_15Image.Load(
+        L"Image\\Market\\Product_15.png"
+    );
+    result &= Product_16Image.Load(
+        L"Image\\Market\\Product_16.png"
+    );
+    result &= Product_17Image.Load(
+        L"Image\\Market\\Product_17.png"
+    );
+    result &= Product_18Image.Load(
+        L"Image\\Market\\Product_18.png"
+    );
+    result &= Product_19Image.Load(
+        L"Image\\Market\\Product_19.png"
+    );
+    result &= Product_20Image.Load(
+        L"Image\\Market\\Product_20.png"
+    );
+    result &= Product_21Image.Load(
+        L"Image\\Market\\Product_21.png"
+    );
+    result &= Product_22Image.Load(
+        L"Image\\Market\\Product_22.png"
+    );
+
+    //상품 가판대
+    result &= Markettable_01Image.Load(
+        L"Image\\Market\\Markettable_01.png"
+    );
+    result &= Markettable_02Image.Load(
+        L"Image\\Market\\Markettable_02.png"
+    );
+    result &= Markettable_03Image.Load(
+        L"Image\\Market\\Markettable_03.png"
+    );
+    result &= Markettable_04Image.Load(
+        L"Image\\Market\\Markettable_04.png"
+    );
+    result &= Markettable_05Image.Load(
+        L"Image\\Market\\Markettable_05.png"
+    );
+    result &= Markettable_06Image.Load(
+        L"Image\\Market\\Markettable_06.png"
+    );
+
+    //닻
+    result &= Anchor_01Image.Load(
+        L"Image\\Cave\\Anchor_01.png"
+    );
+    result &= Anchor_02Image.Load(
+        L"Image\\Cave\\Anchor_02.png"
+    );
+    result &= Anchor_03Image.Load(
+        L"Image\\Cave\\Anchor_03.png"
+    );
+    result &= Anchor_04Image.Load(
+        L"Image\\Cave\\Anchor_04.png"
     );
 
     return result;
@@ -1051,46 +1198,91 @@ void Map::Draw(HDC hdc)
                 break;
 
             case Gold_01:
-                BottomImage.Draw(hdc, drawX, drawY);
+                CavebottomImage.Draw(hdc, drawX, drawY);
                 Gold_01Image.Draw(hdc, drawX, drawY);
                 break;
 
             case Gold_02:
-                BottomImage.Draw(hdc, drawX, drawY);
+                CavebottomImage.Draw(hdc, drawX, drawY);
                 Gold_02Image.Draw(hdc, drawX, drawY);
                 break;
 
             case Gold_03:
-                BottomImage.Draw(hdc, drawX, drawY);
+                CavebottomImage.Draw(hdc, drawX, drawY);
                 Gold_03Image.Draw(hdc, drawX, drawY);
                 break;
 
             case Gold_04:
-                BottomImage.Draw(hdc, drawX, drawY);
+                CavebottomImage.Draw(hdc, drawX, drawY);
                 Gold_04Image.Draw(hdc, drawX, drawY);
                 break;
 
             case Gold_05:
-                BottomImage.Draw(hdc, drawX, drawY);
+                CavebottomImage.Draw(hdc, drawX, drawY);
                 Gold_05Image.Draw(hdc, drawX, drawY);
                 break;
 
             case Gold_06:
-                BottomImage.Draw(hdc, drawX, drawY);
+                CavebottomImage.Draw(hdc, drawX, drawY);
                 Gold_06Image.Draw(hdc, drawX, drawY);
                 break;
 
             case Gold_07:
-                BottomImage.Draw(hdc, drawX, drawY);
+                CavebottomImage.Draw(hdc, drawX, drawY);
                 Gold_07Image.Draw(hdc, drawX, drawY);
                 break;
 
             case Gold_08:
-                BottomImage.Draw(hdc, drawX, drawY);
+                CavebottomImage.Draw(hdc, drawX, drawY);
                 Gold_08Image.Draw(hdc, drawX, drawY);
                 break;
-            }
 
+            //연못 
+            case Pond_01:
+                grassImage.Draw(hdc, drawX, drawY);
+                Pond_01Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case Pond_02:
+                grassImage.Draw(hdc, drawX, drawY);
+                Pond_02Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case Pond_03:
+                grassImage.Draw(hdc, drawX, drawY);
+                Pond_03Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case Pond_04:
+                grassImage.Draw(hdc, drawX, drawY);
+                Pond_04Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case Pond_05:
+                grassImage.Draw(hdc, drawX, drawY);
+                Pond_05Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case Pond_06:
+                grassImage.Draw(hdc, drawX, drawY);
+                Pond_06Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case Pond_07:
+                grassImage.Draw(hdc, drawX, drawY);
+                Pond_07Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case Pond_08:
+                grassImage.Draw(hdc, drawX, drawY);
+                Pond_08Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case Pond_09:
+                grassImage.Draw(hdc, drawX, drawY);
+                Pond_09Image.Draw(hdc, drawX, drawY);
+                break;
+            }
             
         }
     }
@@ -1253,7 +1445,7 @@ void Map::changeMap(MapType newMap)
         }
         map[11][21] = Wood;
         map[11][22] = Wood;
-        map[11][23] = Wood;
+        //map[11][23] = Wood;
 
         //꽃 풀숲
         map[11][9] = FlOWER;
@@ -1664,28 +1856,86 @@ void Map::changeMap(MapType newMap)
         map[8][12] = Status_02;
 
         //이미지 수정
-        /*map[8][8] = Stage_01;
+       /* map[8][8] = Stage_01;
         map[8][9] = Stage_02;
         map[9][8] = Stage_03;
         map[9][9] = Stage_04;*/
 
         //금
-        map[10][10] = Gold_03;
-        map[10][11] = Gold_03;
+        
+        
+       /* map[6][6] = Gold_02;
+        map[8][9] = Gold_02;*/
 
+        /*for (int i = 4; i < 17; i++) {
+            for (int j = 4; j < 9; j++) {
+                map[i][j] = Gold_02;
+            }
+        }*/
+
+
+        for (int i = 4; i < 17; i++){
+            for (int j = 4; j < 9; j++)
+            {
+                int random = rand() % 9;
+
+                if (random == 8)
+                {
+                    map[i][j] = CaveBottom;
+                }
+                else
+                {
+                    map[i][j] = static_cast<TileType>(Gold_01 + random);
+                }
+            }
+        }
+
+        for (int i = 4; i < 17; i++) {
+            for (int j = 16; j < 20; j++)
+            {
+                int random = rand() % 9;
+
+                if (random == 8)
+                {
+                    map[i][j] = CaveBottom;
+                }
+                else
+                {
+                    map[i][j] = static_cast<TileType>(Gold_01 + random);
+                }
+            }
+        }
+
+        //for (int i = 4; i < 17; i++) {
+        //    for (int j = 16; j < 20; j++) {
+        //        map[i][j] = Gold_02;
+        //    }
+        //}
+
+        for (int i = 14; i < 17; i++) {
+            for (int j = 9; j < 16; j++)
+            {
+                int random = rand() % 9;
+
+                if (random == 8)
+                {
+                    map[i][j] = CaveBottom;
+                }
+                else
+                {
+                    map[i][j] = static_cast<TileType>(Gold_01 + random);
+                }
+            }
+        }
+
+ /*       for (int i = 14; i < 17; i++) {
+            for (int j = 9; j < 16; j++) {
+                map[i][j] = Gold_02;
+            }
+        }*/
         break;
 
     case Gomarket_01:
-
-        //돌바닥
-        for (int i = 0; i < 25; i++) {
-            map[12][i] = TILE_ROAD;
-            map[13][i] = TILE_ROAD;
-        }
-
-        break;
-
-    case Gomarket_02:
 
         //돌바닥
         for (int i = 0; i < 25; i++) {
@@ -1695,6 +1945,19 @@ void Map::changeMap(MapType newMap)
 
         break;
 
+    case Gomarket_02:
+
+        //돌바닥
+        for (int i = 0; i < 25; i++) {
+            map[11][i] = TILE_ROAD;
+            //map[12][i] = TILE_ROAD;
+        }
+
+        break;
+
+    case Market:
+
+        break;
     }
 
 }
@@ -1860,28 +2123,41 @@ void Map::Maptransform(Character& character) {
 
     //사찰->동굴
 
-    //마을->마을 가는 길_01
-    if (currentMap == MapType::Village && tileX == 24 && (tileY == 12 || tileY == 13))
+    //마을->마을 가는 길_01(뭔가 이상함)
+    if (currentMap == MapType::Village && tileX == 24 && (tileY == 11 || tileY == 12))
     {
         changeMap(MapType::Gomarket_01);
 
         character.SetPosition(1 * Tile_Size, tileY * Tile_Size);
 
-        return;
     }
 
     //마을 가는 길_01->마을
-    if (currentMap == MapType::Gomarket_01 &&tileX == 0 && (tileY == 12 || tileY == 13))
+    if (currentMap == MapType::Gomarket_01 &&tileX == 1 && (tileY == 12 || tileY == 13))
     {
         changeMap(MapType::Village);
 
-        character.SetPosition(23 * Tile_Size, tileY * Tile_Size);
+        character.SetPosition(24 * Tile_Size, tileY * Tile_Size);
 
-        return;
     }
 
-    //마을->마을 가는 길_02
-    
+    //마을 가는 길_01->마을 가는 길_02
+    if (currentMap == MapType::Gomarket_01 && tileX == 24 && (tileY == 11 || tileY == 12))
+    {
+        changeMap(MapType::Gomarket_02);
+
+        character.SetPosition(1 * Tile_Size, tileY * Tile_Size);
+
+    }
+
+    //마을 가는 길_02->마을 가는 길_01
+    if (currentMap == MapType::Gomarket_02 && tileX == 0 && (tileY == 11 || tileY == 12))
+    {
+        changeMap(MapType::Gomarket_01);
+
+        character.SetPosition(23 * Tile_Size, tileY * Tile_Size);
+
+    }
 }
 
 MapType Map::GetCurrentMap() const
