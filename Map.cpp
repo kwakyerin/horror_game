@@ -7,7 +7,7 @@ Map::Map()
 
     currentMap = Village;
 
-    changeMap(Room);
+    changeMap(Gomarket_01);
 
 }
 
@@ -315,6 +315,46 @@ bool Map::LoadImages()
     );
     result &= Status_02Image.Load(
         L"Image\\Cave\\Status_02.png"
+    );
+
+    //조각상 받침대
+    result &= Stage_01Image.Load(
+        L"Image\\Cave\\Stage_01.png"
+    );
+    result &= Stage_02Image.Load(
+        L"Image\\Cave\\Stage_02.png"
+    );
+    result &= Stage_03Image.Load(
+        L"Image\\Cave\\Stage_03.png"
+    );
+    result &= Stage_04Image.Load(
+        L"Image\\Cave\\Stage_04.png"
+    );
+
+    //금
+    result &= Gold_01Image.Load(
+        L"Image\\Cave\\Gold_01.png"
+    );
+    result &= Gold_02Image.Load(
+        L"Image\\Cave\\Gold_02.png"
+    );
+    result &= Gold_03Image.Load(
+        L"Image\\Cave\\Gold_03.png"
+    );
+    result &= Gold_04Image.Load(
+        L"Image\\Cave\\Gold_04.png"
+    );
+    result &= Gold_05Image.Load(
+        L"Image\\Cave\\Gold_05.png"
+    );
+    result &= Gold_06Image.Load(
+        L"Image\\Cave\\Gold_06.png"
+    );
+    result &= Gold_07Image.Load(
+        L"Image\\Cave\\Gold_07.png"
+    );
+    result &= Gold_08Image.Load(
+        L"Image\\Cave\\Gold_08.png"
     );
 
     //방바닥
@@ -825,19 +865,41 @@ void Map::Draw(HDC hdc)
                 break;
 
             case Entrance_02:
-                // CavebottomImage.Draw(hdc, drawX, drawY);
+                //CavebottomImage.Draw(hdc, drawX, drawY);
                 Entrance_02Image.Draw(hdc, drawX, drawY);
                 break;
 
             case Status_01:
-                //CavebottomImage.Draw(hdc, drawX, drawY);
+                CavebottomImage.Draw(hdc, drawX, drawY);
                 Status_01Image.Draw(hdc, drawX, drawY);
                 break;
 
             case Status_02:
+                CavebottomImage.Draw(hdc, drawX, drawY);
                 Status_02Image.Draw(hdc, drawX, drawY);
                 break;
 
+            case Stage_01:
+                CavebottomImage.Draw(hdc, drawX, drawY);
+                Stage_01Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case Stage_02:
+                CavebottomImage.Draw(hdc, drawX, drawY);
+                Stage_02Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case Stage_03:
+                CavebottomImage.Draw(hdc, drawX, drawY);
+                Stage_03Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case Stage_04:
+                CavebottomImage.Draw(hdc, drawX, drawY);
+                Stage_04Image.Draw(hdc, drawX, drawY);
+                break;
+                
+            //주인공 방
             case Bottom:
                 BottomImage.Draw(hdc, drawX, drawY);
                 break;
@@ -987,7 +1049,49 @@ void Map::Draw(HDC hdc)
                 BottomImage.Draw(hdc, drawX, drawY);
                 Treasure_chest_02Image.Draw(hdc, drawX, drawY);
                 break;
+
+            case Gold_01:
+                BottomImage.Draw(hdc, drawX, drawY);
+                Gold_01Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case Gold_02:
+                BottomImage.Draw(hdc, drawX, drawY);
+                Gold_02Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case Gold_03:
+                BottomImage.Draw(hdc, drawX, drawY);
+                Gold_03Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case Gold_04:
+                BottomImage.Draw(hdc, drawX, drawY);
+                Gold_04Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case Gold_05:
+                BottomImage.Draw(hdc, drawX, drawY);
+                Gold_05Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case Gold_06:
+                BottomImage.Draw(hdc, drawX, drawY);
+                Gold_06Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case Gold_07:
+                BottomImage.Draw(hdc, drawX, drawY);
+                Gold_07Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case Gold_08:
+                BottomImage.Draw(hdc, drawX, drawY);
+                Gold_08Image.Draw(hdc, drawX, drawY);
+                break;
             }
+
+            
         }
     }
 }
@@ -995,6 +1099,14 @@ void Map::Draw(HDC hdc)
 void Map::changeMap(MapType newMap)
 {
     currentMap = newMap;
+
+    for (int y = 0; y < Map_Height; y++)
+    {
+        for (int x = 0; x < Map_Width; x++)
+        {
+            map[y][x] = TILE_GRASS;
+        }
+    }
 
     switch (currentMap)
     {
@@ -1548,10 +1660,41 @@ void Map::changeMap(MapType newMap)
 
         //조각상
 
-        map[15][8] = Status_01;
-        map[14][8] = Status_02;
+        map[9][12] = Status_01;
+        map[8][12] = Status_02;
+
+        //이미지 수정
+        /*map[8][8] = Stage_01;
+        map[8][9] = Stage_02;
+        map[9][8] = Stage_03;
+        map[9][9] = Stage_04;*/
+
+        //금
+        map[10][10] = Gold_03;
+        map[10][11] = Gold_03;
 
         break;
+
+    case Gomarket_01:
+
+        //돌바닥
+        for (int i = 0; i < 25; i++) {
+            map[12][i] = TILE_ROAD;
+            map[13][i] = TILE_ROAD;
+        }
+
+        break;
+
+    case Gomarket_02:
+
+        //돌바닥
+        for (int i = 0; i < 25; i++) {
+            map[11][i] = TILE_ROAD;
+            map[12][i] = TILE_ROAD;
+        }
+
+        break;
+
     }
 
 }
@@ -1637,13 +1780,16 @@ bool Map::IsBlocked(float x, float y)
     case Treasure_chest_01:
     case Treasure_chest_02:
 
+    case Status_01:
+    case Status_02:
+
         return true;
     }
 
     return false;
 }
 
-//맵 순간이동(수정중)
+//맵 순간이동
 void Map::Maptransform(Character& character) {
 
     int tileX = static_cast<int>(character.GetX()) / Tile_Size;
@@ -1688,8 +1834,13 @@ void Map::Maptransform(Character& character) {
 
     //동굴->동굴 안
 
-    //마을->주인공 집
 
+
+    //동굴 안->동굴
+    
+
+
+    //마을->주인공 집
     if (currentMap == MapType::Village && tileX == 20 && tileY == 8)
     {
         changeMap(MapType::Room);
@@ -1708,6 +1859,28 @@ void Map::Maptransform(Character& character) {
     //마을->숲
 
     //사찰->동굴
+
+    //마을->마을 가는 길_01
+    if (currentMap == MapType::Village && tileX == 24 && (tileY == 12 || tileY == 13))
+    {
+        changeMap(MapType::Gomarket_01);
+
+        character.SetPosition(1 * Tile_Size, tileY * Tile_Size);
+
+        return;
+    }
+
+    //마을 가는 길_01->마을
+    if (currentMap == MapType::Gomarket_01 &&tileX == 0 && (tileY == 12 || tileY == 13))
+    {
+        changeMap(MapType::Village);
+
+        character.SetPosition(23 * Tile_Size, tileY * Tile_Size);
+
+        return;
+    }
+
+    //마을->마을 가는 길_02
     
 }
 

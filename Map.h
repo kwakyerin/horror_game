@@ -127,7 +127,19 @@ enum TileType
     Barrel_03,
     Barrel_04,
     Treasure_chest_01,
-    Treasure_chest_02
+    Treasure_chest_02,
+    Stage_01,
+    Stage_02,
+    Stage_03,
+    Stage_04,
+    Gold_01,
+    Gold_02,
+    Gold_03,
+    Gold_04,
+    Gold_05,
+    Gold_06,
+    Gold_07,
+    Gold_08
 };
 
 enum MapType {
@@ -137,7 +149,10 @@ enum MapType {
     Temple,
     Room,
     Cave,
-    Cave_02
+    Cave_02,
+    Gomarket_01,
+    Gomarket_02,
+    Market
 
 };
 
@@ -295,14 +310,18 @@ private:
     GameImage Barrel_04Image;
     GameImage Treasure_chest_01Image;
     GameImage Treasure_chest_02Image;
+    
+    GameImage Stage_01Image;
+    GameImage Stage_02Image;
+    GameImage Stage_03Image;
+    GameImage Stage_04Image;
 
-    /*Box_01,
-    Box_02,
-    Barrel_01,
-    Barrel_02,
-    Barrel_03,
-    Barrel_04,
-    Treasure_chest_01,
-    Treasure_chest_02*/
-
+    GameImage Gold_01Image;
+    GameImage Gold_02Image;
+    GameImage Gold_03Image;
+    GameImage Gold_04Image;
+    GameImage Gold_05Image;
+    GameImage Gold_06Image;
+    GameImage Gold_07Image;
+    GameImage Gold_08Image;
 };

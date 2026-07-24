@@ -73,7 +73,7 @@ int WINAPI WinMain(
 
     RegisterClassEx(&WndClass);
 
-    hWnd = CreateWindow(lpszClass,lpszWindowName,WS_OVERLAPPEDWINDOW,0,0,775,600,nullptr,nullptr,hInstance,nullptr);
+    hWnd = CreateWindow(lpszClass,lpszWindowName,WS_OVERLAPPEDWINDOW,0,0,810,600,nullptr,nullptr,hInstance,nullptr);
 
     ShowWindow(hWnd, nCmdShow);
     UpdateWindow(hWnd);
@@ -88,7 +88,6 @@ int WINAPI WinMain(
 
     return static_cast<int>(Message.wParam);
 }
-
 
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
