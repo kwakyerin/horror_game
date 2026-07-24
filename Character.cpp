@@ -144,6 +144,11 @@ float Character::GetY() const
     return y;
 }
 
+Direction Character::GetDirection()const
+{
+    return direction;
+}
+
 void Character::SetPosition(float newX, float newY)
 {
     x = newX;

@@ -36,6 +36,7 @@ public:
 	float GetX() const;
 	float GetY() const;
 	void SetPosition(float newX, float newY);
+	Direction GetDirection() const;
 	int GetHP() const;
 	void Damage(int amount);
 };

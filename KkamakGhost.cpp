@@ -1,9 +1,11 @@
 #include "kkamakGhost.h"
+#include "Character.h"
+#include <cmath>
 
 KkamakGhost::KkamakGhost(float startX, float startY, const wchar_t* path)
 	:x(startX),
 	y(startY),
-	moveSpeed(250.0f),
+	moveSpeed(200.0f),
 	image(nullptr)
 {
 	LoadImage(path);
@@ -57,7 +59,46 @@ void KkamakGhost::Draw(Gdiplus::Graphics& graphics)
 
 void KkamakGhost::Update(float deltaTime, const Character& character)
 {
+    // 플레이어가 보고 있으면 멈춤
+    if (IsPlayerLooking(character))
+    {
+        return;
+    }
 
+    // 플레이어 방향으로 이동
+    float dx = character.GetX() - x;
+    float dy = character.GetY() - y;
+
+    if (std::abs(dx) > std::abs(dy))
+    {
+        if (dx > 0.0f)
+        {
+            x += moveSpeed * deltaTime;
+        }
+        else if (dx < 0.0f)
+        {
+            x -= moveSpeed * deltaTime;
+        }
+    }
+    // 세로 거리가 더 멀면 y축으로만 이동
+    else
+    {
+        if (dy > 0.0f)
+        {
+            y += moveSpeed * deltaTime;
+        }
+        else if (dy < 0.0f)
+        {
+            y -= moveSpeed * deltaTime;
+        }
+    }
+
+    // 플레이어와 닿았는지 검사
+    if (IsCollidingWithPlayer(character))
+    {
+        // 게임 오버 처리
+        return;
+    }
 }
 
 RECT KkamakGhost::GetCollisionRect() const
@@ -74,10 +115,32 @@ RECT KkamakGhost::GetCollisionRect() const
 
 bool KkamakGhost::IsPlayerLooking(const Character& character) const
 {
+    switch (character.GetDirection())
+    {
+    case Direction::Up:
+        return y < character.GetY();
+
+    case Direction::Down:
+        return y > character.GetY();
+
+    case Direction::Left:
+        return x < character.GetX();
+
+    case Direction::Right:
+        return x > character.GetX();
+    }
     return false;
 }
 
 bool KkamakGhost::IsCollidingWithPlayer(const Character& character) const
 {
+    RECT ghostRect = GetCollisionRect();
+    RECT playerRect = character.GetCollisionRect();
+    RECT result;
+
+    if (IntersectRect(&result, &ghostRect, &playerRect))
+    {
+        return true;
+    }
     return false;
 }
