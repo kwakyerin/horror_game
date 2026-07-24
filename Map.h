@@ -114,7 +114,20 @@ enum TileType
     Shelf_02,
     Shelf_03,
     Shelf_04,
-    Paper
+    Paper,
+    Pot,
+    Ricedummy,
+    Table,
+    Chair_01,
+    Chair_02,
+    Box_01,
+    Box_02,
+    Barrel_01,
+    Barrel_02,
+    Barrel_03,
+    Barrel_04,
+    Treasure_chest_01,
+    Treasure_chest_02
 };
 
 enum MapType {
@@ -269,5 +282,27 @@ private:
     GameImage Shelf_03Image;
     GameImage Shelf_04Image;
     GameImage PaperImage;
+    GameImage PotImage;
+    GameImage RicedummyImage;
+    GameImage TableImage;
+    GameImage Chair_01Image;
+    GameImage Chair_02Image;
+    GameImage Box_01Image;
+    GameImage Box_02Image;
+    GameImage Barrel_01Image;
+    GameImage Barrel_02Image;
+    GameImage Barrel_03Image;
+    GameImage Barrel_04Image;
+    GameImage Treasure_chest_01Image;
+    GameImage Treasure_chest_02Image;
+
+    /*Box_01,
+    Box_02,
+    Barrel_01,
+    Barrel_02,
+    Barrel_03,
+    Barrel_04,
+    Treasure_chest_01,
+    Treasure_chest_02*/
 
 };

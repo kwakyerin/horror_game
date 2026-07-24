@@ -2,9 +2,9 @@
 #include "Map.h"
 
 Character::Character(const wchar_t* path)
-    : x(150.0f), //캐릭터 스폰지역
-    y(150.0f),
-    moveSpeed(500.0f),
+    : x(10 * Tile_Size),
+    y(10 * Tile_Size),
+    moveSpeed(300.0f),
     currentFrame(0),
     animationTimer(0.0f),
     hp(15),

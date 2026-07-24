@@ -397,6 +397,52 @@ bool Map::LoadImages()
         L"Image\\Room\\Paper.png"
     );
 
+    //항아리
+    result &= PotImage.Load(
+        L"Image\\Room\\Pot.png"
+    );
+
+    result &= RicedummyImage.Load(
+        L"Image\\Village\\Rice_dummy.png"
+    );
+
+    result &= TableImage.Load(
+        L"Image\\Room\\Table.png"
+    );
+    result &= Chair_01Image.Load(
+        L"Image\\Room\\Chair_01.png"
+    );
+    result &= Chair_02Image.Load(
+        L"Image\\Room\\Chair_02.png"
+    );
+
+    result &= Box_01Image.Load(
+        L"Image\\Room\\Box_01.png"
+    );
+    result &= Box_02Image.Load(
+        L"Image\\Room\\Box_02.png"
+    );
+
+    result &= Barrel_01Image.Load(
+        L"Image\\Room\\Barrel_01.png"
+    );
+    result &= Barrel_02Image.Load(
+        L"Image\\Room\\Barrel_02.png"
+    );
+    result &= Barrel_03Image.Load(
+        L"Image\\Room\\Barrel_03.png"
+    );
+    result &= Barrel_04Image.Load(
+        L"Image\\Room\\Barrel_04.png"
+    );
+
+    result &= Treasure_chest_01Image.Load(
+        L"Image\\Room\\Treasure_chest_01.png"
+    );
+    result &= Treasure_chest_02Image.Load(
+        L"Image\\Room\\Treasure_chest_02.png"
+    );
+
     return result;
 }
 
@@ -876,6 +922,71 @@ void Map::Draw(HDC hdc)
                 BottomImage.Draw(hdc, drawX, drawY);
                 PaperImage.Draw(hdc, drawX, drawY);
                 break;
+
+            case Pot:
+                BottomImage.Draw(hdc, drawX, drawY);
+                PotImage.Draw(hdc, drawX, drawY);
+                break;
+
+            case Ricedummy:
+                BottomImage.Draw(hdc, drawX, drawY);
+                RicedummyImage.Draw(hdc, drawX, drawY);
+                break;
+
+            case Table:
+                BottomImage.Draw(hdc, drawX, drawY);
+                TableImage.Draw(hdc, drawX, drawY);
+                break;
+
+            case Chair_01:
+                BottomImage.Draw(hdc, drawX, drawY);
+                Chair_01Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case Chair_02:
+                BottomImage.Draw(hdc, drawX, drawY);
+                Chair_02Image.Draw(hdc, drawX, drawY);
+                break;
+            
+            case Box_01:
+                BottomImage.Draw(hdc, drawX, drawY);
+                Box_01Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case Box_02:
+                BottomImage.Draw(hdc, drawX, drawY);
+                Box_02Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case Barrel_01:
+                Roomwall_03Image.Draw(hdc, drawX, drawY);
+                Barrel_01Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case Barrel_02:
+                Roomwall_03Image.Draw(hdc, drawX, drawY);
+                Barrel_02Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case Barrel_03:
+                BottomImage.Draw(hdc, drawX, drawY);
+                Barrel_03Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case Barrel_04:
+                BottomImage.Draw(hdc, drawX, drawY);
+                Barrel_04Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case Treasure_chest_01:
+                BottomImage.Draw(hdc, drawX, drawY);
+                Treasure_chest_01Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case Treasure_chest_02:
+                BottomImage.Draw(hdc, drawX, drawY);
+                Treasure_chest_02Image.Draw(hdc, drawX, drawY);
+                break;
             }
         }
     }
@@ -927,7 +1038,7 @@ void Map::changeMap(MapType newMap)
         map[10][20] = 3;
         map[11][20] = 3;
 
-        //더미(잠시 생략)
+        //더미
         map[9][13] = 4;
         map[9][12] = 4;
 
@@ -1237,9 +1348,36 @@ void Map::changeMap(MapType newMap)
 
         //종이
         map[7][10] = Paper;
-        map[5][16] = Paper;
+        map[5][17] = Paper;
         map[12][13] = Paper;
+
+        //항아리
+        map[14][6] = Pot;
+        map[14][7] = Pot;
+
+        //소형 쌀더미
+        map[15][5] = Ricedummy;
+        map[15][6] = Ricedummy;
+
+        //의자&책상
+        map[8][13] = Table;
+        map[8][12] = Chair_01;
+        map[8][14] = Chair_02;
+
+        //상자
+        /*map[10][10] = Box_01;
+        map[11][10] = Box_02;*/
+
+        //와인통
+        map[4][13] = Barrel_01;
+        map[4][14] = Barrel_02;
+        map[5][13] = Barrel_03;
+        map[5][14] = Barrel_04;
         
+        //보물상자
+        map[8][5] = Treasure_chest_01;
+        map[9][5] = Treasure_chest_02;
+
         break;
 
     case Cave:
@@ -1470,10 +1608,34 @@ bool Map::IsBlocked(float x, float y)
     case Krystal_07:
     case Cavewall:
     case Cavewall_02:
-    //case Black:
+    case Black:
     case Bed_01:
     case Bed_02:
     case Paper:
+
+    case Roomwall_01:
+    case Roomwall_02:
+    case Roomwall_03:
+
+    case Table:
+    case Chair_01:
+    case Chair_02:
+
+    case Shelf_01:
+    case Shelf_02:
+    case Shelf_03:
+    case Shelf_04:
+
+    case Ricedummy:
+    case Pot:
+
+    case Barrel_01:
+    case Barrel_02:
+    case Barrel_03:
+    case Barrel_04:
+
+    case Treasure_chest_01:
+    case Treasure_chest_02:
 
         return true;
     }
@@ -1527,6 +1689,21 @@ void Map::Maptransform(Character& character) {
     //동굴->동굴 안
 
     //마을->주인공 집
+
+    if (currentMap == MapType::Village && tileX == 20 && tileY == 8)
+    {
+        changeMap(MapType::Room);
+
+        character.SetPosition(16 * Tile_Size, 16 * Tile_Size);
+    }
+
+    //주인공 집->마을
+    if (currentMap == MapType::Room && tileX == 16 && tileY == 17)
+    {
+        changeMap(MapType::Village);
+
+        character.SetPosition(20 * Tile_Size, 9 * Tile_Size);
+    }
 
     //마을->숲
 
