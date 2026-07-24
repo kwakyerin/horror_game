@@ -13,13 +13,16 @@ private:
 	Gdiplus::Image* image;
 
 public:
-	KkamakGhost();
+	KkamakGhost(float startX,float startY,const wchar_t* path);
 	~KkamakGhost();
 
 	bool LoadImage(const wchar_t* path);
 
-	void Update();
-	void Draw();
+	void Update(float deltaTime,const Character& character);
+	void Draw(Gdiplus::Graphics& graphics);
+
+	bool IsPlayerLooking(const Character& character) const;
+	bool IsCollidingWithPlayer(const Character& character)const;
 
 	RECT GetCollisionRect() const;
 };

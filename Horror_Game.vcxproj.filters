@@ -42,6 +42,9 @@
     <ClCompile Include="ShadowGhost.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="KkamakGhost.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Map.h">

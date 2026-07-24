@@ -6,6 +6,7 @@
 #include "MonsterSpawner.h"
 #include "Gumiho.h"
 #include "ShadowGhost.h"
+#include "kkamakGhost.h"
 
 #pragma comment(lib, "gdiplus.lib")
 
@@ -15,6 +16,8 @@ Character* player = nullptr;
 MonsterSpawner* oniSpawner = nullptr;
 MonsterSpawner* gumihoSpawner = nullptr;
 MonsterSpawner* shadowSpawner = nullptr;
+
+KkamakGhost* kkamakGhost = nullptr;//따라오게만 할거라서 스포너로 안함
 
 ULONG_PTR gdiplusToken;
 
@@ -128,11 +131,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
         gumihoSpawner = new MonsterSpawner(MonsterType::Gumiho,15*Tile_Size,8*Tile_Size,100.0f,250.0f,80.0f, 
             L"Image\\monster_gumiho\\Run.png",
-            L"Image\\monster_gumiho\\Attack.png");
+            L"Image\\monster_gumiho\\Attack.png");// 구미호 위치도 임시
 
         shadowSpawner = new MonsterSpawner(MonsterType::ShadowGhost,15*Tile_Size,8*Tile_Size,100.0f,0.0f,0.0f,
             L"Image\\monster_shadow\\warning.png",
             L"Image\\monster_shadow\\attack.png");//그림자 귀신도 임시
+
+        kkamakGhost = new KkamakGhost(15 * Tile_Size, 8 * Tile_Size, L"Image\\monster_kkamak\\kkamak.png");//까막 귀신도 임시
 
         QueryPerformanceFrequency(&frequency);
         QueryPerformanceCounter(&previousTime);
@@ -177,9 +182,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 //gumihoSpawner->Draw(graphics);//일단 임시로 동굴에서 구미호 생성
             //}
 
-            if (shadowSpawner != nullptr)
+            //if (shadowSpawner != nullptr)
+            //{
+                //shadowSpawner->Draw(graphics);
+            //}
+
+            if (kkamakGhost != nullptr)
             {
-                shadowSpawner->Draw(graphics);
+                kkamakGhost->Draw(graphics);
             }
         }
 
@@ -222,7 +232,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             {
                 //oniSpawner->Update(deltaTime, player);
                 //gumihoSpawner->Update(deltaTime, player);//여기도 일단 동굴에서 생성하도록 함 임시
-                shadowSpawner->Update(deltaTime, player);
+                //shadowSpawner->Update(deltaTime, player);
+                kkamakGhost->Update(deltaTime, *player);
             }
         }
 
@@ -245,6 +256,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
         delete shadowSpawner;
         shadowSpawner = nullptr;
+
+        delete kkamakGhost;
+        kkamakGhost = nullptr;
 
         PostQuitMessage(0);
         return 0;
