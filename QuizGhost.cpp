@@ -1,10 +1,12 @@
 #include "QuizGhost.h"
 #include <gdiplus.h>
+#include "Character.h"
 
 QuizGhost::QuizGhost(float startX, float startY, const wchar_t* path)
 :x(startX),
 y(startY),
-image(nullptr)
+image(nullptr),
+isTalking(false)
 {
 	image = new Gdiplus::Image(path);
     if (image->GetLastStatus() != Gdiplus::Ok)
@@ -12,6 +14,8 @@ image(nullptr)
         delete image;
         image = nullptr;
     }
+
+   
 }
 
 void QuizGhost::Update(float deltaTime,Character& character) {
@@ -21,6 +25,8 @@ void QuizGhost::Update(float deltaTime,Character& character) {
 QuizGhost::~QuizGhost() {
 	delete image;
     image = nullptr;
+
+    
 }
 
 void QuizGhost:: Draw(Gdiplus::Graphics& graphics) {
@@ -36,6 +42,8 @@ void QuizGhost:: Draw(Gdiplus::Graphics& graphics) {
         350,
         239
     );
+
+    
 
     Gdiplus::Pen pen(
         Gdiplus::Color(255, 255, 0, 0),
@@ -65,7 +73,24 @@ RECT QuizGhost::GetCollisionRect() const
 
     return rect;
 }
+bool QuizGhost::IsPlayerNear(const Character& character)const {
+    RECT playerRect = character.GetCollisionRect();
+    RECT ghostRect = GetCollisionRect();
 
+    RECT interactRect = ghostRect;
+
+    interactRect.left -= 60;
+    interactRect.top -= 60;
+    interactRect.right += 60;
+    interactRect.bottom += 60;
+
+    RECT result;
+
+    return IntersectRect(&result, &playerRect, &interactRect);
+}
 void QuizGhost::HandleInteraction(Character& character) {
+    if (!IsPlayerNear(character))
+        return;
 
+    isTalking = !isTalking;
 }
