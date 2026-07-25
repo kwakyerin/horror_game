@@ -8,6 +8,7 @@
 #include "ShadowGhost.h"
 #include "kkamakGhost.h"
 #include "TitleScreen.h"
+#include "QuizGhost.h"
 
 #pragma comment(lib, "gdiplus.lib")
 
@@ -20,7 +21,7 @@ enum class GameState
     End
 };
 
-GameState gameState = GameState::Title;//상태 바꾸려면 여기서 바꾸면 된다.
+GameState gameState = GameState::Playing;//상태 바꾸려면 여기서 바꾸면 된다.
 
 Map VillageMap;
 
@@ -30,6 +31,7 @@ MonsterSpawner* gumihoSpawner = nullptr;
 MonsterSpawner* shadowSpawner = nullptr;
 
 KkamakGhost* kkamakGhost = nullptr;//따라오게만 할거라서 스포너로 안함
+QuizGhost* quizGhost = nullptr;
 
 ULONG_PTR gdiplusToken;
 
@@ -154,6 +156,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
         kkamakGhost = new KkamakGhost(9 * Tile_Size, 3 * Tile_Size, L"Image\\monster_kkamak\\kkamak.png");//까막 귀신도 임시
 
+        quizGhost = new QuizGhost(14 * Tile_Size, 6* Tile_Size, L"Image\\monster_quiz\\quiz_ghost.png");
+
         QueryPerformanceFrequency(&frequency);
         QueryPerformanceCounter(&previousTime);
 
@@ -225,6 +229,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 }
             }
 
+            if (VillageMap.GetCurrentMap() == MapType::Gomarket_02)
+            {
+                if (quizGhost != nullptr)
+                {
+                    quizGhost->Draw(graphics);
+                }
+            }
 
             if (player)
             {
@@ -285,6 +296,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 if (VillageMap.GetCurrentMap() == MapType::Govillage)
                 {
                     kkamakGhost->Update(deltaTime, *player);
+                }
+
+                if (VillageMap.GetCurrentMap() == MapType::Gomarket_02)
+                {
+                    quizGhost->Update(deltaTime);
                 }
 
                 InvalidateRect(hWnd, nullptr, FALSE); 
