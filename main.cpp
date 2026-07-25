@@ -262,6 +262,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 player->Draw(graphics);
             }
 
+            dialogue.Draw(graphics, rt.right, rt.bottom);
+
             break;
         }
         case GameState::End: {

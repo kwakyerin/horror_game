@@ -13,7 +13,7 @@ Map::Map()
 
     currentMap = Village;
 
-    changeMap(Gomarket_02);
+    changeMap(Market);
 
 }
 
@@ -2312,7 +2312,7 @@ void Map::changeMap(MapType newMap)
         map[4][21] = Product_17;
         map[4][22] = Product_18;
 
-        map[5][5] = npc_01;
+        map[4][3] = npc_01;
         
 
         break;
@@ -2569,19 +2569,6 @@ int Map::GetTile(int tileX, int tileY) const
         return -1;
     }
 
-    /*switch (currentMap)
-    {
-    case MapType::Cave:
-        return Cavemap[tileY][tileX];
-
-    case MapType::Govillage:
-        return govillageMap[tileY][tileX];
-
-    case MapType::Gomarket_02:
-        return gomarket02Map[tileY][tileX];
-
-    default:
-        return -1;
-    }*/
+    return map[tileY][tileX];
 }
 
