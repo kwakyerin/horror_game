@@ -1,6 +1,8 @@
 #include <vector>
 #include <windows.h>
 #include <tchar.h>
+#include <cstdlib>
+#include <ctime>
 #include "Map.h"
 #include "Image.h"
 #include "Character.h"
@@ -140,6 +142,17 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
            // MessageBox(hWnd, L"맵 이미지 로드 실패", L"Error", MB_OK);
         }
 
+        //비 효과 그리기
+        srand((unsigned int)time(nullptr));
+
+        VillageMap.InitEffect(
+            Map_Width * Tile_Size,
+            Map_Height * Tile_Size
+        );
+
+        VillageMap.SetRainEnabled(true);   // 일단 테스트용으로 항상 비
+
+        //플레이어 설정
         player = new Character( L"Image\\character\\character_3_frame16x20.png");
 
         oniSpawner = new MonsterSpawner(MonsterType::Oni,
@@ -192,6 +205,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         FillRect(memDC, &rt, (HBRUSH)GetStockObject(WHITE_BRUSH));
 
         //VillageMap.Draw(memDC);
+
 
         Graphics graphics(memDC);
 
