@@ -28,7 +28,7 @@ ShadowGhost::ShadowGhost(const wchar_t* warningPath,const wchar_t* attackPath,fl
     waitTimer = 0.0f;
     
     // 다음 순간이동까지 기다리는 시간
-    waitDuration = 3.0f;
+    waitDuration = 0.4f;
 
     hasAttacked = false;
 
@@ -107,7 +107,7 @@ void ShadowGhost::UpdateWaiting(float deltaTime,Character& character)
 
 void ShadowGhost::TeleportNearCharacter(Character& character)
 {
-    const float distance = 100.0f;
+    const float distance = 60.0f;
 
     int dir = rand() % 4;
 
@@ -146,7 +146,7 @@ void ShadowGhost::UpdateWarning(float deltaTime,Character& character)
 {
     animationTimer += deltaTime;
 
-    const float frameDuration = 0.2f;
+    const float frameDuration = 0.08f;
     
     if (animationTimer >= frameDuration)
     {
@@ -209,7 +209,7 @@ void ShadowGhost::UpdateAttack(float deltaTime,Character& character)
             return;
         }
     }
-    if (currentFrame >= 6 && !hasAttacked)
+    if (currentFrame >= 5 && !hasAttacked)
     {
         RECT ghostRect = GetCollisionRect();
         RECT characterRect = character.GetCollisionRect();
@@ -228,6 +228,7 @@ void ShadowGhost::UpdateAttack(float deltaTime,Character& character)
 
 void ShadowGhost::Draw(Gdiplus::Graphics& graphics)
 {
+    
     if (state == ShadowState::Waiting)
         return;
 
@@ -288,13 +289,16 @@ void ShadowGhost::Draw(Gdiplus::Graphics& graphics)
     int sourceX = currentFrame * frameWidth;
     int sourceY = row * frameHeight;
 
+    const int drawWidth = static_cast<int>(frameWidth * 3.0f);
+    const int drawHeight = static_cast<int>(frameHeight * 3.0f);
+
     graphics.DrawImage(
         currentImage,
         Gdiplus::Rect(
-            static_cast<int>(x),
-            static_cast<int>(y),
-            frameWidth,
-            frameHeight
+            static_cast<int>(x - (drawWidth - frameWidth) / 2),
+            static_cast<int>(y - (drawHeight - frameHeight) / 2),
+            drawWidth,
+            drawHeight
         ),
         sourceX,
         sourceY,
@@ -323,11 +327,14 @@ RECT ShadowGhost::GetCollisionRect() const
 {
     RECT rect;
 
-    rect.left = static_cast<LONG>(x+20);
-    rect.top = static_cast<LONG>(y);
+    float drawX = x - 85.0f;
+    float drawY = y - 86.0f;
 
-    rect.right = static_cast<LONG>(x + 100.0f);
-    rect.bottom = static_cast<LONG>(y + 82.0f);
+    rect.left = static_cast<LONG>(drawX + 65);
+    rect.top = static_cast<LONG>(drawY + 45);
+
+    rect.right = static_cast<LONG>(drawX + 260);
+    rect.bottom = static_cast<LONG>(drawY + 220);
 
     return rect;
 }

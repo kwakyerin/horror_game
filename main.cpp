@@ -28,7 +28,7 @@ enum class GameState
     End
 };
 
-GameState gameState = GameState::Title;//상태 바꾸려면 여기서 바꾸면 된다.
+GameState gameState = GameState::Playing;//상태 바꾸려면 여기서 바꾸면 된다.
 
 Map VillageMap;
 
@@ -235,15 +235,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     //gumihoSpawner->Draw(graphics);//일단 임시로 동굴에서 구미호 생성
                 //}
 
-                //if (shadowSpawner != nullptr)
-                //{
-                    //shadowSpawner->Draw(graphics);
-                //}
-
-                //if (kkamakGhost != nullptr)
-                //{
-                    //kkamakGhost->Draw(graphics);
-                //}
             }
 
             if (VillageMap.GetCurrentMap() == MapType::Govillage)
@@ -259,6 +250,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 if (quizGhost != nullptr)
                 {
                     quizGhost->Draw(graphics);
+                }
+            }
+
+            if (VillageMap.GetCurrentMap() == MapType::Field)
+            {
+                if (shadowSpawner != nullptr)
+                {
+                    shadowSpawner->Draw(graphics);
                 }
             }
 
@@ -318,13 +317,17 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 {
                     oniSpawner->Update(deltaTime, player);
                     //gumihoSpawner->Update(deltaTime, player);//여기도 일단 동굴에서 생성하도록 함 임시
-                    //shadowSpawner->Update(deltaTime, player);
 
                 }
 
                 if (VillageMap.GetCurrentMap() == MapType::Govillage)
                 {
                     kkamakGhost->Update(deltaTime, *player);
+                }
+
+                if (VillageMap.GetCurrentMap() == MapType::Field)
+                {
+                    shadowSpawner->Update(deltaTime, player);
                 }
 
                 if (VillageMap.GetCurrentMap() == MapType::Gomarket_02)
