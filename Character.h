@@ -1,4 +1,5 @@
 #pragma once
+#include <vector>
 #include <windows.h>
 #include <gdiplus.h>
 
@@ -28,7 +29,7 @@ public:
 
 	Character(const wchar_t* path);
 	~Character();
-    void Move(float deltaTime, Map& gameMap);
+    void Move(float deltaTime, Map& gameMap,const std::vector<RECT>& monsterRects);
 	void Draw(Gdiplus::Graphics& graphics);
 
 	//충돌박스

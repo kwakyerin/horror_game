@@ -1,6 +1,7 @@
 #include "Character.h"
 #include "Map.h"
 
+
 Character::Character(const wchar_t* path)
     : x(10 * Tile_Size),
     y(10 * Tile_Size),
@@ -34,7 +35,7 @@ bool Character::LoadImage(const wchar_t* path)
 }
 
 //캐릭터 움직임
-void Character::Move(float deltaTime, Map& gameMap)
+void Character::Move(float deltaTime, Map& gameMap,const std::vector<RECT>& monsterRects)
 {
     bool isMoving = false;
 
@@ -72,6 +73,28 @@ void Character::Move(float deltaTime, Map& gameMap)
         gameMap.IsBlocked(nextX + 27, nextY + 4) ||
         gameMap.IsBlocked(nextX + 4, nextY + 27) ||
         gameMap.IsBlocked(nextX + 27, nextY + 27);
+
+    RECT nextPlayerRect =
+    {
+        static_cast<LONG>(nextX + 4),
+        static_cast<LONG>(nextY + 4),
+        static_cast<LONG>(nextX + 28),
+        static_cast<LONG>(nextY + 32)
+    };
+
+    if (!blocked)
+    {
+        for (const RECT& monsterRect : monsterRects)
+        {
+            RECT collisionResult;
+
+            if (IntersectRect(&collisionResult,&nextPlayerRect,&monsterRect))
+            {
+                blocked = true;
+                break;
+            }
+        }
+    }
 
     if (!blocked)
     {

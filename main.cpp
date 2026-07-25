@@ -1,3 +1,4 @@
+#include <vector>
 #include <windows.h>
 #include <tchar.h>
 #include "Map.h"
@@ -8,6 +9,7 @@
 #include "ShadowGhost.h"
 #include "kkamakGhost.h"
 #include "TitleScreen.h"
+#include "QuizGhost.h"
 
 #pragma comment(lib, "gdiplus.lib")
 
@@ -20,7 +22,7 @@ enum class GameState
     End
 };
 
-GameState gameState = GameState::Title;//상태 바꾸려면 여기서 바꾸면 된다.
+GameState gameState = GameState::Playing;//상태 바꾸려면 여기서 바꾸면 된다.
 
 Map VillageMap;
 
@@ -30,6 +32,7 @@ MonsterSpawner* gumihoSpawner = nullptr;
 MonsterSpawner* shadowSpawner = nullptr;
 
 KkamakGhost* kkamakGhost = nullptr;//따라오게만 할거라서 스포너로 안함
+QuizGhost* quizGhost = nullptr;
 
 ULONG_PTR gdiplusToken;
 
@@ -154,6 +157,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
         kkamakGhost = new KkamakGhost(9 * Tile_Size, 3 * Tile_Size, L"Image\\monster_kkamak\\kkamak.png");//까막 귀신도 임시
 
+        quizGhost = new QuizGhost(14 * Tile_Size, 6* Tile_Size, L"Image\\monster_quiz\\quiz_ghost.png");
+
         QueryPerformanceFrequency(&frequency);
         QueryPerformanceCounter(&previousTime);
 
@@ -225,6 +230,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 }
             }
 
+            if (VillageMap.GetCurrentMap() == MapType::Gomarket_02)
+            {
+                if (quizGhost != nullptr)
+                {
+                    quizGhost->Draw(graphics);
+                }
+            }
 
             if (player)
             {
@@ -271,15 +283,16 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             
             else if (gameState == GameState::Playing && player)
             {
-                player->Move(deltaTime, VillageMap);
-                VillageMap.Maptransform(*player);
+                std::vector <::RECT> obstacleRects;
+                //player->Move(deltaTime, VillageMap,obstacleRects);
+                //VillageMap.Maptransform(*player);
 
                 if (VillageMap.GetCurrentMap() == MapType::Cave)
                 {
                     oniSpawner->Update(deltaTime, player);
                     //gumihoSpawner->Update(deltaTime, player);//여기도 일단 동굴에서 생성하도록 함 임시
                     //shadowSpawner->Update(deltaTime, player);
-                    //kkamakGhost->Update(deltaTime, *player);
+                    
                 }
 
                 if (VillageMap.GetCurrentMap() == MapType::Govillage)
@@ -287,6 +300,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     kkamakGhost->Update(deltaTime, *player);
                 }
 
+                if (VillageMap.GetCurrentMap() == MapType::Gomarket_02)
+                {
+                    quizGhost->Update(deltaTime,*player);
+                    obstacleRects.push_back(quizGhost->GetCollisionRect());
+
+                }
+                player->Move(deltaTime, VillageMap, obstacleRects);
+                VillageMap.Maptransform(*player);
                 InvalidateRect(hWnd, nullptr, FALSE); 
             }
         }
@@ -314,6 +335,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         delete kkamakGhost;
         kkamakGhost = nullptr;
 
+        delete quizGhost;
+        quizGhost = nullptr;
+
         delete titleScreen;
         titleScreen = nullptr;
 
@@ -328,6 +352,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
         case VK_ESCAPE:
             PostQuitMessage(0);
+            return 0;
+
+        case 'K':
+            if (gameState == GameState::Playing)
+            {
+                quizGhost->HandleInteraction(*player);
+            }
             return 0;
         }
         return 0;

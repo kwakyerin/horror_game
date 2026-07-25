@@ -121,3 +121,25 @@ void MonsterSpawner::Draw(Gdiplus::Graphics& graphics)
         shadowGhost->Draw(graphics);
     }
 }
+
+bool MonsterSpawner::HasSpawnedMonster() const
+{
+    return monster != nullptr || shadowGhost != nullptr;
+}
+
+RECT MonsterSpawner::GetCollisionRect() const
+{
+    // 오니 또는 구미호
+    if (monster != nullptr)
+    {
+        return monster->GetCollisionRect();
+    }
+
+    // 그림자 요괴
+    if (shadowGhost != nullptr)
+    {
+        return shadowGhost->GetCollisionRect();
+    }
+
+    return RECT{ 0, 0, 0, 0 };
+}
