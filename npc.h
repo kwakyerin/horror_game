@@ -2,6 +2,8 @@
 
 #include <string>
 #include <vector>
+#include "Dialogue.h"
+#include "Map.h"
 
 class NPC
 {
@@ -32,6 +34,8 @@ public:
     int GetNumber() const;
     int GetX() const;
     int GetY() const;
+
+    void Talk(int tile, Dialogue& dialogue);
 
 private:
     int number;

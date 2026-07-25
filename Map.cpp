@@ -13,7 +13,7 @@ Map::Map()
 
     currentMap = Village;
 
-    changeMap(Village);
+    changeMap(Market);
 
 }
 
@@ -2313,8 +2313,12 @@ void Map::changeMap(MapType newMap)
         map[4][22] = Product_18;
 
         map[4][3] = npc_01;
+        map[3][11] = npc_02;
+        map[3][18] = npc_03;
+        map[8][3] = npc_04;
+        map[8][11] = npc_05;
+        map[9][20] = npc_06;
         
-
         break;
     }
 
