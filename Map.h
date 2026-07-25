@@ -90,7 +90,102 @@ enum TileType
     Krystal_06,
     Krystal_07,
     Entrance_01,
-    Entrance_02
+    Entrance_02,
+    Status_01,
+    Status_02,
+    Rock_09,
+    Rock_10,
+    Bottom,
+    Bed_01,
+    Bed_02,
+    Closet_01,
+    Closet_02,
+    Bookshelf_01,
+    Bookshelf_02,
+    Dishshelf_01,
+    Dishshelf_02,
+    Roomwall_01,
+    Roomwall_02,
+    Roomwall_03,
+    Clock,
+    Ricedummy_01,
+    Ricedummy_02,
+    Shelf_01,
+    Shelf_02,
+    Shelf_03,
+    Shelf_04,
+    Paper,
+    Pot,
+    Ricedummy,
+    Table,
+    Chair_01,
+    Chair_02,
+    Box_01,
+    Box_02,
+    Barrel_01,
+    Barrel_02,
+    Barrel_03,
+    Barrel_04,
+    Treasure_chest_01,
+    Treasure_chest_02,
+    Stage_01,
+    Stage_02,
+    Stage_03,
+    Stage_04,
+    Gold_01,
+    Gold_02,
+    Gold_03,
+    Gold_04,
+    Gold_05,
+    Gold_06,
+    Gold_07,
+    Gold_08,
+
+    Pond_01,
+    Pond_02,
+    Pond_03,
+    Pond_04,
+    Pond_05,
+    Pond_06,
+    Pond_07,
+    Pond_08,
+    Pond_09,
+    Bittree,
+    Carrottree,
+    Hole,
+    Product_01,
+    Product_02,
+    Product_03,
+    Product_04,
+    Product_05,
+    Product_06,
+    Product_07,
+    Product_08,
+    Product_09,
+    Product_10,
+    Product_11,
+    Product_12,
+    Product_13,
+    Product_14,
+    Product_15,
+    Product_16,
+    Product_17,
+    Product_18,
+    Product_19,
+    Product_20,
+    Product_21,
+    Product_22,
+    Markettable_01,
+    Markettable_02,
+    Markettable_03,
+    Markettable_04,
+    Markettable_05,
+    Markettable_06,
+
+    Anchor_01,
+    Anchor_02,
+    Anchor_03,
+    Anchor_04
 
 };
 
@@ -101,7 +196,10 @@ enum MapType {
     Temple,
     Room,
     Cave,
-    Cave_02
+    Cave_02,
+    Gomarket_01,
+    Gomarket_02,
+    Market
 
 };
 
@@ -218,4 +316,109 @@ private:
     GameImage Krystal_07Image;
     GameImage Entrance_01Image;
     GameImage Entrance_02Image;
+    GameImage Rock_09Image;
+    GameImage Rock_10Image;
+
+    //동굴 아래쪽
+    GameImage Status_01Image;
+    GameImage Status_02Image;
+
+    //방
+    GameImage BottomImage;
+    GameImage Bed_01Image;
+    GameImage Bed_02Image;
+    GameImage Closet_01Image;
+    GameImage Closet_02Image;
+    GameImage Bookshelf_01Image;
+    GameImage Bookshelf_02Image;
+    GameImage Dishshelf_01Image;
+    GameImage Dishshelf_02Image;
+    GameImage Roomwall_01Image;
+    GameImage Roomwall_02Image;
+    GameImage Roomwall_03Image;
+    GameImage ClockImage;
+    GameImage Ricedummy_01Image;
+    GameImage Ricedummy_02Image;
+    GameImage Shelf_01Image;
+    GameImage Shelf_02Image;
+    GameImage Shelf_03Image;
+    GameImage Shelf_04Image;
+    GameImage PaperImage;
+    GameImage PotImage;
+    GameImage RicedummyImage;
+    GameImage TableImage;
+    GameImage Chair_01Image;
+    GameImage Chair_02Image;
+    GameImage Box_01Image;
+    GameImage Box_02Image;
+    GameImage Barrel_01Image;
+    GameImage Barrel_02Image;
+    GameImage Barrel_03Image;
+    GameImage Barrel_04Image;
+    GameImage Treasure_chest_01Image;
+    GameImage Treasure_chest_02Image;
+    
+    GameImage Stage_01Image;
+    GameImage Stage_02Image;
+    GameImage Stage_03Image;
+    GameImage Stage_04Image;
+
+    GameImage Gold_01Image;
+    GameImage Gold_02Image;
+    GameImage Gold_03Image;
+    GameImage Gold_04Image;
+    GameImage Gold_05Image;
+    GameImage Gold_06Image;
+    GameImage Gold_07Image;
+    GameImage Gold_08Image;
+
+    GameImage Pond_01Image;
+    GameImage Pond_02Image;
+    GameImage Pond_03Image;
+    GameImage Pond_04Image;
+    GameImage Pond_05Image;
+    GameImage Pond_06Image;
+    GameImage Pond_07Image;
+    GameImage Pond_08Image;
+    GameImage Pond_09Image;
+
+    GameImage Product_01Image;
+    GameImage Product_02Image;
+    GameImage Product_03Image;
+    GameImage Product_04Image;
+    GameImage Product_05Image;
+    GameImage Product_06Image;
+    GameImage Product_07Image;
+    GameImage Product_08Image;
+    GameImage Product_09Image;
+    GameImage Product_10Image;
+    GameImage Product_11Image;
+    GameImage Product_12Image;
+    GameImage Product_13Image;
+    GameImage Product_14Image;
+    GameImage Product_15Image;
+    GameImage Product_16Image;
+    GameImage Product_17Image;
+    GameImage Product_18Image;
+    GameImage Product_19Image;
+    GameImage Product_20Image;
+    GameImage Product_21Image;
+    GameImage Product_22Image;
+
+    GameImage Markettable_01Image;
+    GameImage Markettable_02Image;
+    GameImage Markettable_03Image;
+    GameImage Markettable_04Image;
+    GameImage Markettable_05Image;
+    GameImage Markettable_06Image;
+
+    GameImage BittreeImage;
+    GameImage CarrottreeImage;
+    GameImage HoleImage;
+
+    GameImage Anchor_01Image;
+    GameImage Anchor_02Image;
+    GameImage Anchor_03Image;
+    GameImage Anchor_04Image;
+
 };

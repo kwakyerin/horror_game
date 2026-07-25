@@ -84,7 +84,7 @@ int WINAPI WinMain(
 
     RegisterClassEx(&WndClass);
 
-    hWnd = CreateWindow(lpszClass,lpszWindowName,WS_OVERLAPPEDWINDOW,0,0,775,600,nullptr,nullptr,hInstance,nullptr);
+    hWnd = CreateWindow(lpszClass,lpszWindowName,WS_OVERLAPPEDWINDOW,0,0,810,600,nullptr,nullptr,hInstance,nullptr);
 
     ShowWindow(hWnd, nCmdShow);
     UpdateWindow(hWnd);
@@ -99,7 +99,6 @@ int WINAPI WinMain(
 
     return static_cast<int>(Message.wParam);
 }
-
 
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
@@ -121,7 +120,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
         oniSpawner = new MonsterSpawner(MonsterType::Oni,
             15 * Tile_Size,   // 타일 X = 15 (큰 크리스탈 쪽으로 가까이 가면 뜸)
-            8 * Tile_Size,    // 타일 Y = 6
+            6 * Tile_Size,    // 타일 Y = 6
             100.0f,    // 플레이어가 400 안으로 오면 생성
             250.0f,    // 몬스터 탐지 범위
             80.0f,     // 몬스터 공격 범위
