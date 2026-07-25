@@ -8,6 +8,7 @@ private:
     Gdiplus::Image* backgroundImage;
     Gdiplus::Image* startButtonImage;
     Gdiplus::Image* exitButtonImage;
+    Gdiplus::Image* wispImage;
 
     RECT startButtonRect;
     RECT exitButtonRect;
@@ -15,6 +16,12 @@ private:
     bool startHover;
     bool exitHover;
 
+    int wispCurrentFrame;
+    int wispFrameCount;
+
+    float wispAnimationTimer;
+    float wispFrameDelay;
+    float wispFloatTime;
 public:
 public:
     TitleScreen();
@@ -22,6 +29,7 @@ public:
 
     bool LoadImages();
 
+    void Update(float deltaTime);
     void Draw(Gdiplus::Graphics& graphics);
 
     bool UpdateHover(int mouseX, int mouseY);

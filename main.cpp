@@ -252,35 +252,42 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
     case WM_TIMER:
     {
-        if (wParam == 1 && player&&gameState==GameState::Playing)
+        if (wParam == 1) 
         {
-            //const float deltaTime = 0.016f;
             QueryPerformanceCounter(&currentTime);
-
             float deltaTime =
-                static_cast<float>(
-                    currentTime.QuadPart - previousTime.QuadPart
-                    )
+                static_cast<float>(currentTime.QuadPart - previousTime.QuadPart)
                 / static_cast<float>(frequency.QuadPart);
-
             previousTime = currentTime;
-            //맵 이동 설정은 여기서(플레이어까지)
-            player->Move(deltaTime, VillageMap);
-            VillageMap.Maptransform(*player);
 
-            InvalidateRect(hWnd, nullptr, FALSE);
-
-            if (VillageMap.GetCurrentMap() == MapType::Cave)
+            if (gameState == GameState::Title)
             {
-                oniSpawner->Update(deltaTime, player);
-                //gumihoSpawner->Update(deltaTime, player);//여기도 일단 동굴에서 생성하도록 함 임시
-                //shadowSpawner->Update(deltaTime, player);
-                //kkamakGhost->Update(deltaTime, *player);
+                if (titleScreen != nullptr)
+                {
+                    titleScreen->Update(deltaTime); 
+                }
+                InvalidateRect(hWnd, nullptr, FALSE); 
             }
+            
+            else if (gameState == GameState::Playing && player)
+            {
+                player->Move(deltaTime, VillageMap);
+                VillageMap.Maptransform(*player);
 
-            if (VillageMap.GetCurrentMap() == MapType::Govillage)
-            {               
-                kkamakGhost->Update(deltaTime, *player);
+                if (VillageMap.GetCurrentMap() == MapType::Cave)
+                {
+                    oniSpawner->Update(deltaTime, player);
+                    //gumihoSpawner->Update(deltaTime, player);//여기도 일단 동굴에서 생성하도록 함 임시
+                    //shadowSpawner->Update(deltaTime, player);
+                    //kkamakGhost->Update(deltaTime, *player);
+                }
+
+                if (VillageMap.GetCurrentMap() == MapType::Govillage)
+                {
+                    kkamakGhost->Update(deltaTime, *player);
+                }
+
+                InvalidateRect(hWnd, nullptr, FALSE); 
             }
         }
 

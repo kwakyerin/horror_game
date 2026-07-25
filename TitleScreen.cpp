@@ -1,4 +1,5 @@
 #include "TitleScreen.h"
+#include <cmath>
 
 using namespace Gdiplus;
 
@@ -6,9 +7,16 @@ TitleScreen::TitleScreen() {
     backgroundImage = nullptr;
     startButtonImage = nullptr;
     exitButtonImage = nullptr;
+    wispImage = nullptr;
 
     startHover = false;
     exitHover = false;
+
+    wispCurrentFrame = 0;
+    wispFrameCount = 4;
+    wispAnimationTimer = 0.0f;
+    wispFrameDelay = 0.12f;
+    wispFloatTime = 0.0f;
 
     startButtonRect =
     {
@@ -46,12 +54,34 @@ bool TitleScreen::LoadImages()
     exitButtonImage =
        new Image(L"Image\\Startscreen\\title_exit_button.png");
 
+    wispImage =
+        new Image(L"Image\\Startscreen\\wisp.png");
+
     return true;
+}
+
+void TitleScreen::Update(float deltaTime)
+{
+    wispAnimationTimer += deltaTime;
+    wispFloatTime += deltaTime;
+
+    if (wispAnimationTimer >= wispFrameDelay)
+    {
+        wispAnimationTimer -= wispFrameDelay;
+
+        wispCurrentFrame++;
+
+        if (wispCurrentFrame >= wispFrameCount)
+        {
+            wispCurrentFrame = 0;
+        }
+    }
 }
 
 void TitleScreen::Draw(Graphics& graphics)
 {
     graphics.DrawImage(backgroundImage, 0, 0, 810, 600);
+
 
     float scale = 1.5f;
     int sx = startButtonRect.left;
@@ -113,6 +143,33 @@ void TitleScreen::Draw(Graphics& graphics)
             drawY_e,
             drawW_e,
             drawH_e
+        );
+    }
+
+    if (wispImage != nullptr)
+    {
+        int frameWidth = 260 / wispFrameCount;
+        int frameHeight = 100;
+
+        int srcX = wispCurrentFrame * frameWidth;
+        int srcY = 0;
+
+        // 도깨비불이 화면에 그려질 기본 위치 
+        int destX = 150;
+        int destY = 350;
+
+        // wispFloatTime을 활용해 위아래로 부드럽게 둥둥 떠다니는 오프셋 값 계산
+        // 3.0f는 떠다니는 속도, 10.0f는 떠다니는 범위(픽셀)를 의미
+        int floatOffsetY = static_cast<int>(sin(wispFloatTime * 3.0f) * 10.0f);
+
+        graphics.DrawImage(
+            wispImage,
+            Rect(destX, destY + floatOffsetY, frameWidth, frameHeight), // 화면에 그려질 영역
+            srcX,                                                       // 원본 이미지의 X
+            srcY,                                                       // 원본 이미지의 Y
+            frameWidth,                                                 // 가져올 너비
+            frameHeight,                                                // 가져올 높이
+            UnitPixel                                                   // 단위
         );
     }
 }
