@@ -1,12 +1,15 @@
 #include <cstdlib>
 #include <ctime>
-
 #include "Map.h"
 #include "Image.h"
 #include "Character.h"
+#include "Sound.h"
+
+Sound sound;
 
 Map::Map()
 {
+    isRainEnabled = false;
 
     currentMap = Village;
 
@@ -1428,6 +1431,9 @@ void Map::changeMap(MapType newMap)
     {
     case Village:
 
+        SetRainEnabled(true);
+        sound.PlayRain();
+
         //바닥
         for (int y = 0; y < Map_Height; y++)
         {
@@ -2177,8 +2183,23 @@ void Map::changeMap(MapType newMap)
             map[13][i] = TILE_ROAD;
         }
 
-        map[7][7] = TILE_ROAD;
-        map[8][8] = TILE_ROAD;
+        for (int i = 7; i < 9; i++) {
+            for (int j = 7; j < 12; j++) {
+                map[j][i] = TILE_ROAD;
+            }
+        }
+
+        for (int i = 15; i < 17; i++) {
+            for (int j = 7; j < 12; j++) {
+                map[j][i] = TILE_ROAD;
+            }
+        }
+
+        for (int i = 1; i < 24; i++) {
+            map[5][i] = TILE_ROAD;
+            map[6][i] = TILE_ROAD;
+        }
+
 
         map[1][5] = Product_01;
         map[2][5] = Product_02;
@@ -2228,13 +2249,15 @@ void Map::changeMap(MapType newMap)
         map[4][13] = Markettable_05;
         map[4][14] = Markettable_06;
 
-
+        //생선
         map[9][10] = Product_11;
         map[9][11] = Product_11;
         map[9][12] = Product_11;
         map[10][10] = Product_11;
         map[10][11] = Product_11;
         map[10][12] = Product_11;
+        map[9][13] = Product_11;
+        map[10][13] = Product_11;
 
         map[4][17] = Product_12;
         map[4][18] = Product_13;
@@ -2452,3 +2475,36 @@ MapType Map::GetCurrentMap() const
 {
     return currentMap;
 }
+
+//비 효과 여기서부터
+void Map::InitEffect(int screenWidth, int screenHeight)
+{
+    effect.InitRain(200, screenWidth, screenHeight);
+}
+
+void Map::UpdateEffect(int screenWidth, int screenHeight)
+{
+    if (!isRainEnabled)
+    {
+        return;
+    }
+
+    effect.UpdateRain(screenWidth, screenHeight);
+}
+
+void Map::DrawEffect(Gdiplus::Graphics& graphics)
+{
+    if (!isRainEnabled)
+    {
+        return;
+    }
+
+    effect.DrawRain(graphics);
+}
+
+void Map::SetRainEnabled(bool enabled)
+{
+    isRainEnabled = enabled;
+}
+
+

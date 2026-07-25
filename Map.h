@@ -2,6 +2,7 @@
 
 #include <Windows.h>
 #include "Image.h"
+#include "Effect.h"
 
 class Character;
 
@@ -220,11 +221,19 @@ public:
 
     MapType GetCurrentMap() const;
 
+    void InitEffect(int screenWidth, int screenHeight);
+    void UpdateEffect(int screenWidth, int screenHeight);
+    void DrawEffect(Gdiplus::Graphics& graphics);
+    void SetRainEnabled(bool enabled);
+
 private:
 
     int map[Map_Height][Map_Width];
 
     MapType currentMap;
+
+    Effect effect;
+    bool isRainEnabled;
 
     //¸¶À»
     GameImage grassImage;
