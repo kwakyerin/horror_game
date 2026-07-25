@@ -633,6 +633,26 @@ bool Map::LoadImages()
         L"Image\\Cave\\Anchor_04.png"
     );
 
+    //npc
+    result &= npc_01Image.Load(
+        L"Image\\Npc\\npc_01.png"
+    );
+    result &= npc_02Image.Load(
+        L"Image\\Npc\\npc_02.png"
+    );
+    result &= npc_03Image.Load(
+        L"Image\\Npc\\npc_03.png"
+    );
+    result &= npc_04Image.Load(
+        L"Image\\Npc\\npc_04.png"
+    );
+    result &= npc_05Image.Load(
+        L"Image\\Npc\\npc_05.png"
+    );
+    result &= npc_06Image.Load(
+        L"Image\\Npc\\npc_06.png"
+    );
+
     return result;
 }
 
@@ -1409,6 +1429,31 @@ void Map::Draw(HDC hdc)
                 Markettable_06Image.Draw(hdc, drawX, drawY);
                 break;
 
+                //npc
+            case npc_01:
+                grassImage.Draw(hdc, drawX, drawY);
+                npc_01Image.Draw(hdc, drawX, drawY);
+                break;
+            case npc_02:
+                grassImage.Draw(hdc, drawX, drawY);
+                npc_02Image.Draw(hdc, drawX, drawY);
+                break;
+            case npc_03:
+                grassImage.Draw(hdc, drawX, drawY);
+                npc_03Image.Draw(hdc, drawX, drawY);
+                break;
+            case npc_04:
+                grassImage.Draw(hdc, drawX, drawY);
+                npc_04Image.Draw(hdc, drawX, drawY);
+                break;
+            case npc_05:
+                grassImage.Draw(hdc, drawX, drawY);
+                npc_05Image.Draw(hdc, drawX, drawY);
+                break;
+            case npc_06:
+                grassImage.Draw(hdc, drawX, drawY);
+                npc_06Image.Draw(hdc, drawX, drawY);
+                break;
             }
             
         }
@@ -2266,6 +2311,8 @@ void Map::changeMap(MapType newMap)
         map[4][20] = Product_16;
         map[4][21] = Product_17;
         map[4][22] = Product_18;
+
+        map[5][5] = npc_01;
         
 
         break;
@@ -2356,6 +2403,13 @@ bool Map::IsBlocked(float x, float y)
 
     case Status_01:
     case Status_02:
+
+    case npc_01:
+    case npc_02:
+    case npc_03:
+    case npc_04:
+    case npc_05:
+    case npc_06:
 
         return true;
     }
@@ -2507,4 +2561,27 @@ void Map::SetRainEnabled(bool enabled)
     isRainEnabled = enabled;
 }
 
+int Map::GetTile(int tileX, int tileY) const
+{
+    if (tileX < 0 || tileX >= Map_Width ||
+        tileY < 0 || tileY >= Map_Height)
+    {
+        return -1;
+    }
+
+    /*switch (currentMap)
+    {
+    case MapType::Cave:
+        return Cavemap[tileY][tileX];
+
+    case MapType::Govillage:
+        return govillageMap[tileY][tileX];
+
+    case MapType::Gomarket_02:
+        return gomarket02Map[tileY][tileX];
+
+    default:
+        return -1;
+    }*/
+}
 

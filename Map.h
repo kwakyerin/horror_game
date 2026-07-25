@@ -186,7 +186,14 @@ enum TileType
     Anchor_01,
     Anchor_02,
     Anchor_03,
-    Anchor_04
+    Anchor_04,
+
+    npc_01,
+    npc_02,
+    npc_03,
+    npc_04,
+    npc_05,
+    npc_06
 
 };
 
@@ -225,6 +232,8 @@ public:
     void UpdateEffect(int screenWidth, int screenHeight);
     void DrawEffect(Gdiplus::Graphics& graphics);
     void SetRainEnabled(bool enabled);
+
+    int GetTile(int tileX, int tileY) const;
 
 private:
 
@@ -432,5 +441,12 @@ private:
     GameImage Anchor_02Image;
     GameImage Anchor_03Image;
     GameImage Anchor_04Image;
+    
+    GameImage npc_01Image;
+    GameImage npc_02Image;
+    GameImage npc_03Image;
+    GameImage npc_04Image;
+    GameImage npc_05Image;
+    GameImage npc_06Image;
 
 };

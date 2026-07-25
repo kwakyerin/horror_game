@@ -12,6 +12,8 @@
 #include "kkamakGhost.h"
 #include "TitleScreen.h"
 #include "QuizGhost.h"
+#include "Dialogue.h"
+#include "npc.h"
 
 #pragma comment(lib, "gdiplus.lib")
 
@@ -27,6 +29,9 @@ enum class GameState
 GameState gameState = GameState::Playing;//상태 바꾸려면 여기서 바꾸면 된다.
 
 Map VillageMap;
+
+Dialogue dialogue;
+NPC npcManager;
 
 Character* player = nullptr;
 MonsterSpawner* oniSpawner = nullptr;
@@ -120,9 +125,9 @@ int WINAPI WinMain(
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
-	PAINTSTRUCT ps;
+    PAINTSTRUCT ps;
 
-	HDC hDC;
+    HDC hDC;
 
     switch (uMsg) {
 
@@ -134,7 +139,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
         if (!VillageMap.LoadImages())
         {
-           // MessageBox(hWnd, L"맵 이미지 로드 실패", L"Error", MB_OK);
+            // MessageBox(hWnd, L"맵 이미지 로드 실패", L"Error", MB_OK);
         }
 
         //비 효과 그리기
@@ -148,7 +153,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         VillageMap.SetRainEnabled(true);   // 일단 테스트용으로 항상 비
 
         //플레이어 설정
-        player = new Character( L"Image\\character\\character_3_frame16x20.png");
+        player = new Character(L"Image\\character\\character_3_frame16x20.png");
 
         oniSpawner = new MonsterSpawner(MonsterType::Oni,
             15 * Tile_Size,   // 타일 X = 15 (큰 크리스탈 쪽으로 가까이 가면 뜸)
@@ -160,17 +165,17 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             L"Image\\monster_oni\\Attack.png"
         );
 
-        gumihoSpawner = new MonsterSpawner(MonsterType::Gumiho,15*Tile_Size,8*Tile_Size,100.0f,250.0f,80.0f, 
+        gumihoSpawner = new MonsterSpawner(MonsterType::Gumiho, 15 * Tile_Size, 8 * Tile_Size, 100.0f, 250.0f, 80.0f,
             L"Image\\monster_gumiho\\Run.png",
             L"Image\\monster_gumiho\\Attack.png");// 구미호 위치도 임시
 
-        shadowSpawner = new MonsterSpawner(MonsterType::ShadowGhost,15*Tile_Size,8*Tile_Size,100.0f,0.0f,0.0f,
+        shadowSpawner = new MonsterSpawner(MonsterType::ShadowGhost, 15 * Tile_Size, 8 * Tile_Size, 100.0f, 0.0f, 0.0f,
             L"Image\\monster_shadow\\warning.png",
             L"Image\\monster_shadow\\attack.png");//그림자 귀신도 임시
 
         kkamakGhost = new KkamakGhost(9 * Tile_Size, 3 * Tile_Size, L"Image\\monster_kkamak\\kkamak.png");//까막 귀신도 임시
 
-        quizGhost = new QuizGhost(14 * Tile_Size, 6* Tile_Size, L"Image\\monster_quiz\\quiz_ghost.png");
+        quizGhost = new QuizGhost(14 * Tile_Size, 6 * Tile_Size, L"Image\\monster_quiz\\quiz_ghost.png");
 
         QueryPerformanceFrequency(&frequency);
         QueryPerformanceCounter(&previousTime);
@@ -264,7 +269,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         }
 
         }
-       
+
 
         BitBlt(hDC, 0, 0, rt.right, rt.bottom, memDC, 0, 0, SRCCOPY);
 
@@ -278,7 +283,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
     case WM_TIMER:
     {
-        if (wParam == 1) 
+        if (wParam == 1)
         {
             QueryPerformanceCounter(&currentTime);
             float deltaTime =
@@ -290,11 +295,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             {
                 if (titleScreen != nullptr)
                 {
-                    titleScreen->Update(deltaTime); 
+                    titleScreen->Update(deltaTime);
                 }
-                InvalidateRect(hWnd, nullptr, FALSE); 
+                InvalidateRect(hWnd, nullptr, FALSE);
             }
-            
+
             else if (gameState == GameState::Playing && player)
             {
                 std::vector <::RECT> obstacleRects;
@@ -306,7 +311,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     oniSpawner->Update(deltaTime, player);
                     //gumihoSpawner->Update(deltaTime, player);//여기도 일단 동굴에서 생성하도록 함 임시
                     //shadowSpawner->Update(deltaTime, player);
-                    
+
                 }
 
                 if (VillageMap.GetCurrentMap() == MapType::Govillage)
@@ -316,13 +321,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
                 if (VillageMap.GetCurrentMap() == MapType::Gomarket_02)
                 {
-                    quizGhost->Update(deltaTime,*player);
+                    quizGhost->Update(deltaTime, *player);
                     obstacleRects.push_back(quizGhost->GetCollisionRect());
 
                 }
                 player->Move(deltaTime, VillageMap, obstacleRects);
                 VillageMap.Maptransform(*player);
-                InvalidateRect(hWnd, nullptr, FALSE); 
+                InvalidateRect(hWnd, nullptr, FALSE);
             }
         }
 
@@ -385,7 +390,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             pt.x = LOWORD(lParam);
             pt.y = HIWORD(lParam);
 
-            titleScreen->UpdateHover(pt.x,pt.y);
+            titleScreen->UpdateHover(pt.x, pt.y);
 
             InvalidateRect(hWnd, nullptr, FALSE);
         }
@@ -400,12 +405,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             pt.x = LOWORD(lParam);
             pt.y = HIWORD(lParam);
 
-            if (titleScreen->IsStartClicked(pt.x,pt.y))
+            if (titleScreen->IsStartClicked(pt.x, pt.y))
             {
                 gameState = GameState::Playing;
             }
 
-            if (titleScreen->IsExitClicked(pt.x,pt.y))
+            if (titleScreen->IsExitClicked(pt.x, pt.y))
             {
                 PostQuitMessage(0);
             }
@@ -416,5 +421,5 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
     }
 
-	return DefWindowProc(hWnd, uMsg, wParam, lParam);
+    return DefWindowProc(hWnd, uMsg, wParam, lParam);
 }
