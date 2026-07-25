@@ -7,8 +7,20 @@
 #include "Gumiho.h"
 #include "ShadowGhost.h"
 #include "kkamakGhost.h"
+#include "TitleScreen.h"
 
 #pragma comment(lib, "gdiplus.lib")
+
+
+TitleScreen* titleScreen = nullptr;//타이틀 시작화면
+enum class GameState
+{
+    Title,
+    Playing,
+    End
+};
+
+GameState gameState = GameState::Title;//상태 바꾸려면 여기서 바꾸면 된다.
 
 Map VillageMap;
 
@@ -111,6 +123,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
     case WM_CREATE:
     {
+
+        titleScreen = new TitleScreen();
+        titleScreen->LoadImages();
+
         if (!VillageMap.LoadImages())
         {
            // MessageBox(hWnd, L"맵 이미지 로드 실패", L"Error", MB_OK);
@@ -136,7 +152,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             L"Image\\monster_shadow\\warning.png",
             L"Image\\monster_shadow\\attack.png");//그림자 귀신도 임시
 
-        kkamakGhost = new KkamakGhost(15 * Tile_Size, 8 * Tile_Size, L"Image\\monster_kkamak\\kkamak.png");//까막 귀신도 임시
+        kkamakGhost = new KkamakGhost(9 * Tile_Size, 3 * Tile_Size, L"Image\\monster_kkamak\\kkamak.png");//까막 귀신도 임시
 
         QueryPerformanceFrequency(&frequency);
         QueryPerformanceCounter(&previousTime);
@@ -165,37 +181,64 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
         FillRect(memDC, &rt, (HBRUSH)GetStockObject(WHITE_BRUSH));
 
-        VillageMap.Draw(memDC);
+        //VillageMap.Draw(memDC);
 
         Graphics graphics(memDC);
 
-        if (VillageMap.GetCurrentMap() == MapType::Cave)
-        {
-            //if (oniSpawner != nullptr)
-            //{
-                //oniSpawner->Draw(graphics);
-            //}
+        switch (gameState) {
+        case GameState::Title: {
+            titleScreen->Draw(graphics);
+            break;
+        }
 
-            //if (gumihoSpawner != nullptr)
-            //{
-                //gumihoSpawner->Draw(graphics);//일단 임시로 동굴에서 구미호 생성
-            //}
+        case GameState::Playing: {
+            VillageMap.Draw(memDC);
 
-            //if (shadowSpawner != nullptr)
-            //{
-                //shadowSpawner->Draw(graphics);
-            //}
-
-            if (kkamakGhost != nullptr)
+            if (VillageMap.GetCurrentMap() == MapType::Cave)
             {
-                kkamakGhost->Draw(graphics);
+                if (oniSpawner != nullptr)
+                {
+                    oniSpawner->Draw(graphics);
+                }
+
+                //if (gumihoSpawner != nullptr)
+                //{
+                    //gumihoSpawner->Draw(graphics);//일단 임시로 동굴에서 구미호 생성
+                //}
+
+                //if (shadowSpawner != nullptr)
+                //{
+                    //shadowSpawner->Draw(graphics);
+                //}
+
+                //if (kkamakGhost != nullptr)
+                //{
+                    //kkamakGhost->Draw(graphics);
+                //}
             }
+
+            if (VillageMap.GetCurrentMap() == MapType::Govillage)
+            {
+                if (kkamakGhost != nullptr)
+                {
+                    kkamakGhost->Draw(graphics);
+                }
+            }
+
+
+            if (player)
+            {
+                player->Draw(graphics);
+            }
+
+            break;
+        }
+        case GameState::End: {
+            break;
         }
 
-        if (player)
-        {
-            player->Draw(graphics);
         }
+       
 
         BitBlt(hDC, 0, 0, rt.right, rt.bottom, memDC, 0, 0, SRCCOPY);
 
@@ -209,30 +252,42 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
     case WM_TIMER:
     {
-        if (wParam == 1 && player)
+        if (wParam == 1) 
         {
-            //const float deltaTime = 0.016f;
             QueryPerformanceCounter(&currentTime);
-
             float deltaTime =
-                static_cast<float>(
-                    currentTime.QuadPart - previousTime.QuadPart
-                    )
+                static_cast<float>(currentTime.QuadPart - previousTime.QuadPart)
                 / static_cast<float>(frequency.QuadPart);
-
             previousTime = currentTime;
-            //맵 이동 설정은 여기서(플레이어까지)
-            player->Move(deltaTime, VillageMap);
-            VillageMap.Maptransform(*player);
 
-            InvalidateRect(hWnd, nullptr, FALSE);
-
-            if (VillageMap.GetCurrentMap() == MapType::Cave)
+            if (gameState == GameState::Title)
             {
-                //oniSpawner->Update(deltaTime, player);
-                //gumihoSpawner->Update(deltaTime, player);//여기도 일단 동굴에서 생성하도록 함 임시
-                //shadowSpawner->Update(deltaTime, player);
-                kkamakGhost->Update(deltaTime, *player);
+                if (titleScreen != nullptr)
+                {
+                    titleScreen->Update(deltaTime); 
+                }
+                InvalidateRect(hWnd, nullptr, FALSE); 
+            }
+            
+            else if (gameState == GameState::Playing && player)
+            {
+                player->Move(deltaTime, VillageMap);
+                VillageMap.Maptransform(*player);
+
+                if (VillageMap.GetCurrentMap() == MapType::Cave)
+                {
+                    oniSpawner->Update(deltaTime, player);
+                    //gumihoSpawner->Update(deltaTime, player);//여기도 일단 동굴에서 생성하도록 함 임시
+                    //shadowSpawner->Update(deltaTime, player);
+                    //kkamakGhost->Update(deltaTime, *player);
+                }
+
+                if (VillageMap.GetCurrentMap() == MapType::Govillage)
+                {
+                    kkamakGhost->Update(deltaTime, *player);
+                }
+
+                InvalidateRect(hWnd, nullptr, FALSE); 
             }
         }
 
@@ -259,6 +314,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         delete kkamakGhost;
         kkamakGhost = nullptr;
 
+        delete titleScreen;
+        titleScreen = nullptr;
+
         PostQuitMessage(0);
         return 0;
     }
@@ -273,6 +331,43 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             return 0;
         }
         return 0;
+
+    case WM_MOUSEMOVE:
+    {
+        if (gameState == GameState::Title)
+        {
+            POINT pt;
+            pt.x = LOWORD(lParam);
+            pt.y = HIWORD(lParam);
+
+            titleScreen->UpdateHover(pt.x,pt.y);
+
+            InvalidateRect(hWnd, nullptr, FALSE);
+        }
+        return 0;
+    }
+
+    case WM_LBUTTONDOWN:
+    {
+        if (gameState == GameState::Title)
+        {
+            POINT pt;
+            pt.x = LOWORD(lParam);
+            pt.y = HIWORD(lParam);
+
+            if (titleScreen->IsStartClicked(pt.x,pt.y))
+            {
+                gameState = GameState::Playing;
+            }
+
+            if (titleScreen->IsExitClicked(pt.x,pt.y))
+            {
+                PostQuitMessage(0);
+            }
+        }
+
+        return 0;
+    }
 
     }
 
