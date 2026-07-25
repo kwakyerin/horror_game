@@ -10,7 +10,7 @@ Map::Map()
 
     currentMap = Village;
 
-    changeMap(Gomarket_01);
+    changeMap(Market);
 
 }
 
@@ -1282,6 +1282,106 @@ void Map::Draw(HDC hdc)
                 grassImage.Draw(hdc, drawX, drawY);
                 Pond_09Image.Draw(hdc, drawX, drawY);
                 break;
+
+            case Product_01:
+                grassImage.Draw(hdc, drawX, drawY);
+                Product_01Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case Product_02:
+                grassImage.Draw(hdc, drawX, drawY);
+                Product_02Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case Product_03:
+                grassImage.Draw(hdc, drawX, drawY);
+                Product_03Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case Product_04:
+                grassImage.Draw(hdc, drawX, drawY);
+                Product_04Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case Product_05:
+                grassImage.Draw(hdc, drawX, drawY);
+                Product_05Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case Product_06:
+                grassImage.Draw(hdc, drawX, drawY);
+                Product_06Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case Product_07:
+                grassImage.Draw(hdc, drawX, drawY);
+                Product_07Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case Product_08:
+                grassImage.Draw(hdc, drawX, drawY);
+                Product_08Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case Product_09:
+                grassImage.Draw(hdc, drawX, drawY);
+                Product_09Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case Product_10:
+                grassImage.Draw(hdc, drawX, drawY);
+                Product_10Image.Draw(hdc, drawX, drawY);
+                break;
+            case Product_11:
+                grassImage.Draw(hdc, drawX, drawY);
+                Product_11Image.Draw(hdc, drawX, drawY);
+                break;
+            case Product_12:
+                grassImage.Draw(hdc, drawX, drawY);
+                Product_12Image.Draw(hdc, drawX, drawY);
+                break;
+            case Product_13:
+                grassImage.Draw(hdc, drawX, drawY);
+                Product_13Image.Draw(hdc, drawX, drawY);
+                break;
+            case Product_14:
+                grassImage.Draw(hdc, drawX, drawY);
+                Product_14Image.Draw(hdc, drawX, drawY);
+                break;
+            case Product_15:
+                grassImage.Draw(hdc, drawX, drawY);
+                Product_15Image.Draw(hdc, drawX, drawY);
+                break;
+            case Product_16:
+                grassImage.Draw(hdc, drawX, drawY);
+                Product_16Image.Draw(hdc, drawX, drawY);
+                break;
+            case Product_17:
+                grassImage.Draw(hdc, drawX, drawY);
+                Product_17Image.Draw(hdc, drawX, drawY);
+                break;
+            case Product_18:
+                grassImage.Draw(hdc, drawX, drawY);
+                Product_18Image.Draw(hdc, drawX, drawY);
+                break;
+            case Product_19:
+                grassImage.Draw(hdc, drawX, drawY);
+                Product_19Image.Draw(hdc, drawX, drawY);
+                break;
+            case Product_20:
+                grassImage.Draw(hdc, drawX, drawY);
+                Product_20Image.Draw(hdc, drawX, drawY);
+                break;
+            case Product_21:
+                grassImage.Draw(hdc, drawX, drawY);
+                Product_21Image.Draw(hdc, drawX, drawY);
+                break;
+            case Product_22:
+                grassImage.Draw(hdc, drawX, drawY);
+                Product_22Image.Draw(hdc, drawX, drawY);
+                break;
+
+
             }
             
         }
@@ -1943,6 +2043,97 @@ void Map::changeMap(MapType newMap)
             map[12][i] = TILE_ROAD;
         }
 
+        //연못
+        map[4][5] = Pond_01;
+        map[4][6] = Pond_02;
+        map[4][7] = Pond_02;
+        map[4][8] = Pond_02;
+        map[4][9] = Pond_03;
+        map[5][5] = Pond_04;
+        map[5][6] = Pond_05;
+        map[5][7] = Pond_05;
+        map[5][8] = Pond_05;
+        map[5][9] = Pond_06;
+        map[6][5] = Pond_04;
+        map[6][6] = Pond_05;
+        map[6][7] = Pond_05;
+        map[6][8] = Pond_05;
+        map[6][9] = Pond_06;
+        map[7][5] = Pond_07;
+        map[7][6] = Pond_08;
+        map[7][7] = Pond_08;
+        map[7][8] = Pond_08;
+        map[7][9] = Pond_09;
+        
+        //나무
+        map[2][4] = 1;
+        map[3][4] = 2;
+        map[8][12] = 1;
+        map[9][12] = 2;
+        map[4][18] = 1;
+        map[5][18] = 2;
+        map[15][15] = 1;
+        map[16][15] = 2;
+        map[7][17] = 1;
+        map[8][17] = 2;
+        map[0][15] = 1;
+        map[0][15] = 2;
+        map[5][1] = 1;
+        map[6][1] = 2;
+        map[6][2] = 1;
+        map[7][2] = 2;
+
+        //돌
+        map[8][15] = TILE_ROCK;
+        map[0][1] = TILE_ROCK;
+        map[17][2] = TILE_ROCK;
+        map[13][13] = TILE_ROCK;
+        map[5][20] = TILE_ROCK;
+        map[5][3] = TILE_ROCK;
+        map[10][4] = TILE_ROCK;
+        map[9][5] = TILE_ROCK;
+
+        //큰 나무
+        map[1][7] = TREE_01;
+        map[1][8] = TREE_02;
+        map[2][7] = TREE_03;
+        map[2][8] = TREE_04;
+
+        map[5][14] = TREE_01;
+        map[5][15] = TREE_02;
+        map[6][14] = TREE_03;
+        map[6][15] = TREE_04;
+
+        map[13][2] = TREE_01;
+        map[13][3] = TREE_02;
+        map[14][2] = TREE_03;
+        map[14][3] = TREE_04;
+
+        map[15][19] = TREE_01;
+        map[15][20] = TREE_02;
+        map[16][19] = TREE_03;
+        map[16][20] = TREE_04;
+
+        map[8][21] = TREE_01;
+        map[8][22] = TREE_02;
+        map[9][21] = TREE_03;
+        map[9][22] = TREE_04;
+
+        map[4][12] = TREE_01;
+        map[4][13] = TREE_02;
+        map[5][12] = TREE_03;
+        map[5][13] = TREE_04;
+
+        map[9][7] = TREE_01;
+        map[9][8] = TREE_02;
+        map[10][7] = TREE_03;
+        map[10][8] = TREE_04;
+
+        map[1][19] = TREE_01;
+        map[1][20] = TREE_02;
+        map[2][19] = TREE_03;
+        map[2][20] = TREE_04;
+
         break;
 
     case Gomarket_02:
@@ -1950,12 +2141,70 @@ void Map::changeMap(MapType newMap)
         //돌바닥
         for (int i = 0; i < 25; i++) {
             map[11][i] = TILE_ROAD;
-            //map[12][i] = TILE_ROAD;
         }
 
         break;
 
     case Market:
+
+        //돌바닥
+        for (int i = 0; i < 24; i++) {
+            map[12][i] = TILE_ROAD;
+            map[13][i] = TILE_ROAD;
+        }
+
+        map[7][7] = TILE_ROAD;
+        map[8][8] = TILE_ROAD;
+
+        map[1][5] = Product_01;
+        map[2][5] = Product_02;
+        map[3][5] = Product_03;
+
+        map[1][1] = Product_04;
+        map[2][1] = Product_05;
+        map[3][1] = Product_06;
+        map[4][1] = Product_07;
+
+        map[7][0] = Product_01;
+        map[7][1] = Product_02;
+        map[7][2] = Product_03;
+        map[7][3] = Product_04;
+        map[7][4] = Product_05;
+        map[7][5] = Product_06;
+        map[7][6] = Product_07;
+
+        /*map[9][0] = Product_08;
+        map[9][1] = Product_08;*/
+        map[9][2] = Product_08;
+        map[10][0] = Product_08;
+        map[11][0] = Product_08;
+        map[11][1] = Product_08;
+
+        map[1][8] = Product_09;
+        map[1][9] = Product_09;
+        map[2][8] = Product_10;
+        map[3][9] = Product_19;
+
+        map[1][12] = Product_10;
+        map[1][13] = Product_10;
+        map[2][12] = Product_19;
+        map[3][13] = Product_09;
+
+        map[9][10] = Product_11;
+        map[9][11] = Product_11;
+        map[9][12] = Product_11;
+        map[10][10] = Product_11;
+        map[10][11] = Product_11;
+        map[10][12] = Product_11;
+
+        map[4][17] = Product_12;
+        map[4][18] = Product_13;
+        map[4][16] = Product_14;
+        map[4][19] = Product_15;
+        map[4][20] = Product_16;
+        map[4][21] = Product_17;
+        map[4][22] = Product_18;
+        
 
         break;
     }

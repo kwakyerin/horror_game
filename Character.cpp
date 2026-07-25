@@ -4,7 +4,7 @@
 Character::Character(const wchar_t* path)
     : x(10 * Tile_Size),
     y(10 * Tile_Size),
-    moveSpeed(300.0f),
+    moveSpeed(450.0f),
     currentFrame(0),
     animationTimer(0.0f),
     hp(15),
