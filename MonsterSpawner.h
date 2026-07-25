@@ -45,7 +45,8 @@ public:
     );
 
     ~MonsterSpawner();
-
+    bool HasSpawnedMonster()const;
+    RECT GetCollisionRect()const;
     void Update(float deltaTime, Character* player);
     void Draw(Gdiplus::Graphics& graphics);
 };

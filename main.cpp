@@ -1,3 +1,4 @@
+#include <vector>
 #include <windows.h>
 #include <tchar.h>
 #include "Map.h"
@@ -282,15 +283,16 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             
             else if (gameState == GameState::Playing && player)
             {
-                player->Move(deltaTime, VillageMap);
-                VillageMap.Maptransform(*player);
+                std::vector <::RECT> obstacleRects;
+                //player->Move(deltaTime, VillageMap,obstacleRects);
+                //VillageMap.Maptransform(*player);
 
                 if (VillageMap.GetCurrentMap() == MapType::Cave)
                 {
                     oniSpawner->Update(deltaTime, player);
                     //gumihoSpawner->Update(deltaTime, player);//여기도 일단 동굴에서 생성하도록 함 임시
                     //shadowSpawner->Update(deltaTime, player);
-                    //kkamakGhost->Update(deltaTime, *player);
+                    
                 }
 
                 if (VillageMap.GetCurrentMap() == MapType::Govillage)
@@ -301,8 +303,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 if (VillageMap.GetCurrentMap() == MapType::Gomarket_02)
                 {
                     quizGhost->Update(deltaTime,*player);
-                }
+                    obstacleRects.push_back(quizGhost->GetCollisionRect());
 
+                }
+                player->Move(deltaTime, VillageMap, obstacleRects);
+                VillageMap.Maptransform(*player);
                 InvalidateRect(hWnd, nullptr, FALSE); 
             }
         }
@@ -329,6 +334,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
         delete kkamakGhost;
         kkamakGhost = nullptr;
+
+        delete quizGhost;
+        quizGhost = nullptr;
 
         delete titleScreen;
         titleScreen = nullptr;
