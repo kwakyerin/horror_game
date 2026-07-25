@@ -156,7 +156,7 @@ void TitleScreen::Draw(Graphics& graphics)
 
         // 도깨비불이 화면에 그려질 기본 위치 
         int destX = 150;
-        int destY = 350;
+        int destY = 200;
 
         // wispFloatTime을 활용해 위아래로 부드럽게 둥둥 떠다니는 오프셋 값 계산
         // 3.0f는 떠다니는 속도, 10.0f는 떠다니는 범위(픽셀)를 의미
@@ -170,6 +170,28 @@ void TitleScreen::Draw(Graphics& graphics)
             frameWidth,                                                 // 가져올 너비
             frameHeight,                                                // 가져올 높이
             UnitPixel                                                   // 단위
+        );
+
+        int destX2 = 650; // 오른쪽 도깨비불 X 좌표 
+        int destY2 = 300; // 오른쪽 도깨비불 Y 좌표 
+
+        int floatOffsetY2 = static_cast<int>(sin((wispFloatTime + 2.0f) * 2.0f) * 10.0f);
+
+        graphics.DrawImage(
+            wispImage,
+            Rect(destX2, destY2 + floatOffsetY2, frameWidth, frameHeight),
+            srcX, srcY, frameWidth, frameHeight, UnitPixel
+        );
+
+        int destX3 = 500; // 타이틀 옆 도깨비불 X 좌표 
+        int destY3 = 100; // 타이틀 옆 도깨비불 Y 좌표 
+
+        int floatOffsetY3 = static_cast<int>(sin((wispFloatTime + 2.0f) * 1.0f) * 10.0f);
+
+        graphics.DrawImage(
+            wispImage,
+            Rect(destX3, destY3 + floatOffsetY3, frameWidth, frameHeight),
+            srcX, srcY, frameWidth, frameHeight, UnitPixel
         );
     }
 }
