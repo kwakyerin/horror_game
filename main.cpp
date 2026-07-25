@@ -9,12 +9,14 @@
 #include "ShadowGhost.h"
 #include "kkamakGhost.h"
 #include "TitleScreen.h"
+#include "EndScreen.h"
 #include "QuizGhost.h"
 
 #pragma comment(lib, "gdiplus.lib")
 
 
 TitleScreen* titleScreen = nullptr;//타이틀 시작화면
+EndScreen* endScreen = nullptr;
 enum class GameState
 {
     Title,
@@ -22,7 +24,7 @@ enum class GameState
     End
 };
 
-GameState gameState = GameState::Playing;//상태 바꾸려면 여기서 바꾸면 된다.
+GameState gameState = GameState::End;//상태 바꾸려면 여기서 바꾸면 된다.
 
 Map VillageMap;
 
@@ -129,6 +131,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
         titleScreen = new TitleScreen();
         titleScreen->LoadImages();
+
+        endScreen = new EndScreen();
+        endScreen->LoadImages();
 
         if (!VillageMap.LoadImages())
         {
@@ -246,6 +251,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             break;
         }
         case GameState::End: {
+            endScreen->Draw(graphics);
             break;
         }
 
@@ -365,27 +371,28 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
     case WM_MOUSEMOVE:
     {
+        POINT pt;
+        pt.x = LOWORD(lParam);
+        pt.y = HIWORD(lParam);
         if (gameState == GameState::Title)
         {
-            POINT pt;
-            pt.x = LOWORD(lParam);
-            pt.y = HIWORD(lParam);
-
-            titleScreen->UpdateHover(pt.x,pt.y);
-
-            InvalidateRect(hWnd, nullptr, FALSE);
+            titleScreen->UpdateHover(pt.x,pt.y);  
         }
+        else if (gameState == GameState::End && endScreen)
+        {
+            endScreen->UpdateHover(pt.x, pt.y);
+        }
+        InvalidateRect(hWnd, nullptr, FALSE);
         return 0;
     }
 
     case WM_LBUTTONDOWN:
     {
+        POINT pt;
+        pt.x = LOWORD(lParam);
+        pt.y = HIWORD(lParam);
         if (gameState == GameState::Title)
         {
-            POINT pt;
-            pt.x = LOWORD(lParam);
-            pt.y = HIWORD(lParam);
-
             if (titleScreen->IsStartClicked(pt.x,pt.y))
             {
                 gameState = GameState::Playing;
@@ -396,6 +403,15 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 PostQuitMessage(0);
             }
         }
+        if (endScreen->IsRetryClicked(pt.x, pt.y))
+        {
+            gameState = GameState::Title;   
+        }
+        else if (endScreen->IsExitClicked(pt.x, pt.y))
+        {
+            PostQuitMessage(0);
+        }
+
 
         return 0;
     }
