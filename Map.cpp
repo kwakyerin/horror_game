@@ -1324,12 +1324,12 @@ void Map::Draw(HDC hdc)
                 break;
 
             case Product_09:
-                grassImage.Draw(hdc, drawX, drawY);
+                Markettable_02Image.Draw(hdc, drawX, drawY);
                 Product_09Image.Draw(hdc, drawX, drawY);
                 break;
 
             case Product_10:
-                grassImage.Draw(hdc, drawX, drawY);
+                Markettable_02Image.Draw(hdc, drawX, drawY);
                 Product_10Image.Draw(hdc, drawX, drawY);
                 break;
             case Product_11:
@@ -1365,7 +1365,7 @@ void Map::Draw(HDC hdc)
                 Product_18Image.Draw(hdc, drawX, drawY);
                 break;
             case Product_19:
-                grassImage.Draw(hdc, drawX, drawY);
+                Markettable_02Image.Draw(hdc, drawX, drawY);
                 Product_19Image.Draw(hdc, drawX, drawY);
                 break;
             case Product_20:
@@ -1381,6 +1381,30 @@ void Map::Draw(HDC hdc)
                 Product_22Image.Draw(hdc, drawX, drawY);
                 break;
 
+            case Markettable_01:
+                grassImage.Draw(hdc, drawX, drawY);
+                Markettable_01Image.Draw(hdc, drawX, drawY);
+                break;
+            case Markettable_02:
+                grassImage.Draw(hdc, drawX, drawY);
+                Markettable_02Image.Draw(hdc, drawX, drawY);
+                break;
+            case Markettable_03:
+                grassImage.Draw(hdc, drawX, drawY);
+                Markettable_03Image.Draw(hdc, drawX, drawY);
+                break;
+            case Markettable_04:
+                grassImage.Draw(hdc, drawX, drawY);
+                Markettable_04Image.Draw(hdc, drawX, drawY);
+                break;
+            case Markettable_05:
+                grassImage.Draw(hdc, drawX, drawY);
+                Markettable_05Image.Draw(hdc, drawX, drawY);
+                break;
+            case Markettable_06:
+                grassImage.Draw(hdc, drawX, drawY);
+                Markettable_06Image.Draw(hdc, drawX, drawY);
+                break;
 
             }
             
@@ -2189,6 +2213,21 @@ void Map::changeMap(MapType newMap)
         map[1][13] = Product_10;
         map[2][12] = Product_19;
         map[3][13] = Product_09;
+
+        map[3][8] = Markettable_01;
+        map[3][9] = Markettable_02;
+        map[3][10] = Markettable_03;
+        map[4][8] = Markettable_04;
+        map[4][9] = Markettable_05;
+        map[4][10] = Markettable_06;
+
+        map[3][12] = Markettable_01;
+        map[3][13] = Markettable_02;
+        map[3][14] = Markettable_03;
+        map[4][12] = Markettable_04;
+        map[4][13] = Markettable_05;
+        map[4][14] = Markettable_06;
+
 
         map[9][10] = Product_11;
         map[9][11] = Product_11;
