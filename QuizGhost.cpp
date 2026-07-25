@@ -65,3 +65,7 @@ RECT QuizGhost::GetCollisionRect() const
 
     return rect;
 }
+
+void QuizGhost::HandleInteraction(Character& character) {
+
+}

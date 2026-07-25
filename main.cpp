@@ -353,6 +353,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         case VK_ESCAPE:
             PostQuitMessage(0);
             return 0;
+
+        case 'K':
+            if (gameState == GameState::Playing)
+            {
+                quizGhost->HandleInteraction(*player);
+            }
+            return 0;
         }
         return 0;
 

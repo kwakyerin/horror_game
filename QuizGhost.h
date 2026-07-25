@@ -16,6 +16,7 @@ public:
 
 	void Draw(Gdiplus::Graphics& graphics);
 	void Update(float deltaTime, Character& character);
+	void HandleInteraction(Character& player);
 	RECT GetCollisionRect() const;
 };
 
