@@ -13,7 +13,7 @@ Map::Map()
 
     currentMap = Village;
 
-    changeMap(Gomarket_02);
+    changeMap(Village);
 
 }
 

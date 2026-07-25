@@ -26,7 +26,7 @@ enum class GameState
     End
 };
 
-GameState gameState = GameState::End;//상태 바꾸려면 여기서 바꾸면 된다.
+GameState gameState = GameState::Title;//상태 바꾸려면 여기서 바꾸면 된다.
 
 Map VillageMap;
 
@@ -361,6 +361,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         delete titleScreen;
         titleScreen = nullptr;
 
+        delete endScreen;
+        endScreen = nullptr;
+
         PostQuitMessage(0);
         return 0;
     }
@@ -417,18 +420,21 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 PostQuitMessage(0);
             }
         }
-        if (endScreen->IsRetryClicked(pt.x, pt.y))
+        else if (gameState == GameState::End)
         {
-            gameState = GameState::Title;   
+            if (endScreen->IsRetryClicked(pt.x, pt.y))
+            {
+                gameState = GameState::Title;
+            }
+            else if (endScreen->IsExitClicked(pt.x, pt.y))
+            {
+                PostQuitMessage(0);
+            }
         }
-        else if (endScreen->IsExitClicked(pt.x, pt.y))
-        {
-            PostQuitMessage(0);
-        }
-
 
         return 0;
     }
+
 
     }
 

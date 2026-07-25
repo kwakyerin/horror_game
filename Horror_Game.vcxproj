@@ -125,11 +125,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Character.cpp" />
-<<<<<<< HEAD
     <ClCompile Include="EndScreen.cpp" />
-=======
     <ClCompile Include="Effect.cpp" />
->>>>>>> main
     <ClCompile Include="FireBall.cpp" />
     <ClCompile Include="Gumiho.cpp" />
     <ClCompile Include="Image.cpp" />
@@ -140,14 +137,13 @@
     <ClCompile Include="MonsterSpawner.cpp" />
     <ClCompile Include="QuizGhost.cpp" />
     <ClCompile Include="ShadowGhost.cpp" />
+    <ClCompile Include="Sound.cpp" />
+    <ClCompile Include="TitleScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Character.h" />
-<<<<<<< HEAD
     <ClInclude Include="EndScreen.h" />
-=======
     <ClInclude Include="Effect.h" />
->>>>>>> main
     <ClInclude Include="FireBall.h" />
     <ClInclude Include="Gumiho.h" />
     <ClInclude Include="Image.h" />
@@ -157,6 +153,8 @@
     <ClInclude Include="MonsterSpawner.h" />
     <ClInclude Include="QuizGhost.h" />
     <ClInclude Include="ShadowGhost.h" />
+    <ClInclude Include="Sound.h" />
+    <ClInclude Include="TitleScreen.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
