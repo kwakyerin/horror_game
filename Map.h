@@ -199,7 +199,10 @@ enum MapType {
     Cave_02,
     Gomarket_01,
     Gomarket_02,
-    Market
+    Market,
+    Gotemple_01,
+    Gotemple_02,
+    Field
 
 };
 
