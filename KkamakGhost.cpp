@@ -5,7 +5,7 @@
 KkamakGhost::KkamakGhost(float startX, float startY, const wchar_t* path)
 	:x(startX),
 	y(startY),
-	moveSpeed(200.0f),
+	moveSpeed(100.0f),
 	image(nullptr)
 {
 	LoadImage(path);

@@ -134,6 +134,7 @@
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="MonsterSpawner.cpp" />
     <ClCompile Include="ShadowGhost.cpp" />
+    <ClCompile Include="TitleScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Character.h" />
@@ -145,6 +146,7 @@
     <ClInclude Include="Monster.h" />
     <ClInclude Include="MonsterSpawner.h" />
     <ClInclude Include="ShadowGhost.h" />
+    <ClInclude Include="TitleScreen.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
