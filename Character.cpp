@@ -1,6 +1,7 @@
 #include "Character.h"
 #include "Map.h"
 
+
 Character::Character(const wchar_t* path)
     : x(10 * Tile_Size),
     y(10 * Tile_Size),

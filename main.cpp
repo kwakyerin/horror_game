@@ -300,7 +300,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
                 if (VillageMap.GetCurrentMap() == MapType::Gomarket_02)
                 {
-                    quizGhost->Update(deltaTime);
+                    quizGhost->Update(deltaTime,*player);
                 }
 
                 InvalidateRect(hWnd, nullptr, FALSE); 

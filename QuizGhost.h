@@ -1,6 +1,7 @@
 #pragma once
 #include <Windows.h>
 #include <gdiplus.h>
+class Character;
 
 class QuizGhost {
 private:
@@ -14,6 +15,7 @@ public:
 	~QuizGhost();
 
 	void Draw(Gdiplus::Graphics& graphics);
-	void Update(float deltaTime);
+	void Update(float deltaTime, Character& character);
+	RECT GetCollisionRect() const;
 };
 
