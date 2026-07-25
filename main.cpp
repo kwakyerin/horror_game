@@ -380,8 +380,24 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             {
                 quizGhost->HandleInteraction(*player);
             }
+
+            // 대화창이 이미 열려 있으면 닫기
+            if (dialogue.IsOpen())
+            {
+                dialogue.Close();
+            }
+            else
+            {
+                // 테스트용 대화
+                dialogue.Open(
+                    L"마을 주민",
+                    L"이 시간에는 밖을 돌아다니지 않는 게 좋을 거야."
+                );
+            }
             return 0;
         }
+
+        InvalidateRect(hWnd, nullptr, FALSE);
         return 0;
 
     case WM_MOUSEMOVE:
