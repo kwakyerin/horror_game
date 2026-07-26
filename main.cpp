@@ -16,6 +16,7 @@
 #include "Dialogue.h"
 #include "npc.h"
 #include "UI.h"
+#include "ResetGame.h"
 
 
 #pragma comment(lib, "gdiplus.lib")
@@ -645,15 +646,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         if (gameState == GameState::Title)
         {
 
-            POINT pt;
-            pt.x = LOWORD(lParam);
-            pt.y = HIWORD(lParam);
-
             titleScreen->UpdateHover(pt.x, pt.y);
 
             InvalidateRect(hWnd, nullptr, FALSE);
 
-            titleScreen->UpdateHover(pt.x, pt.y);
 
         }
         else if (gameState == GameState::End && endScreen)
@@ -671,18 +667,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         pt.y = HIWORD(lParam);
         if (gameState == GameState::Title)
         {
-
-            POINT pt;
-            pt.x = LOWORD(lParam);
-            pt.y = HIWORD(lParam);
-
             if (titleScreen->IsStartClicked(pt.x, pt.y))
-
-                if (titleScreen->IsStartClicked(pt.x, pt.y))
-
-                {
-                    gameState = GameState::Playing;
-                }
+            {
+                ResetGame();
+                CreateMapBuffer(hWnd);
+                
+                gameState = GameState::Playing;
+            }
 
             if (titleScreen->IsExitClicked(pt.x, pt.y))
             {
