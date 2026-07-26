@@ -336,7 +336,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 {
                     if (kkamakGhost->Update(deltaTime, *player))
                     {
-                        gameState = GameState::End;
+                        player->Damage(player->GetHP());
                     }
                 }
 
@@ -354,10 +354,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 player->Move(deltaTime, VillageMap, obstacleRects);
                 VillageMap.Maptransform(*player);
 
-                //if (player->GetHP() <= 0)
-                //{
-                    //gameState = GameState::End;
-                //} 체력 0되면 end 화면으로 
+                player->UpdateDeath(deltaTime);
+
+                // 죽음 애니메이션이 끝나면 End 화면
+                if (player->IsDeathAnimationFinished())
+                {
+                    gameState = GameState::End;
+                }
+                 
 
                 InvalidateRect(hWnd, nullptr, FALSE);
             }
