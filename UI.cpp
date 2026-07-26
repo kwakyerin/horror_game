@@ -1,12 +1,25 @@
 #include "UI.h"
 #include "Character.h"
 
-UI::UI() {
-	heartImage = nullptr;
+
+UI::UI()
+:heartImage(nullptr)
+{
+    for (int i = 0; i < 5; i++)
+    {
+        amuletImages[i] = nullptr;
+    }
 }
 
 UI::~UI() {
-	delete heartImage;
+    delete heartImage;
+    heartImage = nullptr;
+
+    for (int i = 0; i < 5; i++)
+    {
+        delete amuletImages[i];
+        amuletImages[i] = nullptr;
+    }
 }
 
 bool UI::LoadImages() {
@@ -19,10 +32,33 @@ bool UI::LoadImages() {
 		return false;
 	}
 
+    amuletImages[0] = new Gdiplus::Image(L"Image\\Amulet\\y_1.png");
+    amuletImages[1] = new Gdiplus::Image(L"Image\\Amulet\\r_1.png");
+    amuletImages[2] = new Gdiplus::Image(L"Image\\Amulet\\b_1.png");
+    amuletImages[3] = new Gdiplus::Image(L"Image\\Amulet\\w_1.png");
+    amuletImages[4] = new Gdiplus::Image(L"Image\\Amulet\\black_1.png");
+    
+    for (int i = 0; i < 5; i++)
+    {
+        if (amuletImages[i] == nullptr ||
+            amuletImages[i]->GetLastStatus() != Gdiplus::Ok)
+        {
+            for (int j = 0; j <= i; j++)
+            {
+                delete amuletImages[j];
+                amuletImages[j] = nullptr;
+            }
+
+            delete heartImage;
+            heartImage = nullptr;
+
+            return false;
+        }
+    }
 	return true;
 }
 
-void UI::Draw(Gdiplus::Graphics& graphics, Character* character) {
+void UI::Draw(Gdiplus::Graphics& graphics, Character* character, const std::vector<Amulet>& amulets,MapType currentMap) {
     if (heartImage == nullptr || character == nullptr)
         return;
 
@@ -39,5 +75,54 @@ void UI::Draw(Gdiplus::Graphics& graphics, Character* character) {
                 32
             )
         );
+    }
+    // 확인용: 아직 획득하지 않은 부적을 맵 좌표에 표시
+    for (const Amulet& amulet : amulets)
+    {
+        if (amulet.IsCollected())
+        {
+            continue;
+        }
+
+        if (amulet.GetMapType() != currentMap)
+        {
+            continue;
+        }
+
+        int imageIndex =
+            static_cast<int>(amulet.GetType());
+
+        graphics.DrawImage(
+            amuletImages[imageIndex],
+            Gdiplus::Rect(
+                static_cast<int>(amulet.GetX()),
+                static_cast<int>(amulet.GetY()),
+                20,
+                40
+            )
+        );
+    }
+    int index = 0;
+
+    for (const Amulet& amulet : amulets)
+    {
+        if (!amulet.IsCollected())
+        {
+            continue;
+        }
+
+
+        int imageIndex =
+            static_cast<int>(amulet.GetType());
+
+        graphics.DrawImage(
+            amuletImages[imageIndex],
+            775 - 20 - 20 - index * 40,
+            20,
+            20,
+            40
+        );
+
+        index++;
     }
 }

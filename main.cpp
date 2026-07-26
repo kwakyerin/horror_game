@@ -17,6 +17,7 @@
 #include "npc.h"
 #include "UI.h"
 #include "ResetGame.h"
+#include "Amulet.h"
 #include "DayNightManager.h"
 
 
@@ -31,7 +32,7 @@ enum class GameState
     Playing,
     End
 };
-
+std::vector<Amulet> amulets;
 GameState gameState = GameState::Playing;//상태 바꾸려면 여기서 바꾸면 된다.
 
 Map VillageMap;
@@ -207,6 +208,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         endScreen = new EndScreen();
         endScreen->LoadImages();
 
+       
         ui = new UI();
         ui->LoadImages();
 
@@ -229,6 +231,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
         //플레이어 설정
         player = new Character(L"Image\\character\\character_3_frame16x20.png");
+        //부적위치
+        amulets.emplace_back(Cave_02,12*Tile_Size,9*Tile_Size, AmuletType::Yellow);//동굴 조각상 왼쪽 아래 발 부분
+        amulets.emplace_back(Market, 14 * Tile_Size, 4 * Tile_Size, AmuletType::Red);//시장 오른쪽 테이블 밑
+        amulets.emplace_back(Govillage, 2 * Tile_Size, 3 * Tile_Size, AmuletType::Blue);//마을 가는 길 가장 안쪽에 긴 나무 
+        amulets.emplace_back(Room, 14 * Tile_Size, 5 * Tile_Size, AmuletType::White);//집 항아리
+        amulets.emplace_back(Room, 14 * Tile_Size, 5 * Tile_Size, AmuletType::Black);//아직 수정해야함
 
         oniSpawner = new MonsterSpawner(MonsterType::Oni,
             15 * Tile_Size,   // 타일 X = 15 (큰 크리스탈 쪽으로 가까이 가면 뜸)
@@ -356,7 +364,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 player->Draw(graphics);
             }
 
-            ui->Draw(graphics, player);
 
             MapType currentMap = VillageMap.GetCurrentMap();
 
@@ -372,6 +379,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             SolidBrush darkBrush(Color(80, 0, 0, 0));
 
             graphics.FillRectangle(&darkBrush,0,0,rt.right,rt.bottom);
+
+            ui->Draw(graphics, player, amulets,VillageMap.GetCurrentMap());//부적이랑 하트
 
             break;
         }
@@ -454,7 +463,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 {
                     if (kkamakGhost->Update(deltaTime, *player))
                     {
-                        player->Damage(player->GetHP());
+                       // player->Damage(player->GetHP());
                     }
                 }
 
@@ -679,6 +688,26 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 );
 
                 return 0;
+            }
+            // 숨겨진 부적 상호작용
+            if (player != nullptr)
+            {
+                for (Amulet& amulet : amulets)
+                {
+                    if (amulet.Interact(
+                        player,
+                        VillageMap.GetCurrentMap()
+                    ))
+                    {
+                        InvalidateRect(
+                            hWnd,
+                            nullptr,
+                            FALSE
+                        );
+
+                        return 0;
+                    }
+                }
             }
 
             // NPC 대화
