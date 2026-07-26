@@ -2483,6 +2483,8 @@ void Map::Maptransform(Character& character) {
     {
         changeMap(MapType::Govillage);
         character.SetPosition(700.0f, 128.0f);
+
+        return;
     }
 
     //마을 가는길->마을
@@ -2496,6 +2498,8 @@ void Map::Maptransform(Character& character) {
             character.SetPosition(1 * Tile_Size, 4 * Tile_Size);
         else
             character.SetPosition(1 * Tile_Size, 5 * Tile_Size);
+
+        return;
     }
 
     //동굴->동굴 안
@@ -2504,6 +2508,8 @@ void Map::Maptransform(Character& character) {
         changeMap(MapType::Cave_02);
 
         character.SetPosition(tileX * Tile_Size, 1 * Tile_Size);
+
+        return;
     }
 
 
@@ -2514,6 +2520,8 @@ void Map::Maptransform(Character& character) {
         changeMap(MapType::Cave);
 
         character.SetPosition(tileX * Tile_Size, 16 * Tile_Size);
+
+        return;
     }
     
 
@@ -2524,6 +2532,8 @@ void Map::Maptransform(Character& character) {
         changeMap(MapType::Room);
 
         character.SetPosition(16 * Tile_Size, 16 * Tile_Size);
+
+        return;
     }
 
     //주인공 집->마을
@@ -2532,6 +2542,8 @@ void Map::Maptransform(Character& character) {
         changeMap(MapType::Village);
 
         character.SetPosition(20 * Tile_Size, 9 * Tile_Size);
+
+        return;
     }
 
 
@@ -2542,6 +2554,8 @@ void Map::Maptransform(Character& character) {
 
         character.SetPosition(1 * Tile_Size, tileY * Tile_Size);
 
+        return;
+
     }
 
     //시장 가는 길_01->마을
@@ -2551,6 +2565,7 @@ void Map::Maptransform(Character& character) {
 
         character.SetPosition(23 * Tile_Size, tileY * Tile_Size);
 
+        return;
     }
 
     //시장 가는 길_01->시장 가는 길_02
@@ -2560,6 +2575,7 @@ void Map::Maptransform(Character& character) {
 
         character.SetPosition(1 * Tile_Size, tileY * Tile_Size);
 
+        return;
     }
 
     //시장 가는 길_02->시장 가는 길_01
@@ -2569,6 +2585,7 @@ void Map::Maptransform(Character& character) {
 
         character.SetPosition(23 * Tile_Size, tileY * Tile_Size);
 
+        return;
     }
 
     //마을->들판
@@ -2577,6 +2594,8 @@ void Map::Maptransform(Character& character) {
         changeMap(MapType::Field);
 
         character.SetPosition(tileX* Tile_Size, 2 * Tile_Size);
+
+        return;
 
     }
 
@@ -2587,6 +2606,8 @@ void Map::Maptransform(Character& character) {
 
         character.SetPosition(tileX* Tile_Size, 16 * Tile_Size);
 
+        return;
+
     }
 
     //마을->사찰 가는 길_01
@@ -2596,14 +2617,18 @@ void Map::Maptransform(Character& character) {
 
         character.SetPosition(tileX * Tile_Size, 16 * Tile_Size);
 
+        return;
+
     }
 
     //사찰 가는 길_01->마을
-    if (currentMap == MapType::Field && (tileX == 5 || tileX == 6) && tileY == 17)
+    if (currentMap == MapType::Gotemple_01 && (tileX == 5 || tileX == 6) && tileY == 17)
     {
         changeMap(MapType::Village);
 
-        character.SetPosition(tileX * Tile_Size, 0 * Tile_Size);
+        character.SetPosition(tileX * Tile_Size, 1 * Tile_Size);
+
+        return;
 
     }
 
@@ -2612,17 +2637,20 @@ void Map::Maptransform(Character& character) {
     {
         changeMap(MapType::Gotemple_02);
 
-        character.SetPosition(0 * Tile_Size, tileY * Tile_Size);
+        character.SetPosition(1 * Tile_Size, tileY * Tile_Size);
 
+        return;
     }
 
-    //사찰 가는 길_02->사찰 가는 길_01
-    if (currentMap == MapType::Field && (tileX == 5 || tileX == 6) && tileY == 17)
+
+    //사찰 가는 길_02->사찰 가는 길_01(수정중)
+    if (currentMap == MapType::Gotemple_02 && tileX == 0 && (tileY == 12 || tileY == 13))
     {
-        changeMap(MapType::Village);
+        changeMap(MapType::Gotemple_01);
 
-        character.SetPosition(tileX * Tile_Size, 0 * Tile_Size);
+        character.SetPosition(23 * Tile_Size, tileY * Tile_Size);
 
+        return;
     }
 
     //사찰 가는 길_02->동굴
@@ -2632,6 +2660,7 @@ void Map::Maptransform(Character& character) {
 
         character.SetPosition(1 * Tile_Size, tileY * Tile_Size);
 
+        return;
     }
 
     //동굴->사찰 가는 길_02
@@ -2641,6 +2670,7 @@ void Map::Maptransform(Character& character) {
 
         character.SetPosition( 23 * Tile_Size, tileY * Tile_Size);
 
+        return;
     }
 
     //시장 가는 길_02->시장
@@ -2650,6 +2680,7 @@ void Map::Maptransform(Character& character) {
 
         character.SetPosition(1 * Tile_Size, tileY * Tile_Size);
 
+        return;
     }
 
     //시장->시장 가는 길_02
@@ -2659,6 +2690,7 @@ void Map::Maptransform(Character& character) {
 
         character.SetPosition(23 * Tile_Size, tileY * Tile_Size);
 
+        return;
     }
 }
 
