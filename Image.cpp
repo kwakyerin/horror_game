@@ -52,3 +52,15 @@ void GameImage::Draw(HDC hdc, int x, int y)
     graphics.DrawImage( bitmap,x,y,32,32 );
 
 }
+
+void GameImage::Draw(HDC hdc, int x, int y, int width, int height)
+{
+    if (bitmap == nullptr)
+    {
+        return;
+    }
+
+    Graphics graphics(hdc);
+
+    graphics.DrawImage(bitmap, x, y, width, height);
+}

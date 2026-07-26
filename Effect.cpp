@@ -16,7 +16,7 @@ void Effect::InitRain(int count, int width, int height)
 
         drop.x = static_cast<float>(rand() % width);
         drop.y = static_cast<float>(rand() % height);
-        drop.speed = static_cast<float>(8 + rand() % 8);
+        drop.speed = static_cast<float>(3 + rand() % 4);
         drop.length = static_cast<float>(8 + rand() % 8);
 
         rainDrops.push_back(drop);

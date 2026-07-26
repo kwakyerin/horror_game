@@ -13,7 +13,7 @@ Map::Map()
 
     currentMap = Village;
 
-    changeMap(Village);
+    changeMap(Market);
 
 }
 
@@ -1448,47 +1448,47 @@ void Map::Draw(HDC hdc)
                 //npc
             case npc_01:
                 grassImage.Draw(hdc, drawX, drawY);
-                npc_01Image.Draw(hdc, drawX, drawY);
+                npc_01Image.Draw(hdc, drawX - 8, drawY - 16, 48, 48);
                 break;
             case npc_02:
                 grassImage.Draw(hdc, drawX, drawY);
-                npc_02Image.Draw(hdc, drawX, drawY);
+                npc_02Image.Draw(hdc, drawX - 8, drawY - 16, 48, 48);
                 break;
             case npc_03:
                 grassImage.Draw(hdc, drawX, drawY);
-                npc_03Image.Draw(hdc, drawX, drawY);
+                npc_03Image.Draw(hdc, drawX - 8, drawY - 16, 48, 48);
                 break;
             case npc_04:
                 grassImage.Draw(hdc, drawX, drawY);
-                npc_04Image.Draw(hdc, drawX, drawY);
+                npc_04Image.Draw(hdc, drawX - 8, drawY - 16, 48, 48);
                 break;
             case npc_05:
                 grassImage.Draw(hdc, drawX, drawY);
-                npc_05Image.Draw(hdc, drawX, drawY);
+                npc_05Image.Draw(hdc, drawX - 8, drawY - 16, 48, 48);
                 break;
             case npc_06:
                 grassImage.Draw(hdc, drawX, drawY);
-                npc_06Image.Draw(hdc, drawX, drawY);
+                npc_06Image.Draw(hdc, drawX - 8, drawY - 16, 48, 48);
                 break;
             case npc_07:
                 grassImage.Draw(hdc, drawX, drawY);
-                npc_07Image.Draw(hdc, drawX, drawY);
+                npc_07Image.Draw(hdc, drawX - 8, drawY - 16, 48, 48);
                 break;
             case npc_08:
                 grassImage.Draw(hdc, drawX, drawY);
-                npc_08Image.Draw(hdc, drawX, drawY);
+                npc_08Image.Draw(hdc, drawX - 8, drawY - 16, 48, 48);
                 break;
             case npc_09:
                 grassImage.Draw(hdc, drawX, drawY);
-                npc_09Image.Draw(hdc, drawX, drawY);
+                npc_09Image.Draw(hdc, drawX - 8, drawY - 16, 48, 48);
                 break;
             case npc_10:
                 grassImage.Draw(hdc, drawX, drawY);
-                npc_10Image.Draw(hdc, drawX, drawY);
+                npc_10Image.Draw(hdc, drawX - 8, drawY - 16, 48, 48);
                 break;
             case npc_11:
                 grassImage.Draw(hdc, drawX, drawY);
-                npc_11Image.Draw(hdc, drawX, drawY);
+                npc_11Image.Draw(hdc, drawX - 8, drawY - 16, 48, 48);
                 break;
             }
             

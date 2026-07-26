@@ -274,8 +274,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
         FillRect(memDC, &rt, (HBRUSH)GetStockObject(WHITE_BRUSH));
 
-        //VillageMap.Draw(memDC);
+        VillageMap.InitEffect(
+            Map_Width * Tile_Size,
+            Map_Height * Tile_Size
+        );
 
+        VillageMap.SetRainEnabled(true);
 
         Graphics graphics(memDC);
 
@@ -346,6 +350,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             }
 
             ui->Draw(graphics, player);
+
+            VillageMap.DrawEffect(graphics); //비
+
             dialogue.Draw(graphics, rt.right, rt.bottom);
 
             SolidBrush darkBrush(Color(80, 0, 0, 0));
@@ -433,6 +440,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     obstacleRects.push_back(quizGhost->GetCollisionRect());
 
                 }
+
+
+                //비 오는 효과
+                VillageMap.UpdateEffect(
+                    Map_Width* Tile_Size,
+                    Map_Height* Tile_Size
+                );
+
                 if (quizGhost == nullptr || !quizGhost->IsQuizActive())
                 {
                     player->Move(

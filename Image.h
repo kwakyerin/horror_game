@@ -16,6 +16,9 @@ public:
 
     void Draw(HDC hdc, int x, int y);
 
+    //npc 키우기 전용 함수
+    void Draw(HDC hdc, int x, int y, int width, int height);
+
 private:
     Bitmap* bitmap;
     int width;
