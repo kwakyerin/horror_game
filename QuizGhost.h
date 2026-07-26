@@ -79,6 +79,9 @@ public:
     void Draw(Gdiplus::Graphics& graphics);
     void Update(float deltaTime, Character& character);
 
+    void SetVisible(bool visible);
+    bool IsVisible() const;
+
     // K키로 상호작용하거나 선택 확정
     void HandleInteraction(
         Character& character,
@@ -92,7 +95,6 @@ public:
     void MoveSelectionDown();
 
     bool IsPlayerNear(const Character& character) const;
-    bool IsVisible() const;
     bool IsSelecting() const;
 
     RECT GetCollisionRect() const;
