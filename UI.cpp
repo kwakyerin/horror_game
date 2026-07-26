@@ -102,11 +102,12 @@ void UI::Draw(Gdiplus::Graphics& graphics, Character* character, const std::vect
             )
         );
     }
+
     int index = 0;
 
     for (const Amulet& amulet : amulets)
     {
-        if (!amulet.IsCollected())
+        if (!amulet.IsCollected()|| amulet.IsUsed())
         {
             continue;
         }

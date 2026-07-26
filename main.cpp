@@ -19,6 +19,7 @@
 #include "ResetGame.h"
 #include "Amulet.h"
 #include "DayNightManager.h"
+#include "StatueManager.h"
 
 
 #pragma comment(lib, "gdiplus.lib")
@@ -41,6 +42,7 @@ Dialogue dialogue;
 NPC npcManager;
 
 UI* ui = nullptr;
+StatueManager* statueManager = nullptr;//조각상 머리 바꾸기
 
 DayNightManager dayNight; //밤 낮 조정
 bool introDialoguePlayed = false;
@@ -216,6 +218,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         ui = new UI();
         ui->LoadImages();
 
+        statueManager = new StatueManager();
+
         if (!VillageMap.LoadImages())
         {
             // MessageBox(hWnd, L"맵 이미지 로드 실패", L"Error", MB_OK);
@@ -240,7 +244,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         amulets.emplace_back(Market, 14 * Tile_Size, 4 * Tile_Size, AmuletType::Red);//시장 오른쪽 테이블 밑
         amulets.emplace_back(Govillage, 2 * Tile_Size, 3 * Tile_Size, AmuletType::Blue);//마을 가는 길 가장 안쪽에 긴 나무 
         amulets.emplace_back(Room, 14 * Tile_Size, 5 * Tile_Size, AmuletType::White);//집 항아리
-        amulets.emplace_back(Room, 14 * Tile_Size, 5 * Tile_Size, AmuletType::Black);//아직 수정해야함
+        amulets.emplace_back(Market, 14 * Tile_Size, 5 * Tile_Size, AmuletType::Black);//아직 수정해야함,사찰에 넣을 예정
 
         oniSpawner = new MonsterSpawner(MonsterType::Oni,
             15 * Tile_Size,   // 타일 X = 15 (큰 크리스탈 쪽으로 가까이 가면 뜸)
@@ -473,7 +477,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
                 if (VillageMap.GetCurrentMap() == MapType::Field)
                 {
-                    shadowSpawner->Update(deltaTime, player);
+                    //shadowSpawner->Update(deltaTime, player);
                 }
 
                 if (VillageMap.GetCurrentMap() == MapType::Gomarket_02)
@@ -579,6 +583,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
         delete ui;
         ui = nullptr;
+
+        delete statueManager;
+        statueManager = nullptr;
 
         if (g_mapDC != nullptr)
         {
@@ -713,6 +720,30 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     }
                 }
             }
+            //조각상 머리 변경 테스트
+            if (statueManager != nullptr)
+            {
+                bool changed =
+                    statueManager->Interact(
+                        player,
+                        VillageMap,
+                        amulets
+                    );
+
+                if (changed)
+                {
+                    CreateMapBuffer(hWnd);
+
+                    InvalidateRect(
+                        hWnd,
+                        nullptr,
+                        FALSE
+                    );
+
+                    return 0;
+                }
+            }
+
 
             // NPC 대화
             if (player != nullptr)

@@ -344,6 +344,27 @@ bool Map::LoadImages()
         L"Image\\Cave\\Stage_04.png"
     );
 
+    //조각상 머리
+    result &= Status_RedImage.Load(
+        L"Image\\statue_head\\Statue_red.png"
+    );
+
+    result &= Status_BlueImage.Load(
+        L"Image\\statue_head\\Statue_blue.png"
+    );
+
+    result &= Status_YellowImage.Load(
+        L"Image\\statue_head\\Statue_yellow.png"
+    );
+
+    result &= Status_BlackImage.Load(
+        L"Image\\statue_head\\Statue_black.png"
+    );
+
+    result &= Status_WhiteImage.Load(
+        L"Image\\statue_head\\Statue_white.png"
+    );
+
     //금
     result &= Gold_01Image.Load(
         L"Image\\Cave\\Gold_01.png"
@@ -1080,6 +1101,31 @@ void Map::Draw(HDC hdc)
             case Status_04:
                 grassImage.Draw(hdc, drawX, drawY);
                 Status_04Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case Status_Red:
+                grassImage.Draw(hdc, drawX, drawY);
+                Status_RedImage.Draw(hdc, drawX, drawY);
+                break;
+
+            case Status_Blue:
+                grassImage.Draw(hdc, drawX, drawY);
+                Status_BlueImage.Draw(hdc, drawX, drawY);
+                break;
+
+            case Status_Yellow:
+                grassImage.Draw(hdc, drawX, drawY);
+                Status_YellowImage.Draw(hdc, drawX, drawY);
+                break;
+
+            case Status_Black:
+                grassImage.Draw(hdc, drawX, drawY);
+                Status_BlackImage.Draw(hdc, drawX, drawY);
+                break;
+
+            case Status_White:
+                grassImage.Draw(hdc, drawX, drawY);
+                Status_WhiteImage.Draw(hdc, drawX, drawY);
                 break;
 
             case Stage_01:
@@ -2388,6 +2434,21 @@ void Map::changeMap(MapType newMap)
             map[3][5] = TILE_ROAD;
             map[3][6] = TILE_ROAD;
 
+            map[3][12] = Status_03;
+            map[2][12] = Status_04;
+
+            map[9][3] = Status_03;
+            map[8][3] = Status_04;
+
+            map[6][20] = Status_03;
+            map[5][20] = Status_04;
+
+            map[15][8] = Status_03;
+            map[14][8] = Status_04;
+
+            map[12][17] = Status_03;
+            map[11][17] = Status_04;
+
             break;
 
         case Gotemple_01:
@@ -2916,3 +2977,17 @@ int Map::GetNearbyNPC(
     return -1;
 }
 
+void Map::SetTile(int tileX,int tileY,int tileType)
+{
+    if (tileX < 0 || tileX >= Map_Width)
+    {
+        return;
+    }
+
+    if (tileY < 0 || tileY >= Map_Height)
+    {
+        return;
+    }
+
+    map[tileY][tileX] = tileType;
+}
