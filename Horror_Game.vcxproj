@@ -143,6 +143,7 @@
     <ClCompile Include="ResetGame.cpp" />
     <ClCompile Include="ShadowGhost.cpp" />
     <ClCompile Include="Sound.cpp" />
+    <ClCompile Include="StatueManager.cpp" />
     <ClCompile Include="TitleScreen.cpp" />
     <ClCompile Include="UI.cpp" />
   </ItemGroup>
@@ -165,6 +166,7 @@
     <ClInclude Include="ResetGame.h" />
     <ClInclude Include="ShadowGhost.h" />
     <ClInclude Include="Sound.h" />
+    <ClInclude Include="StatueManager.h" />
     <ClInclude Include="TitleScreen.h" />
     <ClInclude Include="UI.h" />
   </ItemGroup>

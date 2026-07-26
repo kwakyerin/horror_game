@@ -18,6 +18,8 @@ private:
 	bool collected;
 	AmuletType type;
 
+	bool used;
+
 public:
 	Amulet(MapType mapType, float x, float y, AmuletType type);
 	MapType GetMapType() const;
@@ -27,4 +29,6 @@ public:
 	bool IsCollected()const;
 	float GetX() const;
 	float GetY() const;
+	bool IsUsed() const;
+	void Use();
 };

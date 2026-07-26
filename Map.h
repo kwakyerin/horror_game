@@ -201,7 +201,13 @@ enum TileType
     npc_11,
 
     Status_03,
-    Status_04
+    Status_04,
+
+    Status_Yellow,
+    Status_Red,
+    Status_Blue,
+    Status_Black,
+    Status_White
 
 };
 
@@ -225,6 +231,7 @@ enum MapType {
 class Map
 {
 public:
+    void SetTile(int tileX, int tileY, int tileType);//조각상 부적 부착
 
     Map();
 
@@ -471,4 +478,11 @@ private:
 
     GameImage Status_03Image;
     GameImage Status_04Image;
+
+    GameImage Status_RedImage;
+    GameImage Status_BlueImage;
+    GameImage Status_YellowImage;
+    GameImage Status_BlackImage;
+    GameImage Status_WhiteImage;
+
 };

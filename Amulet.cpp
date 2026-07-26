@@ -8,7 +8,8 @@ Amulet::Amulet(MapType mapType,float x,float y, AmuletType type)
     x(x),
 	y(y),
 	collected(false),
-    type(type)
+    type(type),
+    used(false)
 
 {
 
@@ -82,4 +83,14 @@ float Amulet::GetX() const
 float Amulet::GetY() const
 {
     return y;
+}
+
+bool Amulet::IsUsed() const
+{
+    return used;
+}
+
+void Amulet::Use()
+{
+    used = true;
 }
