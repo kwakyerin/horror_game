@@ -13,7 +13,7 @@ Map::Map()
 
     currentMap = Village;
 
-    changeMap(Market);
+    changeMap(Gotemple_02);
 
 }
 
@@ -1347,12 +1347,12 @@ void Map::Draw(HDC hdc)
                 break;
 
             case Product_09:
-                Markettable_02Image.Draw(hdc, drawX, drawY);
+                grassImage.Draw(hdc, drawX, drawY);
                 Product_09Image.Draw(hdc, drawX, drawY);
                 break;
 
             case Product_10:
-                Markettable_02Image.Draw(hdc, drawX, drawY);
+                grassImage.Draw(hdc, drawX, drawY);
                 Product_10Image.Draw(hdc, drawX, drawY);
                 break;
             case Product_11:
@@ -1388,7 +1388,7 @@ void Map::Draw(HDC hdc)
                 Product_18Image.Draw(hdc, drawX, drawY);
                 break;
             case Product_19:
-                Markettable_02Image.Draw(hdc, drawX, drawY);
+                grassImage.Draw(hdc, drawX, drawY);
                 Product_19Image.Draw(hdc, drawX, drawY);
                 break;
             case Product_20:
@@ -1965,10 +1965,6 @@ void Map::changeMap(MapType newMap)
 
         map[15][19] = CaveBottom;
 
-        //돌
-        map[15][15] = Rock_09;
-        map[15][16] = Rock_10;
-
         //아래로 내려가는 길
         map[16][11] = CaveBottom;
         map[17][11] = CaveBottom;
@@ -2216,6 +2212,7 @@ void Map::changeMap(MapType newMap)
         //돌바닥
         for (int i = 0; i < 25; i++) {
             map[11][i] = TILE_ROAD;
+            map[12][i] = TILE_ROAD;
         }
 
         break;
@@ -2320,6 +2317,58 @@ void Map::changeMap(MapType newMap)
         map[9][20] = npc_06;
         
         break;
+
+        case Field:
+
+            map[0][5] = TILE_ROAD;
+            map[0][6] = TILE_ROAD;
+            map[1][5] = TILE_ROAD;
+            map[1][6] = TILE_ROAD;
+            map[2][5] = TILE_ROAD;
+            map[2][6] = TILE_ROAD;
+            map[3][5] = TILE_ROAD;
+            map[3][6] = TILE_ROAD;
+
+            break;
+
+        case Gotemple_01:
+
+            map[17][5] = TILE_ROAD;
+            map[17][6] = TILE_ROAD;
+            map[16][5] = TILE_ROAD;
+            map[16][6] = TILE_ROAD;
+            map[15][5] = TILE_ROAD;
+            map[15][6] = TILE_ROAD;
+            map[14][5] = TILE_ROAD;
+            map[14][6] = TILE_ROAD;
+            map[13][5] = TILE_ROAD;
+            map[13][6] = TILE_ROAD;
+
+            for (int i = 7; i < 25; i++) {
+                map[13][i] = TILE_ROAD;
+                map[14][i] = TILE_ROAD;
+            }
+
+            break;
+
+        case Gotemple_02:
+
+            for (int i = 0; i < 10; i++) {
+                map[13][i] = TILE_ROAD;
+                map[14][i] = TILE_ROAD;
+            }
+
+            for (int i = 10; i < 15; i++) {
+                map[i][8] = TILE_ROAD;
+                map[i][9] = TILE_ROAD;
+            }
+
+            for (int i = 8; i < 25; i++) {
+                map[8][i] = TILE_ROAD;
+                map[9][i] = TILE_ROAD;
+            }
+
+            break;
     }
 
 }
@@ -2447,28 +2496,23 @@ void Map::Maptransform(Character& character) {
             character.SetPosition(1 * Tile_Size, 5 * Tile_Size);
     }
 
-    //마을->동굴
-    if (currentMap == MapType::Village && tileY == 0 && (tileX == 5 || tileX == 6))
-    {
-        changeMap(MapType::Cave);
-
-        character.SetPosition(1 * Tile_Size, 9 * Tile_Size);
-
-    }
-
-    //동굴->마을
-    if (currentMap == MapType::Cave &&tileX == 0 &&tileY == 8)
-    {
-        changeMap(MapType::Village);
-
-        character.SetPosition(5 * Tile_Size, 2 * Tile_Size);
-    }
-
     //동굴->동굴 안
+    if (currentMap == MapType::Cave && ( tileX == 11|| tileX == 12|| tileX == 13 )&& tileY == 17)
+    {
+        changeMap(MapType::Cave_02);
 
+        character.SetPosition(tileX * Tile_Size, 1 * Tile_Size);
+    }
 
 
     //동굴 안->동굴
+
+    if (currentMap == MapType::Cave_02 && (tileX == 11 || tileX == 12 || tileX == 13) && tileY == 0)
+    {
+        changeMap(MapType::Cave);
+
+        character.SetPosition(tileX * Tile_Size, 16 * Tile_Size);
+    }
     
 
 
@@ -2488,11 +2532,8 @@ void Map::Maptransform(Character& character) {
         character.SetPosition(20 * Tile_Size, 9 * Tile_Size);
     }
 
-    //마을->숲
 
-    //사찰->동굴
-
-    //마을->마을 가는 길_01(뭔가 이상함)
+    //마을->시장 가는 길_01(뭔가 이상함)
     if (currentMap == MapType::Village && tileX == 24 && (tileY == 11 || tileY == 12))
     {
         changeMap(MapType::Gomarket_01);
@@ -2501,7 +2542,7 @@ void Map::Maptransform(Character& character) {
 
     }
 
-    //마을 가는 길_01->마을
+    //시장 가는 길_01->마을
     if (currentMap == MapType::Gomarket_01 &&tileX == 1 && (tileY == 12 || tileY == 13))
     {
         changeMap(MapType::Village);
@@ -2510,7 +2551,7 @@ void Map::Maptransform(Character& character) {
 
     }
 
-    //마을 가는 길_01->마을 가는 길_02
+    //시장 가는 길_01->시장 가는 길_02
     if (currentMap == MapType::Gomarket_01 && tileX == 24 && (tileY == 11 || tileY == 12))
     {
         changeMap(MapType::Gomarket_02);
@@ -2519,12 +2560,84 @@ void Map::Maptransform(Character& character) {
 
     }
 
-    //마을 가는 길_02->마을 가는 길_01
+    //시장 가는 길_02->시장 가는 길_01
     if (currentMap == MapType::Gomarket_02 && tileX == 0 && (tileY == 11 || tileY == 12))
     {
         changeMap(MapType::Gomarket_01);
 
         character.SetPosition(23 * Tile_Size, tileY * Tile_Size);
+
+    }
+
+    //마을->들판
+    if (currentMap == MapType::Village && (tileX == 5||tileX==6) && tileY == 17)
+    {
+        changeMap(MapType::Field);
+
+        character.SetPosition(tileX* Tile_Size, 2 * Tile_Size);
+
+    }
+
+    //들판->마을
+    if (currentMap == MapType::Field && (tileX == 5 || tileX == 6) && tileY == 0)
+    {
+        changeMap(MapType::Village);
+
+        character.SetPosition(tileX* Tile_Size, 16 * Tile_Size);
+
+    }
+
+    //마을->사찰 가는 길_01
+    if (currentMap == MapType::Village && (tileX == 5 || tileX == 6) && tileY == 0)
+    {
+        changeMap(MapType::Gotemple_01);
+
+        character.SetPosition(tileX * Tile_Size, 16 * Tile_Size);
+
+    }
+
+    //사찰 가는 길_01->마을
+    if (currentMap == MapType::Field && (tileX == 5 || tileX == 6) && tileY == 17)
+    {
+        changeMap(MapType::Village);
+
+        character.SetPosition(tileX * Tile_Size, 0 * Tile_Size);
+
+    }
+
+    //사찰 가는 길_01->사찰 가는 길_02
+    if (currentMap == MapType::Gotemple_01 && tileX == 24  && (tileY == 12||tileY==13))
+    {
+        changeMap(MapType::Gotemple_02);
+
+        character.SetPosition(0 * Tile_Size, tileY * Tile_Size);
+
+    }
+
+    //사찰 가는 길_02->사찰 가는 길_01
+    if (currentMap == MapType::Field && (tileX == 5 || tileX == 6) && tileY == 17)
+    {
+        changeMap(MapType::Village);
+
+        character.SetPosition(tileX * Tile_Size, 0 * Tile_Size);
+
+    }
+
+    //사찰 가는 길_02->동굴
+    if (currentMap == MapType::Gotemple_02 && tileX == 24 && (tileY == 8 || tileY == 9))
+    {
+        changeMap(MapType::Cave);
+
+        character.SetPosition(1 * Tile_Size, tileY * Tile_Size);
+
+    }
+
+    //동굴->사찰 가는 길_02
+    if (currentMap == MapType::Cave && tileX == 0 && (tileY == 8 || tileY == 9))
+    {
+        changeMap(MapType::Gotemple_02);
+
+        character.SetPosition( 23 * Tile_Size, tileY * Tile_Size);
 
     }
 }

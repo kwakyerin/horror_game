@@ -170,7 +170,7 @@ void NPC::Talk(int tile, Dialogue& dialogue)
     case npc_06:
         dialogue.Open(
             L"아이",
-            L"어젯밤에 검은 그림자가 폐가로 들어가는 걸 봤어요."
+            L"어젯밤에 검은 그림자가 동굴로 들어가는 걸 봤어요."
         );
         break;
     }

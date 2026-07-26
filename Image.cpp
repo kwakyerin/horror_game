@@ -49,6 +49,6 @@ void GameImage::Draw(HDC hdc, int x, int y)
 
     Graphics graphics(hdc);
 
-    graphics.DrawImage( bitmap,x,y,width,height );
+    graphics.DrawImage( bitmap,x,y,32,32 );
 
 }

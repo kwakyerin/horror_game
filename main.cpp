@@ -212,7 +212,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         //VillageMap.Draw(memDC);
 
 
-
         Graphics graphics(memDC);
 
         switch (gameState) {
@@ -386,51 +385,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             return 0;
 
         case 'K':
-        {
-            if (gameState != GameState::Playing || player == nullptr)
-                return 0;
-
-            // 이미 대화창이 열려 있으면 닫고 끝
-            if (dialogue.IsOpen())
-            {
-                dialogue.Close();
-                InvalidateRect(hWnd, nullptr, FALSE);
-                return 0;
-            }
-
-            int tileX = player->GetX() / Tile_Size;
-            int tileY = player->GetY() / Tile_Size;
-
-            int checkTile[4] =
-            {
-                VillageMap.GetTile(tileX, tileY - 1),
-                VillageMap.GetTile(tileX, tileY + 1),
-                VillageMap.GetTile(tileX - 1, tileY),
-                VillageMap.GetTile(tileX + 1, tileY)
-            };
-
-            bool foundNPC = false;
-
-            for (int i = 0; i < 4 && !foundNPC; i++)
-            {
-                npcManager.Talk(checkTile[i], dialogue);
-
-                if (dialogue.IsOpen())
-                {
-                    foundNPC = true;
-                }
-            }
-
-            // NPC가 없을 때만 퀴즈 귀신 검사
-            if (!foundNPC && quizGhost != nullptr)
+            if (gameState == GameState::Playing)
             {
                 quizGhost->HandleInteraction(*player);
             }
-
-            InvalidateRect(hWnd, nullptr, FALSE);
             return 0;
         }
-        }
+        return 0;
 
     case WM_MOUSEMOVE:
     {
@@ -448,7 +409,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
             InvalidateRect(hWnd, nullptr, FALSE);
 
-            titleScreen->UpdateHover(pt.x,pt.y);  
+            titleScreen->UpdateHover(pt.x, pt.y);
 
         }
         else if (gameState == GameState::End && endScreen)
@@ -473,11 +434,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
             if (titleScreen->IsStartClicked(pt.x, pt.y))
 
-            if (titleScreen->IsStartClicked(pt.x,pt.y))
+                if (titleScreen->IsStartClicked(pt.x, pt.y))
 
-            {
-                gameState = GameState::Playing;
-            }
+                {
+                    gameState = GameState::Playing;
+                }
 
             if (titleScreen->IsExitClicked(pt.x, pt.y))
             {
