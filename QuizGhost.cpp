@@ -249,6 +249,11 @@ void QuizGhost::Draw(Gdiplus::Graphics& graphics)
 
 RECT QuizGhost::GetCollisionRect() const
 {
+    if (!isVisible)
+    {
+        return RECT{ 0, 0, 0, 0 };
+    }
+
     RECT rect;
 
     rect.left = static_cast<LONG>(x);
