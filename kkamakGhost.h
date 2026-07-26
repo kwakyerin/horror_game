@@ -9,7 +9,8 @@ private:
 	float x;
 	float y;
 	float moveSpeed;
-
+	float startX;
+	float startY;
 	Gdiplus::Image* image;
 
 public:
@@ -25,4 +26,5 @@ public:
 	bool IsCollidingWithPlayer(const Character& character)const;
 
 	RECT GetCollisionRect() const;
+	void Reset();
 };

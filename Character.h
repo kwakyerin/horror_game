@@ -52,6 +52,7 @@ public:
 	void Damage(int amount);
 
 	void UpdateDeath(float deltaTime);
+	void Reset();
 
 	bool IsDying()const;
 	bool IsDeathAnimationFinished()const;

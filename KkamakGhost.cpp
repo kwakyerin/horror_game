@@ -146,3 +146,9 @@ bool KkamakGhost::IsCollidingWithPlayer(const Character& character) const
     }
     return false;
 }
+
+void KkamakGhost::Reset()
+{
+    x = startX;
+    y = startY;
+}
