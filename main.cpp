@@ -49,6 +49,7 @@ bool introDialoguePlayed = false;
 
 //npc 10이랑 대화했는지 판별
 bool clientMet = false;
+bool nightStarted = false;
 
 
 Character* player = nullptr;
@@ -80,6 +81,20 @@ HINSTANCE g_hInst;
 LPCTSTR lpszClass = L"OBU_Project";
 LPCTSTR lpszWindowName = L"OBU_Project";
 LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam);
+
+//부적 다 모았는지 확인
+bool AllAmuletsCollected()
+{
+    for (const Amulet& amulet : amulets)
+    {
+        if (!amulet.IsCollected())
+        {
+            return false;
+        }
+
+        return true;
+    }
+}
 
 void CreateMapBuffer(HWND hWnd)
 {
@@ -130,6 +145,9 @@ void CreateMapBuffer(HWND hWnd)
 
     ReleaseDC(hWnd, hdc);
 }
+
+
+
 
 int WINAPI WinMain(
 
@@ -195,6 +213,8 @@ int WINAPI WinMain(
 
     return static_cast<int>(Message.wParam);
 }
+
+
 
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
@@ -384,9 +404,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
             dialogue.Draw(graphics, rt.right, rt.bottom);
 
-            SolidBrush darkBrush(Color(80, 0, 0, 0));
+            //밝기 조정
+            BYTE darkness = dayNight.IsNight() ? 90 : 30;
 
-            graphics.FillRectangle(&darkBrush,0,0,rt.right,rt.bottom);
+            SolidBrush darkBrush(Color(darkness, 0, 0, 0));
+            graphics.FillRectangle(&darkBrush, 0, 0, rt.right, rt.bottom);
 
             ui->Draw(graphics, player, amulets,VillageMap.GetCurrentMap());//부적이랑 하트
 
@@ -531,6 +553,25 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
                 VillageMap.Maptransform( *player );
 
+                //밤 되면 몬스터 생성
+                if (dayNight.IsDay() && AllAmuletsCollected())
+                {
+
+                    nightStarted = true;
+
+                    dayNight.SetNight();
+
+                    if (quizGhost != nullptr)
+                    {
+                        quizGhost->SetVisible(true);
+                    }
+
+                    dialogue.Open(
+                        {
+                            L"주변이 갑자기 어두워졌다...",
+                            L"무언가가 다가오고 있는 것 같다."
+                        });
+                }
 
                 if (previousMap != VillageMap.GetCurrentMap())
                 {
@@ -632,7 +673,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             break;
         }
         //밤낮 테스트용 키
-        case 'N':
+        /*case 'N':
         {
             dayNight.Toggle();
 
@@ -658,7 +699,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
             InvalidateRect(hWnd, nullptr, FALSE);
             return 0;
-        }
+        }*/
 
         case 'S':
         {
