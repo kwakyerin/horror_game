@@ -332,3 +332,25 @@ bool Character::IsDeathAnimationFinished() const
 {
     return deathAnimationFinished;
 }
+
+void Character::Reset()
+{
+    x = 10 * Tile_Size;
+    y = 10 * Tile_Size;
+
+    hp = 15;
+
+    direction = Direction::Down;
+    currentFrame = 0;
+    animationTimer = 0.0f;
+
+    facingLeft = false;
+
+    isDying = false;
+    deathAnimationFinished = false;
+
+    deathFrame = 0;
+    deathAnimationTimer = 0.0f;
+
+    deathFacingLeft = false;
+}

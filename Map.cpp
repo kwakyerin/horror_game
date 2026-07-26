@@ -13,7 +13,7 @@ Map::Map()
 
     currentMap = Village;
 
-    changeMap(Village);
+    changeMap(Gotemple_01);
 
 }
 
