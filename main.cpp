@@ -443,16 +443,58 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             if (dialogue.IsOpen())
             {
                 dialogue.Next();
+
+                InvalidateRect(
+                    hWnd,
+                    nullptr,
+                    FALSE
+                );
+
+                return 0;
             }
-            else
+
+            if (player != nullptr)
             {
-                if (player != nullptr && quizGhost != nullptr)
+                int nearbyNPC =
+                    VillageMap.GetNearbyNPC(
+                        player->GetX(),
+                        player->GetY(),
+                        32,
+                        32
+                    );
+
+                if (nearbyNPC != -1)
                 {
-                    quizGhost->HandleInteraction(*player, dialogue);
+                    npcManager.Talk(
+                        nearbyNPC,
+                        dialogue
+                    );
+
+                    InvalidateRect(
+                        hWnd,
+                        nullptr,
+                        FALSE
+                    );
+
+                    return 0;
                 }
             }
 
-            InvalidateRect(hWnd, nullptr, FALSE);
+            if (player != nullptr &&
+                quizGhost != nullptr)
+            {
+                quizGhost->HandleInteraction(
+                    *player,
+                    dialogue
+                );
+            }
+
+            InvalidateRect(
+                hWnd,
+                nullptr,
+                FALSE
+            );
+
             return 0;
         }
         }

@@ -13,7 +13,7 @@ Map::Map()
 
     currentMap = Village;
 
-    changeMap(Gomarket_02);
+    changeMap(Gotemple_01);
 
 }
 
@@ -652,6 +652,22 @@ bool Map::LoadImages()
     result &= npc_06Image.Load(
         L"Image\\Npc\\npc_06.png"
     );
+    result &= npc_07Image.Load(
+        L"Image\\Npc\\npc_07.png"
+    );
+    result &= npc_08Image.Load(
+        L"Image\\Npc\\npc_08.png"
+    );
+    result &= npc_09Image.Load(
+        L"Image\\Npc\\npc_09.png"
+    );
+    result &= npc_10Image.Load(
+        L"Image\\Npc\\npc_10.png"
+    );
+    result &= npc_11Image.Load(
+        L"Image\\Npc\\npc_11.png"
+    );
+    
 
     return result;
 }
@@ -1454,6 +1470,26 @@ void Map::Draw(HDC hdc)
                 grassImage.Draw(hdc, drawX, drawY);
                 npc_06Image.Draw(hdc, drawX, drawY);
                 break;
+            case npc_07:
+                grassImage.Draw(hdc, drawX, drawY);
+                npc_07Image.Draw(hdc, drawX, drawY);
+                break;
+            case npc_08:
+                grassImage.Draw(hdc, drawX, drawY);
+                npc_08Image.Draw(hdc, drawX, drawY);
+                break;
+            case npc_09:
+                grassImage.Draw(hdc, drawX, drawY);
+                npc_09Image.Draw(hdc, drawX, drawY);
+                break;
+            case npc_10:
+                grassImage.Draw(hdc, drawX, drawY);
+                npc_10Image.Draw(hdc, drawX, drawY);
+                break;
+            case npc_11:
+                grassImage.Draw(hdc, drawX, drawY);
+                npc_11Image.Draw(hdc, drawX, drawY);
+                break;
             }
             
         }
@@ -1631,6 +1667,12 @@ void Map::changeMap(MapType newMap)
         //µ¹_06
         map[4][8] = ROCK_06;
         map[5][7] = ROCK_06;
+
+        map[6][9] = npc_07;
+        map[6][8] = npc_08;
+
+        map[2][22] = npc_09;
+        map[15][17] = npc_11;
 
         break;
 
@@ -2349,6 +2391,8 @@ void Map::changeMap(MapType newMap)
                 map[14][i] = TILE_ROAD;
             }
 
+            map[5][10] = npc_10;
+            
             break;
 
         case Gotemple_02:
@@ -2463,6 +2507,11 @@ bool Map::IsBlocked(float x, float y)
     case npc_04:
     case npc_05:
     case npc_06:
+    case npc_07:
+    case npc_08:
+    case npc_09:
+    case npc_10:
+    case npc_11:
 
         return true;
     }
@@ -2737,5 +2786,65 @@ int Map::GetTile(int tileX, int tileY) const
     }
 
     return map[tileY][tileX];
+}
+
+int Map::GetNearbyNPC(
+    float playerX,
+    float playerY,
+    int playerWidth,
+    int playerHeight
+) const
+{
+    const int interactionRange = 32;
+
+    RECT playerRange;
+
+    playerRange.left =
+        static_cast<LONG>(playerX) - interactionRange;
+
+    playerRange.top =
+        static_cast<LONG>(playerY) - interactionRange;
+
+    playerRange.right =
+        static_cast<LONG>(playerX) +
+        playerWidth +
+        interactionRange;
+
+    playerRange.bottom =
+        static_cast<LONG>(playerY) +
+        playerHeight +
+        interactionRange;
+
+    for (int y = 0; y < Map_Height; y++)
+    {
+        for (int x = 0; x < Map_Width; x++)
+        {
+            int tile = map[y][x];
+
+            if (tile < npc_01 || tile > npc_11)
+            {
+                continue;
+            }
+
+            RECT npcRect;
+
+            npcRect.left = x * Tile_Size;
+            npcRect.top = y * Tile_Size;
+            npcRect.right = npcRect.left + Tile_Size;
+            npcRect.bottom = npcRect.top + Tile_Size;
+
+            RECT result;
+
+            if (IntersectRect(
+                &result,
+                &playerRange,
+                &npcRect))
+            {
+                return tile;
+            }
+        }
+    }
+
+    return -1;
 }
 
