@@ -236,7 +236,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             L"Image\\monster_oni\\Attack.png"
         );
 
-        gumihoSpawner = new MonsterSpawner(MonsterType::Gumiho, 15 * Tile_Size, 8 * Tile_Size, 100.0f, 600.0f, 300.0f,
+        gumihoSpawner = new MonsterSpawner(MonsterType::Gumiho, 16 * Tile_Size, 3 * Tile_Size, 100.0f, 600.0f, 300.0f,
             L"Image\\monster_gumiho\\Run.png",
             L"Image\\monster_gumiho\\Attack.png");// 구미호 위치도 임시
 

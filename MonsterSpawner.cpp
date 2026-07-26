@@ -80,13 +80,6 @@ void MonsterSpawner::Update(float deltaTime,Character* player)
                     spawnX,
                     spawnY
                 };
-
-               // MessageBox(
-                   // nullptr,
-                   // L"ShadowGhost »ý¼ºµÊ",
-                    //L"Debug",
-                   // MB_OK
-                //);
                 break;
 
             }
@@ -142,4 +135,15 @@ RECT MonsterSpawner::GetCollisionRect() const
     }
 
     return RECT{ 0, 0, 0, 0 };
+}
+
+void MonsterSpawner::Reset()
+{
+    delete monster;
+    monster = nullptr;
+
+    delete shadowGhost;
+    shadowGhost = nullptr;
+
+    spawned = false;
 }
