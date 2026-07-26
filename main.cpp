@@ -45,6 +45,10 @@ UI* ui = nullptr;
 DayNightManager dayNight; //¹ã ³· Á¶Á¤
 bool introDialoguePlayed = false;
 
+//npc 10ÀÌ¶û ´ëÈ­Çß´ÂÁö ÆÇº°
+bool clientMet = false;
+
+
 Character* player = nullptr;
 MonsterSpawner* oniSpawner = nullptr;
 MonsterSpawner* gumihoSpawner = nullptr;
@@ -521,7 +525,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
                 MapType previousMap = VillageMap.GetCurrentMap();
 
-                VillageMap.Maptransform(*player);
+                VillageMap.Maptransform( *player );
 
 
                 if (previousMap != VillageMap.GetCurrentMap())
@@ -727,6 +731,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                         nearbyNPC,
                         dialogue
                     );
+
+                    if (nearbyNPC == 182)
+                    {
+                        clientMet = true;
+                    }
 
                     InvalidateRect(
                         hWnd,

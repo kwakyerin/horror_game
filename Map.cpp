@@ -4,6 +4,7 @@
 #include "Image.h"
 #include "Character.h"
 #include "Sound.h"
+#include "Dialogue.h"
 
 Sound sound;
 
