@@ -6,6 +6,7 @@ QuizGhost::QuizGhost(float startX, float startY, const wchar_t* path)
 :x(startX),
 y(startY),
 image(nullptr),
+Dialogue_box(nullptr),
 isTalking(false)
 {
 	image = new Gdiplus::Image(path);
@@ -13,6 +14,13 @@ isTalking(false)
     {
         delete image;
         image = nullptr;
+    }
+    Dialogue_box = new Gdiplus::Image(L"Image\\monster_quiz\\Dialogue_box.png");
+
+    if (Dialogue_box->GetLastStatus() != Gdiplus::Ok)
+    {
+        delete Dialogue_box;
+        Dialogue_box = nullptr;
     }
 
    
@@ -26,7 +34,9 @@ QuizGhost::~QuizGhost() {
 	delete image;
     image = nullptr;
 
-    
+    delete Dialogue_box;
+    Dialogue_box = nullptr;
+
 }
 
 void QuizGhost:: Draw(Gdiplus::Graphics& graphics) {
@@ -43,7 +53,45 @@ void QuizGhost:: Draw(Gdiplus::Graphics& graphics) {
         239
     );
 
-    
+    if (isTalking && Dialogue_box != nullptr)
+    {
+       
+
+        Gdiplus::Font font(
+            L"궁서",
+            20,
+            Gdiplus::FontStyleBold,
+            Gdiplus::UnitPixel
+        );
+
+        Gdiplus::SolidBrush shadowBrush(
+            Gdiplus::Color(255, 0, 0, 0)
+        );
+
+        Gdiplus::SolidBrush textBrush(
+            Gdiplus::Color(255, 255, 255, 255)
+        );
+
+        const wchar_t* text = L"범인을 찾아오너라...";
+
+        // 글자 그림자
+        graphics.DrawString(
+            text,
+            -1,
+            &font,
+            Gdiplus::PointF(52.0f, 472.0f),
+            &shadowBrush
+        );
+
+        // 실제 글자
+        graphics.DrawString(
+            text,
+            -1,
+            &font,
+            Gdiplus::PointF(50.0f, 470.0f),
+            &textBrush
+        );
+    }
 
     Gdiplus::Pen pen(
         Gdiplus::Color(255, 255, 0, 0),

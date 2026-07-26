@@ -126,6 +126,7 @@
   <ItemGroup>
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="Dialogue.cpp" />
+    <ClCompile Include="EndScreen.cpp" />
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="FireBall.cpp" />
     <ClCompile Include="Gumiho.cpp" />
@@ -140,10 +141,12 @@
     <ClCompile Include="ShadowGhost.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="TitleScreen.cpp" />
+    <ClCompile Include="UI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Character.h" />
     <ClInclude Include="Dialogue.h" />
+    <ClInclude Include="EndScreen.h" />
     <ClInclude Include="Effect.h" />
     <ClInclude Include="FireBall.h" />
     <ClInclude Include="Gumiho.h" />
@@ -157,6 +160,7 @@
     <ClInclude Include="ShadowGhost.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="TitleScreen.h" />
+    <ClInclude Include="UI.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

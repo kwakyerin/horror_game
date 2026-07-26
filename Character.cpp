@@ -10,14 +10,31 @@ Character::Character(const wchar_t* path)
     animationTimer(0.0f),
     hp(15),
     direction(Direction::Down),
-    image(nullptr)
+    image(nullptr),
+    deathImage(nullptr),
+    isDying(false),
+    deathAnimationFinished(false),
+    facingLeft(false),
+    deathFacingLeft(false),
+    deathFrame(0),
+    deathAnimationTimer(0.0f)
 {
     LoadImage(path);
+    deathImage = new Gdiplus::Image(L"Image\\character\\death.png");
+    if (deathImage->GetLastStatus() != Gdiplus::Ok)
+    {
+        delete deathImage;
+        deathImage = nullptr;
+    }
 }
 
 Character::~Character()
 {
     delete image;
+    image = nullptr;
+
+    delete deathImage;
+    deathImage = nullptr;
 }
 
 bool Character::LoadImage(const wchar_t* path)
@@ -37,6 +54,9 @@ bool Character::LoadImage(const wchar_t* path)
 //캐릭터 움직임
 void Character::Move(float deltaTime, Map& gameMap,const std::vector<RECT>& monsterRects)
 {
+    if (isDying) {
+        return;
+    }
     bool isMoving = false;
 
     float nextX = x;
@@ -58,12 +78,14 @@ void Character::Move(float deltaTime, Map& gameMap,const std::vector<RECT>& mons
     {
         nextX -= moveSpeed * deltaTime;
         direction = Direction::Left;
+        facingLeft = true;
         isMoving = true;
     }
     else if (GetAsyncKeyState('D') & 0x8000)
     {
         nextX += moveSpeed * deltaTime;
         direction = Direction::Right;
+        facingLeft = false;
         isMoving = true;
     }
 
@@ -122,6 +144,74 @@ void Character::Move(float deltaTime, Map& gameMap,const std::vector<RECT>& mons
 
 void Character::Draw(Gdiplus::Graphics& graphics)
 {
+    if (isDying)
+    {
+        if (deathImage == nullptr)
+        {
+            return;
+        }
+
+        const int deathFrameWidth = 20;
+        const int deathFrameHeight = 16;
+
+        const int deathDrawWidth = 32;
+        const int deathDrawHeight = 32;
+
+        int sourceX = deathFrame * deathFrameWidth;
+
+        if (deathFacingLeft)
+        {
+            // 왼쪽을 보다가 죽으면 원본 그대로 출력
+            graphics.DrawImage(
+                deathImage,
+                Gdiplus::Rect(
+                    static_cast<int>(x),
+                    static_cast<int>(y),
+                    deathDrawWidth,
+                    deathDrawHeight
+                ),
+                sourceX,
+                0,
+                deathFrameWidth,
+                deathFrameHeight,
+                Gdiplus::UnitPixel
+            );
+        }
+        else
+        {
+            // 오른쪽을 보다가 죽으면 좌우 반전
+            Gdiplus::GraphicsState oldState = graphics.Save();
+
+            graphics.TranslateTransform(
+                x + deathDrawWidth,
+                y
+            );
+
+            graphics.ScaleTransform(
+                -1.0f,
+                1.0f
+            );
+
+            graphics.DrawImage(
+                deathImage,
+                Gdiplus::Rect(
+                    0,
+                    0,
+                    deathDrawWidth,
+                    deathDrawHeight
+                ),
+                sourceX,
+                0,
+                deathFrameWidth,
+                deathFrameHeight,
+                Gdiplus::UnitPixel
+            );
+
+            graphics.Restore(oldState);
+        }
+
+        return;
+    }
     if (image == nullptr)
         return;
 
@@ -185,8 +275,55 @@ int Character::GetHP() const
 
 void Character::Damage(int damage)
 {
+    if (isDying)
+    {
+        return;
+    }
+
     hp -= damage;
 
-    if (hp < 0)
+    if (hp <= 0)
+    {
         hp = 0;
+
+        isDying = true;
+        deathAnimationFinished = false;
+
+        deathFrame = 0;
+        deathAnimationTimer = 0.0f;
+
+        deathFacingLeft = facingLeft;
+    }
+}
+
+void Character::UpdateDeath(float deltaTime)
+{
+    if (!isDying || deathAnimationFinished)
+    {
+        return;
+    }
+
+    deathAnimationTimer += deltaTime;
+
+    if (deathAnimationTimer >= 0.15f)
+    {
+        deathAnimationTimer = 0.0f;
+        deathFrame++;
+
+        if (deathFrame >= 4)
+        {
+            deathFrame = 3;
+            deathAnimationFinished = true;
+        }
+    }
+}
+
+bool Character::IsDying() const
+{
+    return isDying;
+}
+
+bool Character::IsDeathAnimationFinished() const
+{
+    return deathAnimationFinished;
 }

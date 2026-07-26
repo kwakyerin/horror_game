@@ -25,6 +25,16 @@ private:
 	Gdiplus::Image* image;
 	bool LoadImage(const wchar_t*path);
 
+	Gdiplus::Image* deathImage;
+	bool isDying;
+	bool deathAnimationFinished;
+
+	bool facingLeft;
+	bool deathFacingLeft;
+
+	int deathFrame;
+	float deathAnimationTimer;
+
 public:
 
 	Character(const wchar_t* path);
@@ -40,4 +50,9 @@ public:
 	Direction GetDirection() const;
 	int GetHP() const;
 	void Damage(int amount);
+
+	void UpdateDeath(float deltaTime);
+
+	bool IsDying()const;
+	bool IsDeathAnimationFinished()const;
 };

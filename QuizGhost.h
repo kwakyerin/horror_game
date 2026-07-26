@@ -9,8 +9,9 @@ private:
 	float y;
 
 	bool isTalking;
-
+	
 	Gdiplus::Image* image;
+	Gdiplus::Image* Dialogue_box;
 
 public:
 	QuizGhost(float startX, float startY,const wchar_t* path);

@@ -57,12 +57,12 @@ void KkamakGhost::Draw(Gdiplus::Graphics& graphics)
     );
 }
 
-void KkamakGhost::Update(float deltaTime, const Character& character)
+bool KkamakGhost::Update(float deltaTime, const Character& character)
 {
     // 플레이어가 보고 있으면 멈춤
     if (IsPlayerLooking(character))
     {
-        return;
+        return false;
     }
 
     // 플레이어 방향으로 이동
@@ -97,8 +97,10 @@ void KkamakGhost::Update(float deltaTime, const Character& character)
     if (IsCollidingWithPlayer(character))
     {
         // 게임 오버 처리
-        return;
+        return true;
     }
+
+    return false;
 }
 
 RECT KkamakGhost::GetCollisionRect() const

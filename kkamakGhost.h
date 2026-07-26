@@ -18,7 +18,7 @@ public:
 
 	bool LoadImage(const wchar_t* path);
 
-	void Update(float deltaTime,const Character& character);
+	bool Update(float deltaTime,const Character& character);
 	void Draw(Gdiplus::Graphics& graphics);
 
 	bool IsPlayerLooking(const Character& character) const;

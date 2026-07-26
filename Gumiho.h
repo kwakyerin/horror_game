@@ -16,4 +16,5 @@ public:
 
 protected:
 	void UpdateAttack(float deltaTime, Character& character)override;
+	RECT GetCollisionRect() const override;
 };

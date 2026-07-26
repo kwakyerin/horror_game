@@ -25,6 +25,9 @@ Monster::Monster(const wchar_t* walkPath,const wchar_t* attackPath,float startX,
     detectRange = detect;
     attackRange = attack;
 
+    drawWidth = 128;
+    drawHeight = 128;
+
     hasAttacked = false;
     LoadImages(walkPath, attackPath);
 }
@@ -88,8 +91,11 @@ void Monster::Update(float deltaTime,Character& character)
 
 void Monster::CheckState(float characterX,float characterY)
 {
-    float dx = characterX - x;
-    float dy = characterY - y;
+    float dx =
+        (characterX + 32.0f) - (x + drawWidth / 2.0f);
+
+    float dy =
+        (characterY + 32.0f) - (y + drawHeight / 2.0f);
 
     MonsterState newState=state;
 
@@ -98,10 +104,12 @@ void Monster::CheckState(float characterX,float characterY)
 
     if (distance <= attackRange)
     {
+        OutputDebugString(L"GUMIHO ATTACK\n");
         newState = MonsterState::Attack;
     }
     else if (distance <= detectRange)
     {
+        OutputDebugString(L"GUMIHO CHASE\n");
         newState = MonsterState::Chase;
     }
     else
@@ -125,8 +133,11 @@ void Monster::UpdateWander(float deltaTime)
 
 void Monster::UpdateChase(float deltaTime, float characterX, float characterY)
 {
-    float dx = characterX - x;
-    float dy = characterY - y;
+    float dx =
+        (characterX + 32.0f) - (x + drawWidth / 2.0f);
+
+    float dy =
+        (characterY + 32.0f) - (y + drawHeight / 2.0f);
 
     float distance = sqrt(dx * dx + dy * dy);
 
@@ -203,10 +214,10 @@ void Monster::Draw(Gdiplus::Graphics& graphics)
         graphics.DrawImage(
             currentImage,
             Gdiplus::Rect(
-                static_cast<int>(x) + 128,
+                static_cast<int>(x) + drawWidth,
                 static_cast<int>(y),
-                -128,
-                128),
+                -drawWidth,
+                drawHeight),
             sourceX,
             0,
             128,
@@ -220,8 +231,8 @@ void Monster::Draw(Gdiplus::Graphics& graphics)
             Gdiplus::Rect(
                 static_cast<int>(x),
                 static_cast<int>(y),
-                128,
-                128),
+                drawWidth,
+                drawHeight),
             sourceX,
             0,
             128,
@@ -302,4 +313,14 @@ void Monster::DrawSpecial(Gdiplus::Graphics& graphics)
 void Monster::SetPosition(float newX, float newY) {
     x = newX;
     y = newY;
+}
+
+void Monster::SetDrawSize(int width, int height) {
+    drawWidth = width;
+    drawHeight = height;
+}
+
+bool Monster::IsFacingLeft() const
+{
+    return facingLeft;
 }

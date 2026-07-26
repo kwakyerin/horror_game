@@ -59,16 +59,21 @@ public:
     float GetY() const;
 
 
-    RECT GetCollisionRect() const;
+    virtual RECT GetCollisionRect() const;
 
 protected:
     virtual void UpdateAttack(float deltaTime, Character& character);
     void SetMoveSpeed(float speed);
+    void SetDrawSize(int width, int height);//구미호에서 쓸 함수
     void SetPosition(float newX, float newY);//shadowghost 에서 사용할 함수임
 
     int GetCurrentFrame() const;
     bool HasAttacked() const;
     void SetHasAttacked(bool attacked);
+
+    bool IsFacingLeft()const;
     int walkFrameCount;
     int attackFrameCount;
+    int drawWidth;//구미호 크기 변경할 때
+    int drawHeight;//구미호 크기 변경할 때 쓸거
 };

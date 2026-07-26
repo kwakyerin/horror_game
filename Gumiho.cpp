@@ -17,6 +17,7 @@ Gumiho::Gumiho(
         attack)
 {
     SetMoveSpeed(83.0f);
+    SetDrawSize(256, 256);
 }
 
 Gumiho::~Gumiho()
@@ -37,7 +38,7 @@ void Gumiho::UpdateAttack(float deltaTime, Character& character)
         float dirY = character.GetY() - GetY();
 
         FireBall* newFireBall =
-            new FireBall(GetX(), GetY(), dirX, dirY);
+            new FireBall(GetX(), GetY()+80.0f, dirX, dirY);
 
         fireBalls.push_back(newFireBall);
 
@@ -62,10 +63,7 @@ void Gumiho::UpdateSpecial(float deltaTime,Character& character)
 
         RECT intersection;
 
-        if (IntersectRect(
-            &intersection,
-            &fireBallRect,
-            &characterRect))
+        if (IntersectRect(&intersection,&fireBallRect,&characterRect))
         {
             character.Damage(2);
 
@@ -90,4 +88,27 @@ void Gumiho::DrawSpecial(Gdiplus::Graphics& graphics)
     {
         fireBall->Draw(graphics);
     }
+}
+
+RECT Gumiho::GetCollisionRect() const
+{
+    RECT rect;
+
+    if (IsFacingLeft())
+    {
+        rect.left = static_cast<LONG>(GetX() + 70);
+        rect.right = static_cast<LONG>(GetX() + 220);
+    }
+    else
+    {
+        rect.left = static_cast<LONG>(GetX() + 36);
+        rect.right = static_cast<LONG>(GetX() + 186);
+    }
+
+    rect.top = static_cast<LONG>(GetY() + 80);
+    rect.bottom = static_cast<LONG>(GetY() + 255);
+
+    return rect;
+
+    
 }
