@@ -88,7 +88,7 @@ void FireBall::Update(float deltaTime)
 
     // 화면 밖으로 나가면 비활성화
     if (x < -64.0f ||
-        x > 775.0f ||
+        x > 810.0f ||
         y < -64.0f ||
         y > 600.0f)
     {
@@ -116,8 +116,8 @@ void FireBall::Draw(Gdiplus::Graphics& graphics)
         Gdiplus::Rect(
             static_cast<int>(x),
             static_cast<int>(y),
-            frameWidth,
-            frameHeight),
+            frameWidth*2,
+            frameHeight*2),
 
         // 스프라이트 시트에서 잘라올 영역
         sourceX,
@@ -132,10 +132,10 @@ RECT FireBall::GetCollisionRect() const
 {
     RECT collisionRect =
     {
-        static_cast<LONG>(x + 16.0f),
-        static_cast<LONG>(y + 16.0f),
-        static_cast<LONG>(x + 48.0f),
-        static_cast<LONG>(y + 48.0f)
+        static_cast<LONG>(x + 32.0f),
+        static_cast<LONG>(y + 32.0f),
+        static_cast<LONG>(x + 96.0f),
+        static_cast<LONG>(y + 96.0f)
     };
 
     return collisionRect;

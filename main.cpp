@@ -176,11 +176,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             L"Image\\monster_oni\\Attack.png"
         );
 
-        gumihoSpawner = new MonsterSpawner(MonsterType::Gumiho, 15 * Tile_Size, 8 * Tile_Size, 100.0f, 250.0f, 80.0f,
+        gumihoSpawner = new MonsterSpawner(MonsterType::Gumiho, 15 * Tile_Size, 8 * Tile_Size, 100.0f, 600.0f, 300.0f,
             L"Image\\monster_gumiho\\Run.png",
             L"Image\\monster_gumiho\\Attack.png");// 구미호 위치도 임시
 
-        shadowSpawner = new MonsterSpawner(MonsterType::ShadowGhost, 15 * Tile_Size, 8 * Tile_Size, 100.0f, 0.0f, 0.0f,
+        shadowSpawner = new MonsterSpawner(MonsterType::ShadowGhost, 14 * Tile_Size, 3 * Tile_Size, 100.0f, 0.0f, 0.0f,
             L"Image\\monster_shadow\\warning.png",
             L"Image\\monster_shadow\\attack.png");//그림자 귀신도 임시
 
@@ -235,12 +235,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 {
                     oniSpawner->Draw(graphics);
                 }
+            }
 
-                //if (gumihoSpawner != nullptr)
-                //{
-                    //gumihoSpawner->Draw(graphics);//일단 임시로 동굴에서 구미호 생성
-                //}
-
+            if (VillageMap.GetCurrentMap() == MapType::Gotemple_01)
+            {
+                if (gumihoSpawner != nullptr)
+                {
+                    gumihoSpawner->Draw(graphics);
+                }
             }
 
             if (VillageMap.GetCurrentMap() == MapType::Govillage)
@@ -322,14 +324,20 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
                 if (VillageMap.GetCurrentMap() == MapType::Cave)
                 {
-                    oniSpawner->Update(deltaTime, player);
-                    //gumihoSpawner->Update(deltaTime, player);//여기도 일단 동굴에서 생성하도록 함 임시
+                    oniSpawner->Update(deltaTime, player);                   
+                }
 
+                if (VillageMap.GetCurrentMap() == MapType::Gotemple_01)
+                {
+                    gumihoSpawner->Update(deltaTime, player);
                 }
 
                 if (VillageMap.GetCurrentMap() == MapType::Govillage)
                 {
-                    kkamakGhost->Update(deltaTime, *player);
+                    if (kkamakGhost->Update(deltaTime, *player))
+                    {
+                        gameState = GameState::End;
+                    }
                 }
 
                 if (VillageMap.GetCurrentMap() == MapType::Field)
