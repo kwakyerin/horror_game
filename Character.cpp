@@ -280,25 +280,25 @@ int Character::GetHP() const
 
 void Character::Damage(int damage)
 {
-    if (isDying)
-    {
-        return;
-    }
+    //if (isDying)
+    //{
+        //return;
+    //}
 
-    hp -= damage;
+    //hp -= damage;
 
-    if (hp <= 0)
-    {
-        hp = 0;
+    //if (hp <= 0)
+    //{
+        //hp = 0;
 
-        isDying = true;
-        deathAnimationFinished = false;
+        //isDying = true;
+       // deathAnimationFinished = false;
 
-        deathFrame = 0;
-        deathAnimationTimer = 0.0f;
+        //deathFrame = 0;
+       // deathAnimationTimer = 0.0f;
 
-        deathFacingLeft = facingLeft;
-    }
+       // deathFacingLeft = facingLeft;
+    //}
 }
 
 void Character::UpdateDeath(float deltaTime)

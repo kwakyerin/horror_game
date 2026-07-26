@@ -13,7 +13,7 @@ Map::Map()
 
     currentMap = Village;
 
-    changeMap(Market);
+    changeMap(Cave_02);
 
 }
 
