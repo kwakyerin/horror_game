@@ -360,7 +360,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                         obstacleRects
                     );
                 }
-                VillageMap.Maptransform(*player);
+                //VillageMap.Maptransform(*player);
 
                 player->UpdateDeath(deltaTime);
 
