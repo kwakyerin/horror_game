@@ -193,7 +193,12 @@ enum TileType
     npc_03,
     npc_04,
     npc_05,
-    npc_06
+    npc_06,
+    npc_07,
+    npc_08,
+    npc_09,
+    npc_10,
+    npc_11
 
 };
 
@@ -234,6 +239,13 @@ public:
     void SetRainEnabled(bool enabled);
 
     int GetTile(int tileX, int tileY) const;
+
+    int GetNearbyNPC(
+        float playerX,
+        float playerY,
+        int playerWidth,
+        int playerHeight
+    ) const;
 
 private:
 
@@ -448,5 +460,10 @@ private:
     GameImage npc_04Image;
     GameImage npc_05Image;
     GameImage npc_06Image;
+    GameImage npc_07Image;
+    GameImage npc_08Image;
+    GameImage npc_09Image;
+    GameImage npc_10Image;
+    GameImage npc_11Image;
 
 };

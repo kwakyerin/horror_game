@@ -17,6 +17,7 @@
 #include "npc.h"
 #include "UI.h"
 
+
 #pragma comment(lib, "gdiplus.lib")
 
 
@@ -351,7 +352,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     obstacleRects.push_back(quizGhost->GetCollisionRect());
 
                 }
-                player->Move(deltaTime, VillageMap, obstacleRects);
+                if (quizGhost == nullptr || !quizGhost->IsQuizActive())
+                {
+                    player->Move(
+                        deltaTime,
+                        VillageMap,
+                        obstacleRects
+                    );
+                }
                 VillageMap.Maptransform(*player);
 
                 player->UpdateDeath(deltaTime);
@@ -407,38 +415,124 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
     }
 
     case WM_KEYDOWN:
-
+    {
         switch (wParam)
         {
-
         case VK_ESCAPE:
+        {
             PostQuitMessage(0);
             return 0;
+        }
+
+        case 'W':
+        {
+            if (gameState == GameState::Playing &&
+                quizGhost != nullptr &&
+                quizGhost->IsSelecting())
+            {
+                quizGhost->MoveSelectionUp();
+
+                InvalidateRect(
+                    hWnd,
+                    nullptr,
+                    FALSE
+                );
+
+                return 0;
+            }
+
+            break;
+        }
+
+        case 'S':
+        {
+            if (gameState == GameState::Playing &&
+                quizGhost != nullptr &&
+                quizGhost->IsSelecting())
+            {
+                quizGhost->MoveSelectionDown();
+
+                InvalidateRect(
+                    hWnd,
+                    nullptr,
+                    FALSE
+                );
+
+                return 0;
+            }
+
+            break;
+        }
 
         case 'K':
-            if (gameState == GameState::Playing)
+        {
+            if (gameState != GameState::Playing)
             {
-                quizGhost->HandleInteraction(*player);
+                return 0;
             }
 
-            // 대화창이 이미 열려 있으면 닫기
             if (dialogue.IsOpen())
             {
-                dialogue.Close();
+                dialogue.Next();
+
+                InvalidateRect(
+                    hWnd,
+                    nullptr,
+                    FALSE
+                );
+
+                return 0;
             }
-            else
+
+            if (player != nullptr)
             {
-                // 테스트용 대화
-                dialogue.Open(
-                    L"마을 주민",
-                    L"이 시간에는 밖을 돌아다니지 않는 게 좋을 거야."
+                int nearbyNPC =
+                    VillageMap.GetNearbyNPC(
+                        player->GetX(),
+                        player->GetY(),
+                        32,
+                        32
+                    );
+
+                if (nearbyNPC != -1)
+                {
+                    npcManager.Talk(
+                        nearbyNPC,
+                        dialogue
+                    );
+
+                    InvalidateRect(
+                        hWnd,
+                        nullptr,
+                        FALSE
+                    );
+
+                    return 0;
+                }
+            }
+
+            if (player != nullptr &&
+                quizGhost != nullptr)
+            {
+                quizGhost->HandleInteraction(
+                    *player,
+                    dialogue
                 );
             }
+
+            InvalidateRect(
+                hWnd,
+                nullptr,
+                FALSE
+            );
+
             return 0;
+        }
         }
 
         InvalidateRect(hWnd, nullptr, FALSE);
         return 0;
+    }
 
     case WM_MOUSEMOVE:
     {
@@ -456,7 +550,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
             InvalidateRect(hWnd, nullptr, FALSE);
 
-            titleScreen->UpdateHover(pt.x,pt.y);  
+            titleScreen->UpdateHover(pt.x, pt.y);
 
         }
         else if (gameState == GameState::End && endScreen)
@@ -481,11 +575,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
             if (titleScreen->IsStartClicked(pt.x, pt.y))
 
-            if (titleScreen->IsStartClicked(pt.x,pt.y))
+                if (titleScreen->IsStartClicked(pt.x, pt.y))
 
-            {
-                gameState = GameState::Playing;
-            }
+                {
+                    gameState = GameState::Playing;
+                }
 
             if (titleScreen->IsExitClicked(pt.x, pt.y))
             {

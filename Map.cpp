@@ -13,7 +13,7 @@ Map::Map()
 
     currentMap = Village;
 
-    changeMap(Cave);
+    changeMap(Village);
 
 }
 
@@ -652,6 +652,22 @@ bool Map::LoadImages()
     result &= npc_06Image.Load(
         L"Image\\Npc\\npc_06.png"
     );
+    result &= npc_07Image.Load(
+        L"Image\\Npc\\npc_07.png"
+    );
+    result &= npc_08Image.Load(
+        L"Image\\Npc\\npc_08.png"
+    );
+    result &= npc_09Image.Load(
+        L"Image\\Npc\\npc_09.png"
+    );
+    result &= npc_10Image.Load(
+        L"Image\\Npc\\npc_10.png"
+    );
+    result &= npc_11Image.Load(
+        L"Image\\Npc\\npc_11.png"
+    );
+    
 
     return result;
 }
@@ -1347,12 +1363,12 @@ void Map::Draw(HDC hdc)
                 break;
 
             case Product_09:
-                Markettable_02Image.Draw(hdc, drawX, drawY);
+                grassImage.Draw(hdc, drawX, drawY);
                 Product_09Image.Draw(hdc, drawX, drawY);
                 break;
 
             case Product_10:
-                Markettable_02Image.Draw(hdc, drawX, drawY);
+                grassImage.Draw(hdc, drawX, drawY);
                 Product_10Image.Draw(hdc, drawX, drawY);
                 break;
             case Product_11:
@@ -1388,7 +1404,7 @@ void Map::Draw(HDC hdc)
                 Product_18Image.Draw(hdc, drawX, drawY);
                 break;
             case Product_19:
-                Markettable_02Image.Draw(hdc, drawX, drawY);
+                grassImage.Draw(hdc, drawX, drawY);
                 Product_19Image.Draw(hdc, drawX, drawY);
                 break;
             case Product_20:
@@ -1453,6 +1469,26 @@ void Map::Draw(HDC hdc)
             case npc_06:
                 grassImage.Draw(hdc, drawX, drawY);
                 npc_06Image.Draw(hdc, drawX, drawY);
+                break;
+            case npc_07:
+                grassImage.Draw(hdc, drawX, drawY);
+                npc_07Image.Draw(hdc, drawX, drawY);
+                break;
+            case npc_08:
+                grassImage.Draw(hdc, drawX, drawY);
+                npc_08Image.Draw(hdc, drawX, drawY);
+                break;
+            case npc_09:
+                grassImage.Draw(hdc, drawX, drawY);
+                npc_09Image.Draw(hdc, drawX, drawY);
+                break;
+            case npc_10:
+                grassImage.Draw(hdc, drawX, drawY);
+                npc_10Image.Draw(hdc, drawX, drawY);
+                break;
+            case npc_11:
+                grassImage.Draw(hdc, drawX, drawY);
+                npc_11Image.Draw(hdc, drawX, drawY);
                 break;
             }
             
@@ -1631,6 +1667,12 @@ void Map::changeMap(MapType newMap)
         //돌_06
         map[4][8] = ROCK_06;
         map[5][7] = ROCK_06;
+
+        map[6][9] = npc_07;
+        map[6][8] = npc_08;
+
+        map[2][22] = npc_09;
+        map[15][17] = npc_11;
 
         break;
 
@@ -1965,10 +2007,6 @@ void Map::changeMap(MapType newMap)
 
         map[15][19] = CaveBottom;
 
-        //돌
-        map[15][15] = Rock_09;
-        map[15][16] = Rock_10;
-
         //아래로 내려가는 길
         map[16][11] = CaveBottom;
         map[17][11] = CaveBottom;
@@ -2208,6 +2246,8 @@ void Map::changeMap(MapType newMap)
         map[1][20] = TREE_02;
         map[2][19] = TREE_03;
         map[2][20] = TREE_04;
+        
+        //map[11][23] = TREE_01;
 
         break;
 
@@ -2216,6 +2256,7 @@ void Map::changeMap(MapType newMap)
         //돌바닥
         for (int i = 0; i < 25; i++) {
             map[11][i] = TILE_ROAD;
+            map[12][i] = TILE_ROAD;
         }
 
         break;
@@ -2269,16 +2310,14 @@ void Map::changeMap(MapType newMap)
         map[10][0] = Product_08;
         map[11][0] = Product_08;
         map[11][1] = Product_08;
+        map[9][22] = Product_09;
+        map[11][21] = Product_09;
+        map[10][20] = Product_10;
 
-        map[1][8] = Product_09;
-        map[1][9] = Product_09;
-        map[2][8] = Product_10;
-        map[3][9] = Product_19;
-
-        map[1][12] = Product_10;
-        map[1][13] = Product_10;
-        map[2][12] = Product_19;
-        map[3][13] = Product_09;
+        map[8][19] = Product_10;
+        map[8][20] = Product_10;
+        map[8][18] = Product_19;
+        map[10][19] = Product_09;
 
         map[3][8] = Markettable_01;
         map[3][9] = Markettable_02;
@@ -2313,9 +2352,67 @@ void Map::changeMap(MapType newMap)
         map[4][22] = Product_18;
 
         map[4][3] = npc_01;
+        map[3][11] = npc_02;
+        map[3][18] = npc_03;
+        map[8][3] = npc_04;
+        map[8][11] = npc_05;
+        map[9][20] = npc_06;
         
-
         break;
+
+        case Field:
+
+            map[0][5] = TILE_ROAD;
+            map[0][6] = TILE_ROAD;
+            map[1][5] = TILE_ROAD;
+            map[1][6] = TILE_ROAD;
+            map[2][5] = TILE_ROAD;
+            map[2][6] = TILE_ROAD;
+            map[3][5] = TILE_ROAD;
+            map[3][6] = TILE_ROAD;
+
+            break;
+
+        case Gotemple_01:
+
+            map[17][5] = TILE_ROAD;
+            map[17][6] = TILE_ROAD;
+            map[16][5] = TILE_ROAD;
+            map[16][6] = TILE_ROAD;
+            map[15][5] = TILE_ROAD;
+            map[15][6] = TILE_ROAD;
+            map[14][5] = TILE_ROAD;
+            map[14][6] = TILE_ROAD;
+            map[13][5] = TILE_ROAD;
+            map[13][6] = TILE_ROAD;
+
+            for (int i = 7; i < 25; i++) {
+                map[13][i] = TILE_ROAD;
+                map[14][i] = TILE_ROAD;
+            }
+
+            map[5][10] = npc_10;
+            
+            break;
+
+        case Gotemple_02:
+
+            for (int i = 0; i < 10; i++) {
+                map[13][i] = TILE_ROAD;
+                map[14][i] = TILE_ROAD;
+            }
+
+            for (int i = 10; i < 15; i++) {
+                map[i][8] = TILE_ROAD;
+                map[i][9] = TILE_ROAD;
+            }
+
+            for (int i = 8; i < 25; i++) {
+                map[8][i] = TILE_ROAD;
+                map[9][i] = TILE_ROAD;
+            }
+
+            break;
     }
 
 }
@@ -2410,6 +2507,11 @@ bool Map::IsBlocked(float x, float y)
     case npc_04:
     case npc_05:
     case npc_06:
+    case npc_07:
+    case npc_08:
+    case npc_09:
+    case npc_10:
+    case npc_11:
 
         return true;
     }
@@ -2428,6 +2530,8 @@ void Map::Maptransform(Character& character) {
     {
         changeMap(MapType::Govillage);
         character.SetPosition(700.0f, 128.0f);
+
+        return;
     }
 
     //마을 가는길->마을
@@ -2441,30 +2545,31 @@ void Map::Maptransform(Character& character) {
             character.SetPosition(1 * Tile_Size, 4 * Tile_Size);
         else
             character.SetPosition(1 * Tile_Size, 5 * Tile_Size);
-    }
 
-    //마을->동굴
-    if (currentMap == MapType::Village && tileY == 0 && (tileX == 5 || tileX == 6))
-    {
-        changeMap(MapType::Cave);
-
-        character.SetPosition(1 * Tile_Size, 9 * Tile_Size);
-
-    }
-
-    //동굴->마을
-    if (currentMap == MapType::Cave &&tileX == 0 &&tileY == 8)
-    {
-        changeMap(MapType::Village);
-
-        character.SetPosition(5 * Tile_Size, 2 * Tile_Size);
+        return;
     }
 
     //동굴->동굴 안
+    if (currentMap == MapType::Cave && ( tileX == 11|| tileX == 12|| tileX == 13 )&& tileY == 17)
+    {
+        changeMap(MapType::Cave_02);
 
+        character.SetPosition(tileX * Tile_Size, 1 * Tile_Size);
+
+        return;
+    }
 
 
     //동굴 안->동굴
+
+    if (currentMap == MapType::Cave_02 && (tileX == 11 || tileX == 12 || tileX == 13) && tileY == 0)
+    {
+        changeMap(MapType::Cave);
+
+        character.SetPosition(tileX * Tile_Size, 16 * Tile_Size);
+
+        return;
+    }
     
 
 
@@ -2474,6 +2579,8 @@ void Map::Maptransform(Character& character) {
         changeMap(MapType::Room);
 
         character.SetPosition(16 * Tile_Size, 16 * Tile_Size);
+
+        return;
     }
 
     //주인공 집->마을
@@ -2482,46 +2589,155 @@ void Map::Maptransform(Character& character) {
         changeMap(MapType::Village);
 
         character.SetPosition(20 * Tile_Size, 9 * Tile_Size);
+
+        return;
     }
 
-    //마을->숲
 
-    //사찰->동굴
-
-    //마을->마을 가는 길_01(뭔가 이상함)
+    //마을->시장 가는 길_01
     if (currentMap == MapType::Village && tileX == 24 && (tileY == 11 || tileY == 12))
     {
         changeMap(MapType::Gomarket_01);
 
         character.SetPosition(1 * Tile_Size, tileY * Tile_Size);
 
+        return;
+
     }
 
-    //마을 가는 길_01->마을
-    if (currentMap == MapType::Gomarket_01 &&tileX == 1 && (tileY == 12 || tileY == 13))
+    //시장 가는 길_01->마을
+    if (currentMap == MapType::Gomarket_01 &&tileX == 0 && (tileY == 11 || tileY == 12))
     {
         changeMap(MapType::Village);
 
-        character.SetPosition(24 * Tile_Size, tileY * Tile_Size);
+        character.SetPosition(23 * Tile_Size, tileY * Tile_Size);
 
+        return;
     }
 
-    //마을 가는 길_01->마을 가는 길_02
+    //시장 가는 길_01->시장 가는 길_02
     if (currentMap == MapType::Gomarket_01 && tileX == 24 && (tileY == 11 || tileY == 12))
     {
         changeMap(MapType::Gomarket_02);
 
         character.SetPosition(1 * Tile_Size, tileY * Tile_Size);
 
+        return;
     }
 
-    //마을 가는 길_02->마을 가는 길_01
+    //시장 가는 길_02->시장 가는 길_01
     if (currentMap == MapType::Gomarket_02 && tileX == 0 && (tileY == 11 || tileY == 12))
     {
         changeMap(MapType::Gomarket_01);
 
         character.SetPosition(23 * Tile_Size, tileY * Tile_Size);
 
+        return;
+    }
+
+    //마을->들판
+    if (currentMap == MapType::Village && (tileX == 5||tileX==6) && tileY == 17)
+    {
+        changeMap(MapType::Field);
+
+        character.SetPosition(tileX* Tile_Size, 2 * Tile_Size);
+
+        return;
+
+    }
+
+    //들판->마을
+    if (currentMap == MapType::Field && (tileX == 5 || tileX == 6) && tileY == 0)
+    {
+        changeMap(MapType::Village);
+
+        character.SetPosition(tileX* Tile_Size, 16 * Tile_Size);
+
+        return;
+
+    }
+
+    //마을->사찰 가는 길_01
+    if (currentMap == MapType::Village && (tileX == 5 || tileX == 6) && tileY == 0)
+    {
+        changeMap(MapType::Gotemple_01);
+
+        character.SetPosition(tileX * Tile_Size, 16 * Tile_Size);
+
+        return;
+
+    }
+
+    //사찰 가는 길_01->마을
+    if (currentMap == MapType::Gotemple_01 && (tileX == 5 || tileX == 6) && tileY == 17)
+    {
+        changeMap(MapType::Village);
+
+        character.SetPosition(tileX * Tile_Size, 1 * Tile_Size);
+
+        return;
+
+    }
+
+    //사찰 가는 길_01->사찰 가는 길_02
+    if (currentMap == MapType::Gotemple_01 && tileX == 24  && (tileY == 12||tileY==13))
+    {
+        changeMap(MapType::Gotemple_02);
+
+        character.SetPosition(1 * Tile_Size, tileY * Tile_Size);
+
+        return;
+    }
+
+
+    //사찰 가는 길_02->사찰 가는 길_01(수정중)
+    if (currentMap == MapType::Gotemple_02 && tileX == 0 && (tileY == 12 || tileY == 13))
+    {
+        changeMap(MapType::Gotemple_01);
+
+        character.SetPosition(23 * Tile_Size, tileY * Tile_Size);
+
+        return;
+    }
+
+    //사찰 가는 길_02->동굴
+    if (currentMap == MapType::Gotemple_02 && tileX == 24 && (tileY == 8 || tileY == 9))
+    {
+        changeMap(MapType::Cave);
+
+        character.SetPosition(1 * Tile_Size, tileY * Tile_Size);
+
+        return;
+    }
+
+    //동굴->사찰 가는 길_02
+    if (currentMap == MapType::Cave && tileX == 0 && (tileY == 8 || tileY == 9))
+    {
+        changeMap(MapType::Gotemple_02);
+
+        character.SetPosition( 23 * Tile_Size, tileY * Tile_Size);
+
+        return;
+    }
+
+    //시장 가는 길_02->시장
+    if (currentMap == MapType::Gomarket_02 && tileX == 24 && (tileY == 11 || tileY == 12))
+    {
+        changeMap(MapType::Market);
+
+        character.SetPosition(1 * Tile_Size, tileY * Tile_Size);
+
+        return;
+    }
+
+    //시장->시장 가는 길_02
+    if (currentMap == MapType::Market && tileX == 0 && (tileY == 11 || tileY == 12))
+    {
+        changeMap(MapType::Gomarket_02);
+
+        character.SetPosition(23 * Tile_Size, tileY * Tile_Size);
+
+        return;
     }
 }
 
@@ -2570,5 +2786,65 @@ int Map::GetTile(int tileX, int tileY) const
     }
 
     return map[tileY][tileX];
+}
+
+int Map::GetNearbyNPC(
+    float playerX,
+    float playerY,
+    int playerWidth,
+    int playerHeight
+) const
+{
+    const int interactionRange = 32;
+
+    RECT playerRange;
+
+    playerRange.left =
+        static_cast<LONG>(playerX) - interactionRange;
+
+    playerRange.top =
+        static_cast<LONG>(playerY) - interactionRange;
+
+    playerRange.right =
+        static_cast<LONG>(playerX) +
+        playerWidth +
+        interactionRange;
+
+    playerRange.bottom =
+        static_cast<LONG>(playerY) +
+        playerHeight +
+        interactionRange;
+
+    for (int y = 0; y < Map_Height; y++)
+    {
+        for (int x = 0; x < Map_Width; x++)
+        {
+            int tile = map[y][x];
+
+            if (tile < npc_01 || tile > npc_11)
+            {
+                continue;
+            }
+
+            RECT npcRect;
+
+            npcRect.left = x * Tile_Size;
+            npcRect.top = y * Tile_Size;
+            npcRect.right = npcRect.left + Tile_Size;
+            npcRect.bottom = npcRect.top + Tile_Size;
+
+            RECT result;
+
+            if (IntersectRect(
+                &result,
+                &playerRange,
+                &npcRect))
+            {
+                return tile;
+            }
+        }
+    }
+
+    return -1;
 }
 

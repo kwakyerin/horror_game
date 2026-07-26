@@ -3,175 +3,222 @@
 using namespace Gdiplus;
 
 Dialogue::Dialogue()
+    : isOpen(false),
+    currentIndex(0)
 {
-    isOpen = false;
-    speaker = L"";
-    text = L"";
 }
 
 Dialogue::~Dialogue()
 {
 }
 
+// 기존 NPC처럼 한 문장만 열 때 사용
 void Dialogue::Open(
-    const std::wstring& newSpeaker,
-    const std::wstring& newText)
+    const std::wstring& speakerName,
+    const std::wstring& dialogueText)
 {
-    speaker = newSpeaker;
-    text = newText;
+    speaker = speakerName;
+
+    dialogueList.clear();
+    dialogueList.push_back(dialogueText);
+
+    currentIndex = 0;
     isOpen = true;
 }
 
-void Dialogue::Close()
+// 같은 화자가 여러 문장을 말할 때 사용
+void Dialogue::Open(
+    const std::wstring& speakerName,
+    const std::vector<std::wstring>& texts)
 {
-    isOpen = false;
+    if (texts.empty())
+    {
+        Close();
+        return;
+    }
+
+    speaker = speakerName;
+    dialogueList = texts;
+
+    currentIndex = 0;
+    isOpen = true;
 }
 
-bool Dialogue::IsOpen() const
+// 이름 없이 독백이나 프롤로그를 출력할 때 사용
+void Dialogue::Open(const std::vector<std::wstring>& texts)
 {
-    return isOpen;
+    Open(L"", texts);
 }
 
-void Dialogue::Draw(
-    Graphics& graphics,
-    int screenWidth,
-    int screenHeight)
+// K키를 누를 때 다음 문장으로 이동
+void Dialogue::Next()
 {
     if (!isOpen)
     {
         return;
     }
 
-    const int margin = 20;
+    currentIndex++;
 
-    const int boxWidth = screenWidth - (margin * 2);
-    const int boxHeight = 160;
+    // 마지막 문장 이후에는 대화창 닫기
+    if (currentIndex >= dialogueList.size())
+    {
+        Close();
+    }
+}
 
-    const int boxX = margin;
-    const int boxY = screenHeight - boxHeight - margin;
+// 대화창 닫기
+void Dialogue::Close()
+{
+    isOpen = false;
 
-    SolidBrush backgroundBrush( Color(180, 0, 0, 0) );
+    speaker.clear();
+    dialogueList.clear();
 
-    graphics.FillRectangle(
-        &backgroundBrush,
+    currentIndex = 0;
+}
+
+// 현재 대화창이 열렸는지 확인
+bool Dialogue::IsOpen() const
+{
+    return isOpen;
+}
+
+// 현재 출력 중인 문장 반환
+const std::wstring& Dialogue::GetCurrentText() const
+{
+    static const std::wstring emptyText = L"";
+
+    if (!isOpen ||
+        dialogueList.empty() ||
+        currentIndex >= dialogueList.size())
+    {
+        return emptyText;
+    }
+
+    return dialogueList[currentIndex];
+}
+
+// 대화창 출력
+void Dialogue::Draw(
+    Gdiplus::Graphics& graphics,
+    int screenWidth,
+    int screenHeight)
+{
+    if (!isOpen ||
+        dialogueList.empty() ||
+        currentIndex >= dialogueList.size())
+    {
+        return;
+    }
+
+    // 대화창 크기와 위치
+    const float margin = 20.0f;
+    const float boxHeight = 130.0f;
+
+    const float boxX = margin;
+    const float boxY = static_cast<float>(screenHeight) - boxHeight - margin;
+    const float boxWidth =
+        static_cast<float>(screenWidth) - margin * 2.0f;
+
+    RectF dialogueBox(
         boxX,
         boxY,
         boxWidth,
         boxHeight
     );
 
-    Pen outerBorder( Color(255, 255, 255, 255),3.0f );
+    // 반투명 검은색 대화창
+    SolidBrush backgroundBrush(
+        Color(220, 15, 15, 15)
+    );
 
-    graphics.DrawRectangle( &outerBorder,boxX, boxY,boxWidth,boxHeight );
+    graphics.FillRectangle(
+        &backgroundBrush,
+        dialogueBox
+    );
 
-    Pen innerBorder( Color(230, 140, 140, 140),1.0f );
+    // 흰색 테두리
+    Pen borderPen(
+        Color(255, 230, 230, 230),
+        2.0f
+    );
 
-    graphics.DrawRectangle(&innerBorder,boxX + 5,boxY + 5, boxWidth - 10,boxHeight - 10);
-
-    // 이름과 대사 사이 구분선
-    Pen separatorPen( Color(160, 255, 255, 255), 1.0f );
-
-    graphics.DrawLine(
-        &separatorPen,
-        boxX + 20,
-        boxY + 47,
-        boxX + boxWidth - 20,
-        boxY + 47
+    graphics.DrawRectangle(
+        &borderPen,
+        dialogueBox
     );
 
     FontFamily fontFamily(L"맑은 고딕");
 
-    Font nameFont(
+    Font speakerFont(
         &fontFamily,
-        18,
+        18.0f,
         FontStyleBold,
         UnitPixel
     );
 
     Font textFont(
         &fontFamily,
-        20,
+        17.0f,
         FontStyleRegular,
         UnitPixel
     );
 
-    SolidBrush nameBrush(
-        Color(255, 255, 255, 255)
+    SolidBrush speakerBrush(
+        Color(255, 255, 220, 120)
     );
 
     SolidBrush textBrush(
-        Color(255, 240, 240, 240)
-    );
-
-    // NPC 이름
-    graphics.DrawString(
-        speaker.c_str(),
-        -1,
-        &nameFont,
-        PointF(
-            static_cast<REAL>(boxX + 20),
-            static_cast<REAL>(boxY + 15)
-        ),
-        &nameBrush
-    );
-
-    // 대사 출력 영역
-    RectF textArea(
-        static_cast<REAL>(boxX + 20),
-        static_cast<REAL>(boxY + 60),
-        static_cast<REAL>(boxWidth - 40),
-        static_cast<REAL>(boxHeight - 80)
+        Color(255, 255, 255, 255)
     );
 
     StringFormat textFormat;
 
-    textFormat.SetAlignment(
-        StringAlignmentNear
+    textFormat.SetAlignment(StringAlignmentNear);
+    textFormat.SetLineAlignment(StringAlignmentNear);
+    textFormat.SetTrimming(StringTrimmingWord);
+
+    float textStartY = boxY + 20.0f;
+
+    // 화자 이름이 있을 때만 출력
+    if (!speaker.empty())
+    {
+        RectF speakerArea(
+            boxX + 20.0f,
+            boxY + 14.0f,
+            boxWidth - 40.0f,
+            28.0f
+        );
+
+        graphics.DrawString(
+            speaker.c_str(),
+            static_cast<INT>(speaker.length()),
+            &speakerFont,
+            speakerArea,
+            &textFormat,
+            &speakerBrush
+        );
+
+        textStartY = boxY + 48.0f;
+    }
+
+    RectF textArea(
+        boxX + 20.0f,
+        textStartY,
+        boxWidth - 40.0f,
+        boxHeight - (textStartY - boxY) - 15.0f
     );
 
-    textFormat.SetLineAlignment(
-        StringAlignmentNear
-    );
-
-    textFormat.SetTrimming(
-        StringTrimmingWord
-    );
+    const std::wstring& currentText =
+        dialogueList[currentIndex];
 
     graphics.DrawString(
-        text.c_str(),
-        -1,
+        currentText.c_str(),
+        static_cast<INT>(currentText.length()),
         &textFont,
         textArea,
         &textFormat,
         &textBrush
-    );
-
-    // 오른쪽 아래 대화 진행 표시
-    SolidBrush arrowBrush(
-        Color(230, 255, 255, 255)
-    );
-
-    PointF arrowPoints[3] =
-    {
-        PointF(
-            static_cast<REAL>(boxX + boxWidth - 30),
-            static_cast<REAL>(boxY + boxHeight - 25)
-        ),
-
-        PointF(
-            static_cast<REAL>(boxX + boxWidth - 14),
-            static_cast<REAL>(boxY + boxHeight - 25)
-        ),
-
-        PointF(
-            static_cast<REAL>(boxX + boxWidth - 22),
-            static_cast<REAL>(boxY + boxHeight - 13)
-        )
-    };
-
-    graphics.FillPolygon(
-        &arrowBrush,
-        arrowPoints,
-        3
     );
 }

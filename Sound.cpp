@@ -12,7 +12,7 @@ void Sound::PlayRain()
         return;
     }
 
-    PlaySound( L"Sound\\Rain_Thunder.wav",nullptr,SND_FILENAME | SND_ASYNC | SND_LOOP );
+    //PlaySound( L"Sound\\Rain_Thunder.wav",nullptr,SND_FILENAME | SND_ASYNC | SND_LOOP );
 
     isRainPlaying = true;
 }
