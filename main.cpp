@@ -421,8 +421,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             else if (gameState == GameState::Playing && player)
             {
                 std::vector <::RECT> obstacleRects;
-                //player->Move(deltaTime, VillageMap,obstacleRects);
-                //VillageMap.Maptransform(*player);
 
                 //시작 설명창
                 if (!introDialoguePlayed)
@@ -671,6 +669,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 return 0;
             }
 
+            // 대화창이 열려 있으면 다음 문장
             if (dialogue.IsOpen())
             {
                 dialogue.Next();
@@ -684,6 +683,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 return 0;
             }
 
+            // NPC 대화
             if (player != nullptr)
             {
                 int nearbyNPC =
@@ -711,20 +711,26 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 }
             }
 
+            // 퀴즈요괴 상호작용
             if (player != nullptr &&
-                quizGhost != nullptr)
+                quizGhost != nullptr &&
+                dayNight.IsNight() &&
+                VillageMap.GetCurrentMap() == MapType::Gomarket_02 &&
+                quizGhost->IsPlayerNear(*player))
             {
                 quizGhost->HandleInteraction(
                     *player,
                     dialogue
                 );
-            }
 
-            InvalidateRect(
-                hWnd,
-                nullptr,
-                FALSE
-            );
+                InvalidateRect(
+                    hWnd,
+                    nullptr,
+                    FALSE
+                );
+
+                return 0;
+            }
 
             return 0;
         }
