@@ -13,7 +13,7 @@ Map::Map()
 
     currentMap = Village;
 
-    changeMap(Govillage);
+    changeMap(Room);
 
 }
 
@@ -321,6 +321,12 @@ bool Map::LoadImages()
     );
     result &= Status_02Image.Load(
         L"Image\\Cave\\Status_02.png"
+    );
+    result &= Status_03Image.Load(
+        L"Image\\Cave\\Status_03.png"
+    );
+    result &= Status_04Image.Load(
+        L"Image\\Cave\\Status_04.png"
     );
 
     //조각상 받침대
@@ -1063,6 +1069,16 @@ void Map::Draw(HDC hdc)
             case Status_02:
                 CavebottomImage.Draw(hdc, drawX, drawY);
                 Status_02Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case Status_03:
+                grassImage.Draw(hdc, drawX, drawY);
+                Status_03Image.Draw(hdc, drawX, drawY);
+                break;
+
+            case Status_04:
+                grassImage.Draw(hdc, drawX, drawY);
+                Status_04Image.Draw(hdc, drawX, drawY);
                 break;
 
             case Stage_01:

@@ -198,7 +198,10 @@ enum TileType
     npc_08,
     npc_09,
     npc_10,
-    npc_11
+    npc_11,
+
+    Status_03,
+    Status_04
 
 };
 
@@ -466,4 +469,6 @@ private:
     GameImage npc_10Image;
     GameImage npc_11Image;
 
+    GameImage Status_03Image;
+    GameImage Status_04Image;
 };
