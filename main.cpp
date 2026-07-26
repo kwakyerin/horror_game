@@ -509,8 +509,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                         obstacleRects
                     );
                 }
-                //VillageMap.Maptransform(*player);
-
 
                 MapType previousMap = VillageMap.GetCurrentMap();
 
