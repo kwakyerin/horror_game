@@ -58,10 +58,66 @@ LARGE_INTEGER frequency;
 LARGE_INTEGER previousTime;
 LARGE_INTEGER currentTime;
 
+//버벅거림 해결변수
+HDC g_mapDC = nullptr;
+HBITMAP g_mapBitmap = nullptr;
+HBITMAP g_oldMapBitmap = nullptr;
+//여기까지
+
 HINSTANCE g_hInst;
 LPCTSTR lpszClass = L"OBU_Project";
 LPCTSTR lpszWindowName = L"OBU_Project";
 LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam);
+
+void CreateMapBuffer(HWND hWnd)
+{
+    HDC hdc = GetDC(hWnd);
+
+    if (g_mapDC != nullptr)
+    {
+        SelectObject(g_mapDC, g_oldMapBitmap);
+        DeleteObject(g_mapBitmap);
+        DeleteDC(g_mapDC);
+
+        g_mapDC = nullptr;
+        g_mapBitmap = nullptr;
+        g_oldMapBitmap = nullptr;
+    }
+
+    const int mapPixelWidth = Map_Width * Tile_Size;
+    const int mapPixelHeight = Map_Height * Tile_Size;
+
+    g_mapDC = CreateCompatibleDC(hdc);
+
+    g_mapBitmap = CreateCompatibleBitmap(
+        hdc,
+        mapPixelWidth,
+        mapPixelHeight
+    );
+
+    g_oldMapBitmap = static_cast<HBITMAP>(
+        SelectObject(g_mapDC, g_mapBitmap)
+        );
+
+    // 중요: 비트맵 전체를 먼저 초기화
+    RECT mapRect =
+    {
+        0,
+        0,
+        mapPixelWidth,
+        mapPixelHeight
+    };
+
+    FillRect(
+        g_mapDC,
+        &mapRect,
+        static_cast<HBRUSH>(GetStockObject(WHITE_BRUSH))
+    );
+
+    VillageMap.Draw(g_mapDC);
+
+    ReleaseDC(hWnd, hdc);
+}
 
 int WINAPI WinMain(
 
@@ -112,7 +168,7 @@ int WINAPI WinMain(
 
     RegisterClassEx(&WndClass);
 
-    hWnd = CreateWindow(lpszClass,lpszWindowName,WS_OVERLAPPEDWINDOW,0,0,810,600,nullptr,nullptr,hInstance,nullptr);
+    hWnd = CreateWindow(lpszClass,lpszWindowName,WS_OVERLAPPEDWINDOW,0,0,800,600,nullptr,nullptr,hInstance,nullptr);
 
     ShowWindow(hWnd, nCmdShow);
     UpdateWindow(hWnd);
@@ -154,6 +210,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             // MessageBox(hWnd, L"맵 이미지 로드 실패", L"Error", MB_OK);
         }
 
+        CreateMapBuffer(hWnd); //버벅거림 해결코드
+
         //비 효과 그리기
         srand((unsigned int)time(nullptr));
 
@@ -192,7 +250,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         QueryPerformanceFrequency(&frequency);
         QueryPerformanceCounter(&previousTime);
 
-        SetTimer(hWnd, 1, 7, nullptr);
+        SetTimer(hWnd, 1, 20, nullptr);
 
         return 0;
     }
@@ -228,7 +286,19 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         }
 
         case GameState::Playing: {
-            VillageMap.Draw(memDC);
+
+            //느려짐해결코드
+            BitBlt(
+                memDC,
+                0,
+                0,
+                Map_Width * Tile_Size,
+                Map_Height * Tile_Size,
+                g_mapDC,
+                0,
+                0,
+                SRCCOPY
+            );
 
             if (VillageMap.GetCurrentMap() == MapType::Cave)
             {
@@ -278,6 +348,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             ui->Draw(graphics, player);
             dialogue.Draw(graphics, rt.right, rt.bottom);
 
+            SolidBrush darkBrush(Color(80, 0, 0, 0));
+
+            graphics.FillRectangle(&darkBrush,0,0,rt.right,rt.bottom);
+
             break;
         }
         case GameState::End: {
@@ -303,10 +377,17 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         if (wParam == 1)
         {
             QueryPerformanceCounter(&currentTime);
+
             float deltaTime =
                 static_cast<float>(currentTime.QuadPart - previousTime.QuadPart)
                 / static_cast<float>(frequency.QuadPart);
+
             previousTime = currentTime;
+
+            if (deltaTime > 0.033f)
+            {
+                deltaTime = 0.033f;
+            }
 
             if (gameState == GameState::Title)
             {
@@ -360,8 +441,19 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                         obstacleRects
                     );
                 }
+
                 //VillageMap.Maptransform(*player);
 
+
+                MapType previousMap = VillageMap.GetCurrentMap();
+
+                VillageMap.Maptransform(*player);
+
+
+                if (previousMap != VillageMap.GetCurrentMap())
+                {
+                    CreateMapBuffer(hWnd);
+                }
                 player->UpdateDeath(deltaTime);
 
                 // 죽음 애니메이션이 끝나면 End 화면
@@ -409,6 +501,17 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
         delete ui;
         ui = nullptr;
+
+        if (g_mapDC != nullptr)
+        {
+            SelectObject(g_mapDC, g_oldMapBitmap);
+            DeleteObject(g_mapBitmap);
+            DeleteDC(g_mapDC);
+
+            g_mapDC = nullptr;
+            g_mapBitmap = nullptr;
+            g_oldMapBitmap = nullptr;
+        }
 
         PostQuitMessage(0);
         return 0;

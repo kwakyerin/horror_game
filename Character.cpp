@@ -1,3 +1,4 @@
+#include <cmath>
 #include "Character.h"
 #include "Map.h"
 #include "QuizGhost.h"
@@ -219,11 +220,14 @@ void Character::Draw(Gdiplus::Graphics& graphics)
     int sourceX = currentFrame * 16;
     int sourceY = static_cast<int>(direction) * 20;
 
+    int drawX = static_cast<int>(std::round(x));
+    int drawY = static_cast<int>(std::round(y));
+
     graphics.DrawImage(
         image,
         Gdiplus::Rect(
-            static_cast<int>(x),
-            static_cast<int>(y),
+            drawX,
+            drawY,
             32,
             32
         ),
