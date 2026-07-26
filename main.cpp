@@ -479,34 +479,39 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     introDialoguePlayed = true;
                 }
 
-                if (VillageMap.GetCurrentMap() == MapType::Cave)
+                if (dayNight.IsNight())
                 {
-                    oniSpawner->Update(deltaTime, player);                   
-                }
-
-                if (VillageMap.GetCurrentMap() == MapType::Gotemple_01)
-                {
-                    gumihoSpawner->Update(deltaTime, player);
-                }
-
-                if (VillageMap.GetCurrentMap() == MapType::Govillage)
-                {
-                    if (kkamakGhost->Update(deltaTime, *player))
+                    if (VillageMap.GetCurrentMap() == MapType::Cave &&
+                        oniSpawner != nullptr)
                     {
-                       // player->Damage(player->GetHP());
+                        oniSpawner->Update(deltaTime, player);
                     }
-                }
 
-                if (VillageMap.GetCurrentMap() == MapType::Field)
-                {
-                    //shadowSpawner->Update(deltaTime, player);
-                }
+                    if (VillageMap.GetCurrentMap() == MapType::Gotemple_01 &&
+                        gumihoSpawner != nullptr)
+                    {
+                        gumihoSpawner->Update(deltaTime, player);
+                    }
 
-                if (VillageMap.GetCurrentMap() == MapType::Gomarket_02)
-                {
-                    quizGhost->Update(deltaTime, *player);
-                    obstacleRects.push_back(quizGhost->GetCollisionRect());
+                    if (VillageMap.GetCurrentMap() == MapType::Govillage &&
+                        kkamakGhost != nullptr)
+                    {
+                        kkamakGhost->Update(deltaTime, *player);
 
+                        obstacleRects.push_back(
+                            kkamakGhost->GetCollisionRect()
+                        );
+                    }
+
+                    if (VillageMap.GetCurrentMap() == MapType::Gomarket_02 &&
+                        quizGhost != nullptr)
+                    {
+                        quizGhost->Update(deltaTime, *player);
+
+                        obstacleRects.push_back(
+                            quizGhost->GetCollisionRect()
+                        );
+                    }
                 }
 
 
