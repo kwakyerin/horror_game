@@ -1,5 +1,6 @@
 #include "Character.h"
 #include "Map.h"
+#include "QuizGhost.h"
 
 
 Character::Character(const wchar_t* path)

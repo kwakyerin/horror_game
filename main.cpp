@@ -16,6 +16,7 @@
 #include "Dialogue.h"
 #include "npc.h"
 
+
 #pragma comment(lib, "gdiplus.lib")
 
 
@@ -333,7 +334,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     obstacleRects.push_back(quizGhost->GetCollisionRect());
 
                 }
-                player->Move(deltaTime, VillageMap, obstacleRects);
+                if (quizGhost == nullptr || !quizGhost->IsQuizActive())
+                {
+                    player->Move(
+                        deltaTime,
+                        VillageMap,
+                        obstacleRects
+                    );
+                }
                 VillageMap.Maptransform(*player);
                 InvalidateRect(hWnd, nullptr, FALSE);
             }
@@ -383,6 +391,46 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         {
             PostQuitMessage(0);
             return 0;
+        }
+
+        case 'W':
+        {
+            if (gameState == GameState::Playing &&
+                quizGhost != nullptr &&
+                quizGhost->IsSelecting())
+            {
+                quizGhost->MoveSelectionUp();
+
+                InvalidateRect(
+                    hWnd,
+                    nullptr,
+                    FALSE
+                );
+
+                return 0;
+            }
+
+            break;
+        }
+
+        case 'S':
+        {
+            if (gameState == GameState::Playing &&
+                quizGhost != nullptr &&
+                quizGhost->IsSelecting())
+            {
+                quizGhost->MoveSelectionDown();
+
+                InvalidateRect(
+                    hWnd,
+                    nullptr,
+                    FALSE
+                );
+
+                return 0;
+            }
+
+            break;
         }
 
         case 'K':
