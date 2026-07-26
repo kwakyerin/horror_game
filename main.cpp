@@ -352,7 +352,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
             ui->Draw(graphics, player);
 
-            VillageMap.DrawEffect(graphics); //비
+            MapType currentMap = VillageMap.GetCurrentMap();
+
+            if (currentMap != MapType::Cave &&
+                currentMap != MapType::Cave_02 &&
+                currentMap != MapType::Room)
+            {
+                VillageMap.DrawEffect(graphics);
+            }
 
             dialogue.Draw(graphics, rt.right, rt.bottom);
 
@@ -368,7 +375,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         }
 
         }
-
 
         BitBlt(hDC, 0, 0, rt.right, rt.bottom, memDC, 0, 0, SRCCOPY);
 
@@ -444,10 +450,17 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 
                 //비 오는 효과
-                VillageMap.UpdateEffect(
-                    Map_Width* Tile_Size,
-                    Map_Height* Tile_Size
-                );
+                MapType currentMap = VillageMap.GetCurrentMap();
+
+                if (currentMap != MapType::Cave &&
+                    currentMap != MapType::Cave_02 &&
+                    currentMap != MapType::Room)
+                {
+                    VillageMap.UpdateEffect(
+                        Map_Width * Tile_Size,
+                        Map_Height * Tile_Size
+                    );
+                }
 
                 if (quizGhost == nullptr || !quizGhost->IsQuizActive())
                 {

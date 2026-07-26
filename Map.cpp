@@ -13,7 +13,7 @@ Map::Map()
 
     currentMap = Village;
 
-    changeMap(Market);
+    changeMap(Village);
 
 }
 
@@ -2473,6 +2473,8 @@ bool Map::IsBlocked(float x, float y)
     case Bed_01:
     case Bed_02:
     case Paper:
+    case Treasure_chest_01:
+    case Treasure_chest_02:
 
     case Roomwall_01:
     case Roomwall_02:
@@ -2495,11 +2497,60 @@ bool Map::IsBlocked(float x, float y)
     case Barrel_03:
     case Barrel_04:
 
-    case Treasure_chest_01:
-    case Treasure_chest_02:
+    case Gold_01:
+    case Gold_02:
+    case Gold_03:
+    case Gold_04:
+    case Gold_05:
+    case Gold_06:
+    case Gold_07:
+    case Gold_08:
+
+    case Pond_01:
+    case Pond_02:
+    case Pond_03:
+    case Pond_04:
+    case Pond_05:
+    case Pond_06:
+    case Pond_07:
+    case Pond_08:
+    case Pond_09:
+
+    case Markettable_01:
+    case Markettable_02:
+    case Markettable_03:
+    case Markettable_04:
+    case Markettable_05:
+    case Markettable_06:
+
+    case Product_01:
+    case Product_02:
+    case Product_03:
+    case Product_04:
+    case Product_05:
+    case Product_06:
+    case Product_07:
+    case Product_08:
+    case Product_09:
+    case Product_10:
+    case Product_11:
+    case Product_12:
+    case Product_13:
+    case Product_14:
+    case Product_15:
+    case Product_16:
+    case Product_17:
+    case Product_18:
+    case Product_19:
+    case Product_20:
+    case Product_21:
+    case Product_22:
 
     case Status_01:
     case Status_02:
+
+    case TILE_DUMMY:
+    case TILE_ROCK:
 
     case npc_01:
     case npc_02:
