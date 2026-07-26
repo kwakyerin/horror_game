@@ -13,7 +13,7 @@ Map::Map()
 
     currentMap = Village;
 
-    changeMap(Gotemple_02);
+    changeMap(Village);
 
 }
 
@@ -2204,6 +2204,8 @@ void Map::changeMap(MapType newMap)
         map[1][20] = TREE_02;
         map[2][19] = TREE_03;
         map[2][20] = TREE_04;
+        
+        //map[11][23] = TREE_01;
 
         break;
 
@@ -2533,7 +2535,7 @@ void Map::Maptransform(Character& character) {
     }
 
 
-    //마을->시장 가는 길_01(뭔가 이상함)
+    //마을->시장 가는 길_01
     if (currentMap == MapType::Village && tileX == 24 && (tileY == 11 || tileY == 12))
     {
         changeMap(MapType::Gomarket_01);
@@ -2543,11 +2545,11 @@ void Map::Maptransform(Character& character) {
     }
 
     //시장 가는 길_01->마을
-    if (currentMap == MapType::Gomarket_01 &&tileX == 1 && (tileY == 12 || tileY == 13))
+    if (currentMap == MapType::Gomarket_01 &&tileX == 0 && (tileY == 11 || tileY == 12))
     {
         changeMap(MapType::Village);
 
-        character.SetPosition(24 * Tile_Size, tileY * Tile_Size);
+        character.SetPosition(23 * Tile_Size, tileY * Tile_Size);
 
     }
 
