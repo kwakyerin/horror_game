@@ -61,7 +61,7 @@ bool Amulet::IsPlayerNear(Character* player) const
     float dy = player->GetY() - y;
 
     float distanceSquared = dx * dx + dy * dy;
-    float interactionRange = 60.0f;
+    float interactionRange = 40.0f;
 
     return distanceSquared <= interactionRange * interactionRange;
 }

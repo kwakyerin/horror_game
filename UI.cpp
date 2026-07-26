@@ -35,8 +35,8 @@ bool UI::LoadImages() {
     amuletImages[0] = new Gdiplus::Image(L"Image\\Amulet\\y_1.png");
     amuletImages[1] = new Gdiplus::Image(L"Image\\Amulet\\r_1.png");
     amuletImages[2] = new Gdiplus::Image(L"Image\\Amulet\\b_1.png");
-    amuletImages[3] = new Gdiplus::Image(L"Image\\Amulet\\y_1.png");
-    amuletImages[4] = new Gdiplus::Image(L"Image\\Amulet\\y_1.png");
+    amuletImages[3] = new Gdiplus::Image(L"Image\\Amulet\\w_1.png");
+    amuletImages[4] = new Gdiplus::Image(L"Image\\Amulet\\black_1.png");
     
     for (int i = 0; i < 5; i++)
     {

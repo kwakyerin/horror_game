@@ -6,8 +6,8 @@ enum class AmuletType
 	Yellow=0,
 	Red,
 	Blue,
-	Black,
-	White
+	White,
+	Black
 };
 class Amulet {
 private:

@@ -73,6 +73,8 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Amulet.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
     <ClCompile Include="DayNightManager.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -133,6 +135,9 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Amulet.h">
+       <Filter>헤더 파일</Filter>
+    </ClInclude>
+
     <ClInclude Include="DayNightManager.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
