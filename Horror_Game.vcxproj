@@ -125,6 +125,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Character.cpp" />
+    <ClCompile Include="DayNightManager.cpp" />
     <ClCompile Include="Dialogue.cpp" />
     <ClCompile Include="EndScreen.cpp" />
     <ClCompile Include="Effect.cpp" />
@@ -146,6 +147,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Character.h" />
+    <ClInclude Include="DayNightManager.h" />
     <ClInclude Include="Dialogue.h" />
     <ClInclude Include="EndScreen.h" />
     <ClInclude Include="Effect.h" />

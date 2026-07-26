@@ -537,3 +537,9 @@ bool QuizGhost::IsVisible() const
 {
     return isVisible;
 }
+
+void QuizGhost::SetVisible(bool visible)
+{
+    isVisible = visible;
+
+}

@@ -17,6 +17,7 @@
 #include "npc.h"
 #include "UI.h"
 #include "ResetGame.h"
+#include "DayNightManager.h"
 
 
 #pragma comment(lib, "gdiplus.lib")
@@ -39,6 +40,9 @@ Dialogue dialogue;
 NPC npcManager;
 
 UI* ui = nullptr;
+
+DayNightManager dayNight; //밤 낮 조정
+bool introDialoguePlayed = false;
 
 Character* player = nullptr;
 MonsterSpawner* oniSpawner = nullptr;
@@ -304,46 +308,48 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 0,
                 SRCCOPY
             );
+            if (dayNight.IsNight()) {
 
-            if (VillageMap.GetCurrentMap() == MapType::Cave)
-            {
-                if (oniSpawner != nullptr)
+                if (VillageMap.GetCurrentMap() == MapType::Cave)
                 {
-                    oniSpawner->Draw(graphics);
+                    if (oniSpawner != nullptr)
+                    {
+                        oniSpawner->Draw(graphics);
+                    }
                 }
-            }
 
-            if (VillageMap.GetCurrentMap() == MapType::Gotemple_01)
-            {
-                if (gumihoSpawner != nullptr)
+                if (VillageMap.GetCurrentMap() == MapType::Gotemple_01)
                 {
-                    gumihoSpawner->Draw(graphics);
+                    if (gumihoSpawner != nullptr)
+                    {
+                        gumihoSpawner->Draw(graphics);
+                    }
                 }
-            }
 
-            if (VillageMap.GetCurrentMap() == MapType::Govillage)
-            {
-                if (kkamakGhost != nullptr)
+                if (VillageMap.GetCurrentMap() == MapType::Govillage)
                 {
-                    kkamakGhost->Draw(graphics);
+                    if (kkamakGhost != nullptr)
+                    {
+                        kkamakGhost->Draw(graphics);
+                    }
                 }
-            }
 
-            if (VillageMap.GetCurrentMap() == MapType::Gomarket_02)
-            {
-                if (quizGhost != nullptr)
+                if (VillageMap.GetCurrentMap() == MapType::Gomarket_02)
                 {
-                    quizGhost->Draw(graphics);
+                    if (quizGhost != nullptr)
+                    {
+                        quizGhost->Draw(graphics);
+                    }
                 }
-            }
 
-            if (VillageMap.GetCurrentMap() == MapType::Field)
-            {
-                if (shadowSpawner != nullptr)
+                if (VillageMap.GetCurrentMap() == MapType::Field)
                 {
-                    shadowSpawner->Draw(graphics);
+                    if (shadowSpawner != nullptr)
+                    {
+                        shadowSpawner->Draw(graphics);
+                    }
                 }
-            }
+            }//밤-몬스터 설정
 
             if (player)
             {
@@ -418,6 +424,24 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 //player->Move(deltaTime, VillageMap,obstacleRects);
                 //VillageMap.Maptransform(*player);
 
+                //시작 설명창
+                if (!introDialoguePlayed)
+                {
+                    dialogue.Open(
+                        {
+                            L"내 이름은 곽진아",
+                            L"귀신을 물리치는 퇴마사다.",
+                            L"오늘은 이 수상해보이는 마을에 요괴를 물리쳐달라는 의뢰를 받고 비를 뚫고 여기까지 왔다.",
+                            L"이 마을에 사는 주민같이 보이시는 분이 이런 허름한 집으로 안내했다.",
+                            L"집에서 퀴퀴한 게 냄새가 나군..",
+                            L"아직 의뢰인을 만나지 못한 상태다.",
+                            L"사찰로 가는 길에서 만나자고 하셨는데...",
+                            L"일단 마을을 벗어나서 사찰로 한 번 가볼까..?",
+                        });
+
+                    introDialoguePlayed = true;
+                }
+
                 if (VillageMap.GetCurrentMap() == MapType::Cave)
                 {
                     oniSpawner->Update(deltaTime, player);                   
@@ -462,7 +486,24 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     );
                 }
 
-                if (quizGhost == nullptr || !quizGhost->IsQuizActive())
+                //퀴즈요괴 밤 설정
+                bool canMove = true;
+
+               // 대화 중에는 이동 불가
+                if (dialogue.IsOpen())
+                {
+                    canMove = false;
+                }
+
+                // 퀴즈 중에도 이동 불가
+                if (dayNight.IsNight() &&
+                    quizGhost != nullptr &&
+                    quizGhost->IsQuizActive())
+                {
+                    canMove = false;
+                }
+
+                if (canMove)
                 {
                     player->Move(
                         deltaTime,
@@ -470,7 +511,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                         obstacleRects
                     );
                 }
-
                 //VillageMap.Maptransform(*player);
 
 
@@ -574,6 +614,34 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             }
 
             break;
+        }
+        //밤낮 테스트용 키
+        case 'N':
+        {
+            dayNight.Toggle();
+
+            if (dayNight.IsDay())
+            {
+                if (oniSpawner != nullptr)
+                    oniSpawner->Reset();
+
+                if (gumihoSpawner != nullptr)
+                    gumihoSpawner->Reset();
+
+                if (shadowSpawner != nullptr)
+                    shadowSpawner->Reset();
+
+                if (quizGhost != nullptr)
+                    quizGhost->SetVisible(false);
+            }
+            else
+            {
+                if (quizGhost != nullptr)
+                    quizGhost->SetVisible(true);
+            }
+
+            InvalidateRect(hWnd, nullptr, FALSE);
+            return 0;
         }
 
         case 'S':
@@ -701,7 +769,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 CreateMapBuffer(hWnd);
                 
                 gameState = GameState::Playing;
+
+                introDialoguePlayed = false;
             }
+
 
             if (titleScreen->IsExitClicked(pt.x, pt.y))
             {

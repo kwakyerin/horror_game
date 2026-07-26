@@ -13,7 +13,7 @@ Map::Map()
 
     currentMap = Village;
 
-    changeMap(Village);
+    changeMap(Room);
 
 }
 
@@ -2772,7 +2772,7 @@ void Map::Maptransform(Character& character) {
     }
 
     //시장 가는 길_02->시장
-    if (currentMap == MapType::Gomarket_02 && tileX == 24 && (tileY == 11 || tileY == 12))
+    if (currentMap == MapType::Gomarket_02 && tileX == 24 && (tileY == 12 || tileY == 13))
     {
         changeMap(MapType::Market);
 
