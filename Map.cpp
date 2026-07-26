@@ -2642,6 +2642,24 @@ void Map::Maptransform(Character& character) {
         character.SetPosition( 23 * Tile_Size, tileY * Tile_Size);
 
     }
+
+    //시장 가는 길_02->시장
+    if (currentMap == MapType::Gomarket_02 && tileX == 24 && (tileY == 11 || tileY == 12))
+    {
+        changeMap(MapType::Market);
+
+        character.SetPosition(1 * Tile_Size, tileY * Tile_Size);
+
+    }
+
+    //시장->시장 가는 길_02
+    if (currentMap == MapType::Market && tileX == 0 && (tileY == 11 || tileY == 12))
+    {
+        changeMap(MapType::Gomarket_02);
+
+        character.SetPosition(23 * Tile_Size, tileY * Tile_Size);
+
+    }
 }
 
 MapType Map::GetCurrentMap() const
