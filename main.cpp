@@ -15,6 +15,7 @@
 #include "QuizGhost.h"
 #include "Dialogue.h"
 #include "npc.h"
+#include "UI.h"
 
 #pragma comment(lib, "gdiplus.lib")
 
@@ -34,6 +35,8 @@ Map VillageMap;
 
 Dialogue dialogue;
 NPC npcManager;
+
+UI* ui = nullptr;
 
 Character* player = nullptr;
 MonsterSpawner* oniSpawner = nullptr;
@@ -141,6 +144,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
         endScreen = new EndScreen();
         endScreen->LoadImages();
+
+        ui = new UI();
+        ui->LoadImages();
 
         if (!VillageMap.LoadImages())
         {
@@ -266,6 +272,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 player->Draw(graphics);
             }
 
+            ui->Draw(graphics, player);
             dialogue.Draw(graphics, rt.right, rt.bottom);
 
             break;
@@ -338,6 +345,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 }
                 player->Move(deltaTime, VillageMap, obstacleRects);
                 VillageMap.Maptransform(*player);
+
+                //if (player->GetHP() <= 0)
+                //{
+                    //gameState = GameState::End;
+                //} 체력 0되면 end 화면으로 
+
                 InvalidateRect(hWnd, nullptr, FALSE);
             }
         }
@@ -373,6 +386,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
         delete endScreen;
         endScreen = nullptr;
+
+        delete ui;
+        ui = nullptr;
 
         PostQuitMessage(0);
         return 0;

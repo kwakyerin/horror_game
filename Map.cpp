@@ -13,7 +13,7 @@ Map::Map()
 
     currentMap = Village;
 
-    changeMap(Field);
+    changeMap(Village);
 
 }
 

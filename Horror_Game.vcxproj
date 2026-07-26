@@ -141,6 +141,7 @@
     <ClCompile Include="ShadowGhost.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="TitleScreen.cpp" />
+    <ClCompile Include="UI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Character.h" />
@@ -159,6 +160,7 @@
     <ClInclude Include="ShadowGhost.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="TitleScreen.h" />
+    <ClInclude Include="UI.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
