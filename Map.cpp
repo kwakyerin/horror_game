@@ -13,7 +13,7 @@ Map::Map()
 
     currentMap = Village;
 
-    changeMap(Market);
+    changeMap(Gomarket_02);
 
 }
 
@@ -2268,7 +2268,6 @@ void Map::changeMap(MapType newMap)
         map[10][0] = Product_08;
         map[11][0] = Product_08;
         map[11][1] = Product_08;
-
         map[9][22] = Product_09;
         map[11][21] = Product_09;
         map[10][20] = Product_10;

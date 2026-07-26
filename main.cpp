@@ -376,22 +376,40 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
     }
 
     case WM_KEYDOWN:
-
+    {
         switch (wParam)
         {
-
         case VK_ESCAPE:
+        {
             PostQuitMessage(0);
             return 0;
+        }
 
         case 'K':
-            if (gameState == GameState::Playing)
+        {
+            if (gameState != GameState::Playing)
             {
-                quizGhost->HandleInteraction(*player);
+                return 0;
             }
+
+            if (dialogue.IsOpen())
+            {
+                dialogue.Next();
+            }
+            else
+            {
+                if (player != nullptr && quizGhost != nullptr)
+                {
+                    quizGhost->HandleInteraction(*player, dialogue);
+                }
+            }
+
+            InvalidateRect(hWnd, nullptr, FALSE);
             return 0;
         }
+        }
         return 0;
+    }
 
     case WM_MOUSEMOVE:
     {

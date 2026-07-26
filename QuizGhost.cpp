@@ -1,13 +1,12 @@
 #include "QuizGhost.h"
 #include <gdiplus.h>
 #include "Character.h"
+#include "Dialogue.h"
 
 QuizGhost::QuizGhost(float startX, float startY, const wchar_t* path)
-:x(startX),
-y(startY),
-image(nullptr),
-Dialogue_box(nullptr),
-isTalking(false)
+    :x(startX),
+    y(startY),
+    image(nullptr)
 {
 	image = new Gdiplus::Image(path);
     if (image->GetLastStatus() != Gdiplus::Ok)
@@ -15,14 +14,6 @@ isTalking(false)
         delete image;
         image = nullptr;
     }
-    Dialogue_box = new Gdiplus::Image(L"Image\\monster_quiz\\Dialogue_box.png");
-
-    if (Dialogue_box->GetLastStatus() != Gdiplus::Ok)
-    {
-        delete Dialogue_box;
-        Dialogue_box = nullptr;
-    }
-
    
 }
 
@@ -33,9 +24,6 @@ void QuizGhost::Update(float deltaTime,Character& character) {
 QuizGhost::~QuizGhost() {
 	delete image;
     image = nullptr;
-
-    delete Dialogue_box;
-    Dialogue_box = nullptr;
 
 }
 
@@ -53,46 +41,7 @@ void QuizGhost:: Draw(Gdiplus::Graphics& graphics) {
         239
     );
 
-    if (isTalking && Dialogue_box != nullptr)
-    {
-       
-
-        Gdiplus::Font font(
-            L"궁서",
-            20,
-            Gdiplus::FontStyleBold,
-            Gdiplus::UnitPixel
-        );
-
-        Gdiplus::SolidBrush shadowBrush(
-            Gdiplus::Color(255, 0, 0, 0)
-        );
-
-        Gdiplus::SolidBrush textBrush(
-            Gdiplus::Color(255, 255, 255, 255)
-        );
-
-        const wchar_t* text = L"범인을 찾아오너라...";
-
-        // 글자 그림자
-        graphics.DrawString(
-            text,
-            -1,
-            &font,
-            Gdiplus::PointF(52.0f, 472.0f),
-            &shadowBrush
-        );
-
-        // 실제 글자
-        graphics.DrawString(
-            text,
-            -1,
-            &font,
-            Gdiplus::PointF(50.0f, 470.0f),
-            &textBrush
-        );
-    }
-
+ 
     Gdiplus::Pen pen(
         Gdiplus::Color(255, 255, 0, 0),
         1.0f
@@ -136,9 +85,20 @@ bool QuizGhost::IsPlayerNear(const Character& character)const {
 
     return IntersectRect(&result, &playerRect, &interactRect);
 }
-void QuizGhost::HandleInteraction(Character& character) {
-    if (!IsPlayerNear(character))
-        return;
 
-    isTalking = !isTalking;
+void QuizGhost::HandleInteraction(Character& character,Dialogue& dialogue)
+{
+    if (!IsPlayerNear(character))
+    {
+        return;
+    }
+
+    dialogue.Open(
+        L"퀴즈 괴물",
+        {
+            L"거기 인간...",
+            L"이곳을 지나가려면 내 문제를 풀어야 한다.",
+            L"범인을 찾아오너라..."
+        }
+    );
 }
