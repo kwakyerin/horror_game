@@ -34,7 +34,7 @@ enum class GameState
     End
 };
 std::vector<Amulet> amulets;
-GameState gameState = GameState::Playing;//상태 바꾸려면 여기서 바꾸면 된다.
+GameState gameState = GameState::Title;//상태 바꾸려면 여기서 바꾸면 된다.
 
 Map VillageMap;
 

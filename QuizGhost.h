@@ -4,6 +4,7 @@
 #include <gdiplus.h>
 #include <string>
 #include <vector>
+#include "Character.h"
 
 class Character;
 class Dialogue;
@@ -57,7 +58,7 @@ private:
 
 private:
     // 현재 문제를 대화창에 표시
-    void ShowCurrentQuestion(Dialogue& dialogue);
+    void CheckAnswer(Character& character, Dialogue& dialogue);
 
     // 현재 선택한 답을 검사
     void CheckAnswer(Dialogue& dialogue);
@@ -81,6 +82,9 @@ public:
 
     void SetVisible(bool visible);
     bool IsVisible() const;
+
+    bool waitingForDeath = false;
+    ULONGLONG deathStartTime = 0;
 
     // K키로 상호작용하거나 선택 확정
     void HandleInteraction(

@@ -77,6 +77,15 @@ void QuizGhost::Update(
     float deltaTime,
     Character& character)
 {
+    if (waitingForDeath)
+    {
+        if (GetTickCount64() - deathStartTime >= 5000)
+        {
+            character.Damage(character.GetHP());
+
+            waitingForDeath = false;
+        }
+    }
 }
 
 void QuizGhost::Draw(Gdiplus::Graphics& graphics)
@@ -345,7 +354,7 @@ void QuizGhost::HandleInteraction(
     // 문제 선택 중 K키를 누르면 답 확정
     case QuizState::Selecting:
     {
-        CheckAnswer(dialogue);
+        CheckAnswer(character, dialogue);
         break;
     }
 
@@ -455,7 +464,7 @@ void QuizGhost::MoveSelectionDown()
     }
 }
 
-void QuizGhost::CheckAnswer(Dialogue& dialogue)
+void QuizGhost::CheckAnswer( Character& character,Dialogue& dialogue)
 {
     if (quizState != QuizState::Selecting)
     {
@@ -490,6 +499,10 @@ void QuizGhost::CheckAnswer(Dialogue& dialogue)
             L"퀴즈 괴물",
             L"멍청하군. 그냥 죽어"
         );
+
+        waitingForDeath = true;
+        deathStartTime = GetTickCount64();
+
     }
 
     quizState = QuizState::Result;
