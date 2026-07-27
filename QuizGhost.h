@@ -98,4 +98,6 @@ public:
     bool IsSelecting() const;
 
     RECT GetCollisionRect() const;
+
+    void Reset();
 };

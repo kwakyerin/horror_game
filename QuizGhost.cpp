@@ -543,3 +543,14 @@ void QuizGhost::SetVisible(bool visible)
     isVisible = visible;
 
 }
+
+void QuizGhost::Reset()
+{
+    currentQuestionIndex = 0;
+    selectedChoiceIndex = 0;
+    lastAnswerCorrect = false;
+
+    isVisible = true;
+
+    quizState = QuizState::Idle;
+}

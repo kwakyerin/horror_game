@@ -4,6 +4,7 @@
 #include "Character.h"
 #include "MonsterSpawner.h"
 #include "kkamakGhost.h"
+#include "QuizGhost.h"
 
 #include "Amulet.h"
 #include "StatueManager.h"
@@ -17,6 +18,7 @@ extern MonsterSpawner* oniSpawner;
 extern MonsterSpawner* gumihoSpawner;
 extern MonsterSpawner* shadowSpawner;
 extern KkamakGhost* kkamakGhost;
+extern QuizGhost* quizGhost;
 
 extern std::vector<Amulet> amulets;
 extern StatueManager* statueManager;
@@ -63,5 +65,8 @@ void ResetGame() {
         kkamakGhost->Reset();
     }
 
-    
+    if (quizGhost != nullptr)
+    {
+        quizGhost->Reset();
+    }
 }
