@@ -308,11 +308,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             L"Image\\monster_oni\\Attack.png"
         );
 
-        gumihoSpawner = new MonsterSpawner(MonsterType::Gumiho, 16 * Tile_Size, 3 * Tile_Size, 100.0f, 600.0f, 300.0f,
+        gumihoSpawner = new MonsterSpawner(MonsterType::Gumiho, 16 * Tile_Size, 3 * Tile_Size, 300.0f, 600.0f, 300.0f,
             L"Image\\monster_gumiho\\Run.png",
             L"Image\\monster_gumiho\\Attack.png");// 구미호 위치도 임시
 
-        shadowSpawner = new MonsterSpawner(MonsterType::ShadowGhost, 14 * Tile_Size, 3 * Tile_Size, 100.0f, 0.0f, 0.0f,
+        shadowSpawner = new MonsterSpawner(MonsterType::ShadowGhost, 14 * Tile_Size, 3 * Tile_Size, 300.0f, 0.0f, 0.0f,
             L"Image\\monster_shadow\\warning.png",
             L"Image\\monster_shadow\\attack.png");//그림자 귀신도 임시
 
@@ -577,6 +577,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                         gumihoSpawner != nullptr)
                     {
                         gumihoSpawner->Update(deltaTime, player);
+                    }
+
+                    if (VillageMap.GetCurrentMap() == MapType::Field &&
+                        shadowSpawner != nullptr)
+                    {
+                        shadowSpawner->Update(deltaTime, player);
                     }
 
                     if (VillageMap.GetCurrentMap() == MapType::Govillage)
