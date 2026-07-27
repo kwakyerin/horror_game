@@ -14,7 +14,7 @@ Map::Map()
 
     currentMap = Village;
 
-    changeMap(Village);
+    changeMap(Market);
 
 }
 
