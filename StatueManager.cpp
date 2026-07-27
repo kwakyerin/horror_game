@@ -155,3 +155,60 @@ bool StatueManager::TryAttachAmulet(Character* player,Map& map,std::vector<Amule
 
     return false;
 }
+
+void StatueManager::Reset()
+{
+    whiteDone = false;
+    redDone = false;
+    blueDone = false;
+    yellowDone = false;
+    blackDone = false;
+}
+
+void StatueManager::ApplyCompletedStatues(Map& map)
+{
+    if (whiteDone)
+    {
+        map.SetTile(
+            12,
+            2,
+            Status_White
+        );
+    }
+
+    if (redDone)
+    {
+        map.SetTile(
+            17,
+            11,
+            Status_Red
+        );
+    }
+
+    if (blueDone)
+    {
+        map.SetTile(
+            8,
+            14,
+            Status_Blue
+        );
+    }
+
+    if (yellowDone)
+    {
+        map.SetTile(
+            20,
+            5,
+            Status_Yellow
+        );
+    }
+
+    if (blackDone)
+    {
+        map.SetTile(
+            3,
+            8,
+            Status_Black
+        );
+    }
+}

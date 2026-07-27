@@ -31,4 +31,5 @@ public:
 	float GetY() const;
 	bool IsUsed() const;
 	void Use();
+	void Reset();
 };

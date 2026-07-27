@@ -1,15 +1,25 @@
 #include "ResetGame.h"
+
 #include "Map.h"
 #include "Character.h"
 #include "MonsterSpawner.h"
 #include "kkamakGhost.h"
 
+#include "Amulet.h"
+#include "StatueManager.h"
+
+#include <vector>
+
 extern Map VillageMap;
 extern Character* player;
+
 extern MonsterSpawner* oniSpawner;
 extern MonsterSpawner* gumihoSpawner;
 extern MonsterSpawner* shadowSpawner;
 extern KkamakGhost* kkamakGhost;
+
+extern std::vector<Amulet> amulets;
+extern StatueManager* statueManager;
 
 
 void ResetGame() {
@@ -39,5 +49,15 @@ void ResetGame() {
     if (kkamakGhost != nullptr)
     {
         kkamakGhost->Reset();
+    }
+
+    for (Amulet& amulet : amulets)
+    {
+        amulet.Reset();
+    }
+
+    if (statueManager != nullptr)
+    {
+        statueManager->Reset();
     }
 }

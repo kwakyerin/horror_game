@@ -530,6 +530,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
                 if (previousMap != VillageMap.GetCurrentMap())
                 {
+                    if (VillageMap.GetCurrentMap() == MapType::Field &&
+                        statueManager != nullptr)
+                    {
+                        statueManager->ApplyCompletedStatues(VillageMap);
+                    }
                     CreateMapBuffer(hWnd);
                 }
                 player->UpdateDeath(deltaTime);

@@ -94,3 +94,9 @@ void Amulet::Use()
 {
     used = true;
 }
+
+void Amulet::Reset()
+{
+    collected = false;
+    used = false;
+}
