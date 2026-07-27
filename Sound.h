@@ -22,6 +22,13 @@ public:
     void PlayTitleBGM();
     void StopTitleBGM();
 
+    void PlayEndingBGM();
+    void StopEndingBGM();
+
+    void PlayFailEndingBGM();
+    void StopFailEndingBGM();
+
+
 private:
     bool isRainPlaying;
 };

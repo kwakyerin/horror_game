@@ -579,14 +579,16 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                         gumihoSpawner->Update(deltaTime, player);
                     }
 
-                    if (VillageMap.GetCurrentMap() == MapType::Govillage &&
-                        kkamakGhost != nullptr)
+                    if (VillageMap.GetCurrentMap() == MapType::Govillage)
                     {
-                        kkamakGhost->Update(deltaTime, *player);
+                        if (kkamakGhost != nullptr)
+                        {
+                            if (kkamakGhost->Update(deltaTime, *player))
+                            {
+                                player->Damage(999);
 
-                        obstacleRects.push_back(
-                            kkamakGhost->GetCollisionRect()
-                        );
+                            }
+                        }
                     }
 
                     if (VillageMap.GetCurrentMap() == MapType::Gomarket_02 &&
@@ -715,6 +717,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 // 죽음 애니메이션이 끝나면 End 화면
                 if (player->IsDeathAnimationFinished())
                 {
+                    gameSound.StopRain();
+                    gameSound.PlayFailEndingBGM();
                     gameState = GameState::End;
                 }
                  
@@ -931,6 +935,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
                         endingTransitionStarted = true;
                         endingTransitionStartTime = GetTickCount64();
+                        gameSound.StopRain();
+                        gameSound.PlayEndingBGM();
                     }
                     else
                     {
@@ -1026,6 +1032,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 CreateMapBuffer(hWnd);
 
                 gameSound.StopTitleBGM();
+                gameSound.StopEndingBGM();
+                gameSound.StopFailEndingBGM();
                 gameSound.PlayRain();
 
                 gameState = GameState::Playing;
@@ -1042,6 +1050,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         {
             if (endScreen->IsRetryClicked(pt.x, pt.y))
             {
+                gameSound.StopFailEndingBGM();
+                gameSound.PlayTitleBGM();
                 gameState = GameState::Title;
             }
             else if (endScreen->IsExitClicked(pt.x, pt.y))

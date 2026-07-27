@@ -5,6 +5,8 @@
 KkamakGhost::KkamakGhost(float startX, float startY, const wchar_t* path)
 	:x(startX),
 	y(startY),
+    startX(startX),
+    startY(startY),
 	moveSpeed(100.0f),
 	image(nullptr)
 {
@@ -41,7 +43,7 @@ void KkamakGhost::Draw(Gdiplus::Graphics& graphics)
         60,
         80
     );
-
+/*
     RECT rc = GetCollisionRect();
 
     Gdiplus::Pen collisionPen(
@@ -55,6 +57,7 @@ void KkamakGhost::Draw(Gdiplus::Graphics& graphics)
         static_cast<INT>(rc.right - rc.left),
         static_cast<INT>(rc.bottom - rc.top)
     );
+    */
 }
 
 bool KkamakGhost::Update(float deltaTime, const Character& character)

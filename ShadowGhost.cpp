@@ -306,12 +306,11 @@ void ShadowGhost::Draw(Gdiplus::Graphics& graphics)
         frameHeight,
         Gdiplus::UnitPixel
     );
-
-    Gdiplus::Pen pen(
+    
+    /*Gdiplus::Pen pen(
         Gdiplus::Color(255, 255, 0, 0),
         1.0f
     );
-
     RECT collisionRect = GetCollisionRect();
 
     graphics.DrawRectangle(
@@ -321,6 +320,7 @@ void ShadowGhost::Draw(Gdiplus::Graphics& graphics)
         static_cast<INT>(collisionRect.right - collisionRect.left),
         static_cast<INT>(collisionRect.bottom - collisionRect.top)
     );
+    */
 }
 
 RECT ShadowGhost::GetCollisionRect() const
