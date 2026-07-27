@@ -448,10 +448,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     GetTickCount64() - endingTransitionStartTime;
 
                 // 2초 후부터 빨간색이 점점 진해짐
-                if (elapsed >= 2000 && elapsed < 4500)
+                if (elapsed >= 3000 && elapsed < 7000)
                 {
                     int redAlpha =
-                        static_cast<int>((elapsed - 2000) * 180 / 1500);
+                        static_cast<int>((elapsed - 3000) * 180 / 4000);
 
                     if (redAlpha > 180)
                     {
@@ -477,7 +477,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 }
 
                 // 4.5초 후부터 완전히 검은 화면
-                if (elapsed >= 4500)
+                if (elapsed >= 7000)
                 {
                     SolidBrush blackBrush(
                         Color(255, 0, 0, 0)
@@ -689,7 +689,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                         endingTransitionStarted = false;
                         endingTransitionStartTime = 0;
 
-                        gameState = GameState::Title;
+                        if (elapsed >= 9000)
+                        {
+                            gameState = GameState::Title;
+                        }
 
                         InvalidateRect(
                             hWnd,
