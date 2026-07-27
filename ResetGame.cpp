@@ -24,9 +24,21 @@ extern StatueManager* statueManager;
 
 void ResetGame() {
 
-    VillageMap.changeMap(MapType::Room);
+    // 1. 조각상 부착 기록 초기화
+    if (statueManager != nullptr)
+    {
+        statueManager->Reset();
+    }
 
+    // 2. 부적 획득/사용 상태 초기화
+    for (Amulet& amulet : amulets)
+    {
+        amulet.Reset();
+    }
+
+    VillageMap.changeMap(MapType::Room);
     // 캐릭터를 집 안 시작 좌표로 초기화
+
     if (player != nullptr)
     {
         player->Reset();
@@ -51,13 +63,5 @@ void ResetGame() {
         kkamakGhost->Reset();
     }
 
-    for (Amulet& amulet : amulets)
-    {
-        amulet.Reset();
-    }
-
-    if (statueManager != nullptr)
-    {
-        statueManager->Reset();
-    }
+    
 }
