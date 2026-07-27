@@ -14,7 +14,7 @@ Map::Map()
 
     currentMap = Village;
 
-    changeMap(Village);
+    changeMap(Room);
 
 }
 
@@ -695,7 +695,9 @@ bool Map::LoadImages()
     result &= npc_11Image.Load(
         L"Image\\Npc\\npc_11.png"
     );
-    
+    result &= TempleImage.Load(
+        L"Image\\Temple\\temple.png"
+    );
 
     return result;
 }
@@ -1556,6 +1558,12 @@ void Map::Draw(HDC hdc)
             }
             
         }
+    }
+
+    if (currentMap == Temple)
+    {
+        TempleImage.Draw(hdc, 50, 5,700,600);
+       
     }
 }
 
@@ -2559,6 +2567,14 @@ bool Map::IsBlocked(float x, float y)
     {
         return true;
     }
+    // 사찰 맵의 이미지 충돌 검사
+    if (currentMap == Temple)
+    {
+        if (IsTempleBlocked(x, y))
+        {
+            return true;
+        }
+    }
 
     int tile = map[tileY][tileX];
 
@@ -2680,6 +2696,8 @@ bool Map::IsBlocked(float x, float y)
 
     case Status_01:
     case Status_02:
+    case Status_03:
+    case Status_04:
 
     case TILE_DUMMY:
     case TILE_ROCK:
@@ -2865,7 +2883,7 @@ void Map::Maptransform(Character& character) {
     //사찰 가는 길_01->사찰 가는 길_02
     if (currentMap == MapType::Gotemple_01 && tileX == 24  && (tileY == 12||tileY==13))
     {
-        changeMap(MapType::Gotemple_02);
+        changeMap(MapType::Temple);
 
         character.SetPosition(1 * Tile_Size, tileY * Tile_Size);
 
@@ -2874,7 +2892,7 @@ void Map::Maptransform(Character& character) {
 
 
     //사찰 가는 길_02->사찰 가는 길_01(수정중)
-    if (currentMap == MapType::Gotemple_02 && tileX == 0 && (tileY == 12 || tileY == 13))
+    if (currentMap == MapType::Temple && tileX == 0 && (tileY == 12 || tileY == 13))
     {
         changeMap(MapType::Gotemple_01);
 
@@ -2884,7 +2902,7 @@ void Map::Maptransform(Character& character) {
     }
 
     //사찰 가는 길_02->동굴
-    if (currentMap == MapType::Gotemple_02 && tileX == 24 && (tileY == 8 || tileY == 9))
+    if (currentMap == MapType::Temple && tileX == 24 && (tileY == 8 || tileY == 9))
     {
         changeMap(MapType::Cave);
 
@@ -2896,7 +2914,7 @@ void Map::Maptransform(Character& character) {
     //동굴->사찰 가는 길_02
     if (currentMap == MapType::Cave && tileX == 0 && (tileY == 8 || tileY == 9))
     {
-        changeMap(MapType::Gotemple_02);
+        changeMap(MapType::Temple);
 
         character.SetPosition( 23 * Tile_Size, tileY * Tile_Size);
 
@@ -3044,4 +3062,48 @@ void Map::SetTile(int tileX,int tileY,int tileType)
     }
 
     map[tileY][tileX] = tileType;
+}
+
+bool Map::IsTempleBlocked(float x, float y) const
+{
+    const int templeX = 50;
+    const int templeY = 5;
+
+    RECT collisionRects[] =
+    {
+        { templeX + 200,  templeY + 80,  templeX + 300, templeY + 140 },//왼쪽 위 문
+        { templeX + 470, templeY + 60,  templeX + 530, templeY + 140 },//오른쪽 석탑과 돌 무더기
+        { templeX + 60,  templeY + 184, templeX + 150, templeY + 300 },//왼쪽 중간 석탑
+
+        { templeX + 220, templeY + 174, templeX + 485, templeY + 310 },//중앙본당
+
+        { templeX + 530, templeY + 200, templeX + 649, templeY + 280 },//오른쪽 중간 돌무더기
+
+        { templeX + 34,  templeY + 340, templeX + 171, templeY + 450 },//왼쪽아래 작은 건물
+
+        { templeX + 577, templeY + 320, templeX + 629, templeY + 430 },//오른쪽 중간 석탑
+
+        { templeX + 210, templeY + 450, templeX + 294, templeY + 500 },//왼쪽 아래 바위
+
+        { templeX + 420, templeY + 430, templeX + 540, templeY + 500 }//오른쪽 아래 작은 건물
+    };
+
+    int collisionCount =
+        sizeof(collisionRects)
+        / sizeof(collisionRects[0]);
+
+    for (int i = 0; i < collisionCount; i++)
+    {
+        RECT rect = collisionRects[i];
+
+        if (x >= rect.left &&
+            x <= rect.right &&
+            y >= rect.top &&
+            y <= rect.bottom)
+        {
+            return true;
+        }
+    }
+
+    return false;
 }

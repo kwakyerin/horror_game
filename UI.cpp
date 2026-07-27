@@ -77,31 +77,31 @@ void UI::Draw(Gdiplus::Graphics& graphics, Character* character, const std::vect
         );
     }
     // 확인용: 아직 획득하지 않은 부적을 맵 좌표에 표시
-    for (const Amulet& amulet : amulets)
-    {
-        if (amulet.IsCollected())
-        {
-            continue;
-        }
+    //for (const Amulet& amulet : amulets)
+    //{
+        //if (amulet.IsCollected())
+        //{
+            //continue;
+        //}
 
-        if (amulet.GetMapType() != currentMap)
-        {
-            continue;
-        }
+        //if (amulet.GetMapType() != currentMap)
+        //{
+            //continue;
+        //}
 
-        int imageIndex =
-            static_cast<int>(amulet.GetType());
+        //int imageIndex =
+            //static_cast<int>(amulet.GetType());
 
-        graphics.DrawImage(
-            amuletImages[imageIndex],
-            Gdiplus::Rect(
-                static_cast<int>(amulet.GetX()),
-                static_cast<int>(amulet.GetY()),
-                20,
-                40
-            )
-        );
-    }
+        //graphics.DrawImage(
+            //amuletImages[imageIndex],
+            //Gdiplus::Rect(
+                //static_cast<int>(amulet.GetX()),
+                //static_cast<int>(amulet.GetY()),
+                //20,
+                //40
+            //)
+        //);
+    //}
 
     int index = 0;
 

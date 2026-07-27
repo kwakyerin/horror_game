@@ -293,7 +293,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         amulets.emplace_back(Market, 14 * Tile_Size, 4 * Tile_Size, AmuletType::Red);//시장 오른쪽 테이블 밑
         amulets.emplace_back(Govillage, 2 * Tile_Size, 3 * Tile_Size, AmuletType::Blue);//마을 가는 길 가장 안쪽에 긴 나무 
         amulets.emplace_back(Room, 14 * Tile_Size, 5 * Tile_Size, AmuletType::White);//집 항아리
-        amulets.emplace_back(Market, 14 * Tile_Size, 5 * Tile_Size, AmuletType::Black);//아직 수정해야함,사찰에 넣을 예정
+        amulets.emplace_back(Temple , 12 * Tile_Size, 9 * Tile_Size, AmuletType::Black);//아직 수정해야함,사찰에 넣을 예정
 
         oniSpawner = new MonsterSpawner(MonsterType::Oni,
             15 * Tile_Size,   // 타일 X = 15 (큰 크리스탈 쪽으로 가까이 가면 뜸)
