@@ -1699,7 +1699,7 @@ void Map::changeMap(MapType newMap)
         map[8][17] = House_09;
         map[7][17] = House_17;
         map[6][17] = House_25; //이상함
-          map[5][17]=House_33;
+        map[5][17] = House_33;
         map[4][17] = House_45;
 
         map[9][18] = House_06;
@@ -2757,7 +2757,7 @@ void Map::Maptransform(Character& character) {
 
 
     //마을->주인공 집
-    if (currentMap == MapType::Village && tileX == 20 && tileY == 8)
+    if (currentMap == MapType::Village && tileX == 16 && tileY == 9)
     {
         changeMap(MapType::Room);
 
@@ -2771,7 +2771,7 @@ void Map::Maptransform(Character& character) {
     {
         changeMap(MapType::Village);
 
-        character.SetPosition(20 * Tile_Size, 9 * Tile_Size);
+        character.SetPosition(16 * Tile_Size, 10 * Tile_Size);
 
         return;
     }
