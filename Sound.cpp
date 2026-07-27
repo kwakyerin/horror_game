@@ -33,7 +33,7 @@ void Sound::StopRain()
 void Sound::PlayQuizBGM()
 {
     PlaySound(
-        L"Sound\\QuizBGM.wav",
+        L"Sound\\Quiz_background.wav",
         nullptr,
         SND_FILENAME | SND_ASYNC | SND_LOOP);
 }
