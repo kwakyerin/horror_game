@@ -14,7 +14,7 @@ Map::Map()
 
     currentMap = Village;
 
-    changeMap(Temple);
+    changeMap(Room);
 
 }
 
