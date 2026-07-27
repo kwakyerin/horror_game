@@ -677,34 +677,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
             break;
         }
-        //¹ã³· Å×½ºÆ®¿ë Å°
-        /*case 'N':
-        {
-            dayNight.Toggle();
-
-            if (dayNight.IsDay())
-            {
-                if (oniSpawner != nullptr)
-                    oniSpawner->Reset();
-
-                if (gumihoSpawner != nullptr)
-                    gumihoSpawner->Reset();
-
-                if (shadowSpawner != nullptr)
-                    shadowSpawner->Reset();
-
-                if (quizGhost != nullptr)
-                    quizGhost->SetVisible(false);
-            }
-            else
-            {
-                if (quizGhost != nullptr)
-                    quizGhost->SetVisible(true);
-            }
-
-            InvalidateRect(hWnd, nullptr, FALSE);
-            return 0;
-        }*/
 
         case 'S':
         {
