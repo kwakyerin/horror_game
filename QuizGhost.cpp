@@ -18,7 +18,9 @@ QuizGhost::QuizGhost(
     selectedChoiceIndex(0),
     lastAnswerCorrect(false),
     isVisible(true),
-    quizState(QuizState::Idle)
+    quizState(QuizState::Idle),
+    waitingForDeath(false),
+    deathStartTime(0)
 {
     image = new Gdiplus::Image(path);
 
@@ -526,13 +528,12 @@ void QuizGhost::MoveToNextQuestion( Dialogue& dialogue,Sound& sound)
     currentQuestionIndex++;
     selectedChoiceIndex = 0;
 
-    sound.StopQuizBGM();
-    sound.PlayRain();
-
     // 세 문제를 모두 맞힌 경우
     if (currentQuestionIndex >=
         static_cast<int>(questions.size()))
     {
+        waitingForDeath = false;
+        deathStartTime = 0;
 
         sound.StopQuizBGM();
         sound.PlayRain();
@@ -586,4 +587,7 @@ void QuizGhost::Reset()
     isVisible = true;
 
     quizState = QuizState::Idle;
+
+    waitingForDeath = false;
+    deathStartTime = 0;
 }
