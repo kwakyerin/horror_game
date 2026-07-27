@@ -2680,6 +2680,8 @@ bool Map::IsBlocked(float x, float y)
 
     case Status_01:
     case Status_02:
+    case Status_03:
+    case Status_04:
 
     case TILE_DUMMY:
     case TILE_ROCK:
