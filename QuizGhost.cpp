@@ -237,7 +237,7 @@ void QuizGhost::Draw(Gdiplus::Graphics& graphics)
             &normalBrush
         );
     }
-
+    /*
     // 충돌 범위 확인용
     Gdiplus::Pen collisionPen(
         Gdiplus::Color(255, 255, 0, 0),
@@ -257,6 +257,7 @@ void QuizGhost::Draw(Gdiplus::Graphics& graphics)
             collisionRect.bottom -
             collisionRect.top)
     );
+    */
 }
 
 RECT QuizGhost::GetCollisionRect() const

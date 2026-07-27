@@ -71,3 +71,35 @@ void Sound::StopTitleBGM()
 {
     PlaySound(nullptr, nullptr, 0);
 }
+
+// ¿£µù BGM
+void Sound::PlayEndingBGM()
+{
+    PlaySound(
+        L"Sound\\EndingBGM.wav",
+        nullptr,
+        SND_FILENAME | SND_ASYNC | SND_LOOP);
+}
+
+void Sound::StopEndingBGM()
+{
+    PlaySound(nullptr, nullptr, 0);
+}
+
+void Sound::PlayFailEndingBGM()
+{
+    PlaySound(
+        L"Sound\\failEnding.wav",
+        nullptr,
+        SND_FILENAME | SND_ASYNC | SND_LOOP
+    );
+}
+
+void Sound::StopFailEndingBGM()
+{
+    PlaySound(
+        nullptr,
+        nullptr,
+        0
+    );
+}
