@@ -378,7 +378,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 0,
                 SRCCOPY
             );
-            if (dayNight.IsNight()) {
+            if (1) {
 
                 if (VillageMap.GetCurrentMap() == MapType::Cave)
                 {
@@ -565,7 +565,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     introDialoguePlayed = true;
                 }
 
-                if (dayNight.IsNight())
+                if (1)
                 {
                     if (VillageMap.GetCurrentMap() == MapType::Cave &&
                         oniSpawner != nullptr)
@@ -629,8 +629,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 }
 
                 // 퀴즈 중에도 이동 불가
-                if (dayNight.IsNight() &&
-                    quizGhost != nullptr &&
+                if (quizGhost != nullptr &&
                     quizGhost->IsQuizActive())
                 {
                     canMove = false;
@@ -958,7 +957,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             // 퀴즈요괴 상호작용
             if (player != nullptr &&
                 quizGhost != nullptr &&
-                dayNight.IsNight() &&
                 VillageMap.GetCurrentMap() == MapType::Gomarket_02 &&
                 quizGhost->IsPlayerNear(*player))
             {
