@@ -40,7 +40,7 @@ bool Amulet::Interact(Character* character,MapType currentMap)
     collected = true;
 
     // 나중에 추가
-    // dialogue.Open(L"부적을 획득했다.");
+    //dialogue.Open(L"부적을 획득했다.");
     // 효과음 재생
 
     return true;

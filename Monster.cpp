@@ -240,12 +240,12 @@ void Monster::Draw(Gdiplus::Graphics& graphics)
             Gdiplus::UnitPixel);
     }
     // 충돌 박스(테스트용)
-    Gdiplus::Pen pen(
-        Gdiplus::Color(255, 255, 0, 0),
-        1.0f
-    );
+    //Gdiplus::Pen pen(
+    //    Gdiplus::Color(255, 255, 0, 0),
+    //    1.0f
+    //);
 
-    RECT rc = GetCollisionRect();
+    /*RECT rc = GetCollisionRect();
 
     graphics.DrawRectangle(
         &pen,
@@ -254,7 +254,7 @@ void Monster::Draw(Gdiplus::Graphics& graphics)
         static_cast<int>(rc.right - rc.left),
         static_cast<int>(rc.bottom - rc.top)
         
-    );
+    );*/
 
  
 }

@@ -4,6 +4,7 @@
 #include "Image.h"
 #include "Character.h"
 #include "Sound.h"
+#include "Dialogue.h"
 
 Sound sound;
 
@@ -13,7 +14,7 @@ Map::Map()
 
     currentMap = Village;
 
-    changeMap(Room);
+    changeMap(Village);
 
 }
 
@@ -1673,43 +1674,97 @@ void Map::changeMap(MapType newMap)
         map[3][17] = TREE_04;
 
         //집1(주인공 집)
-        map[9][14] = 22;
-        map[9][15] = 23;
-        map[9][16] = 18;
-        map[9][17] = 19;
-        map[9][18] = 20;
-        map[9][19] = 21;
-        map[9][20] = 16; //문
-        map[9][21] = 17;
-        map[8][20] = 24; //문
-        map[7][20] = House_18; //문
+        map[9][14] = House_08;
+        map[8][14] = House_16;
+        map[7][14] = House_24;
+        map[6][14] = House_31;
+        map[5][14] = House_25;
+        map[4][14] = House_45;
+
+        map[9][15] = House_07;
+        map[8][15] = House_15;
+        map[7][15] = House_23;
+        map[6][15] = House_27;
+        map[5][15] = House_35;
+        map[4][15] = House_44;
+
+        map[9][16] = 16;
+        map[8][16] = 24;
+        map[7][16] = House_18;
+        map[6][16] = House_26;
+        map[5][16] = House_34;
+        map[4][16] = House_45;
+
+        map[9][17] = House_01;
+        map[8][17] = House_09;
+        map[7][17] = House_17;
+        map[6][17] = House_25; //이상함
+          map[5][17]=House_33;
+        map[4][17] = House_45;
+
+        map[9][18] = House_06;
+        map[8][18] = House_14;
+        map[7][18] = House_22;
+        map[6][18] = House_38;
+        map[5][18] = House_38;
+        map[4][18] = House_41;
+
+        map[9][19] = House_05;
+        map[8][19] = House_13;
+        map[7][19] = House_21;
+        map[6][19] = House_30;
+        map[5][19] = House_30;
+        map[4][19] = House_30;
+        
+        map[9][20] = House_04;
+        map[8][20] = House_12;
+        map[7][20] = House_20;
+        map[6][20] = House_42;
+        map[5][20] = House_42;
+        map[4][20] = House_40;
+
+        //map[9][14] = 22;
+        //map[9][15] = 23;
+        //map[9][16] = 18;
+        //map[9][17] = 19;
+        //map[9][18] = 20;
+        //map[9][19] = 21;
+        //map[9][20] = 16; //문
+        //map[9][21] = 17;
+        //map[8][20] = 24; //문
+        //map[7][20] = House_18; //문
+        //map[7][21] = House_20;
+        //map[7][19] = House_22;
+        //map[8][19] = House_11;
+        //map[8][21] = House_11;
+        //map[8][15] = House_09;
+        //map[8][16] = House_16;
+        //map[8][18] = House_15;
+        //map[7][18] = House_17;
+        //map[7][16] = House_24;
 
         //건들 X
-        /*
-        map[8][15] = 25;
-        map[8][16] = 26;
-        map[8][17] = 27;
-        map[8][18] = 28;
-        map[8][19] = 29;
-        map[8][20] = 30;
-        map[8][21] = 31;
-        map[7][14] = 32;
-        map[7][15] = 33;
-        map[7][16] = 34;
-        map[7][17] = 35;
-        map[7][18] = 36;
-        map[7][19] = 37;
-        map[7][20] = 38;
-        map[7][21] = 39;
-        map[6][14] = 40;
-        map[6][15] = 43;
-        map[6][16] = 44;
-        map[6][17] = 50;
-        map[6][18] = 60;*/
-
-        //집2
-        map[1][12] = 16;
-        map[0][12] = 24;
+        
+        //map[8][15] = 25;
+        //map[8][16] = 26;
+        //map[8][17] = 27;
+        //map[8][18] = 28;
+        //map[8][19] = 29;
+        //map[8][20] = 30;
+        //map[8][21] = 31;
+        //map[7][14] = 32;
+        //map[7][15] = 33;
+        //map[7][16] = 34;
+        //map[7][17] = 35;
+        //map[7][18] = 36;
+        //map[7][19] = 37;
+        //map[7][20] = 38;
+        //map[7][21] = 39;
+        //map[6][14] = 40;
+        //map[6][15] = 43;
+        //map[6][16] = 44;
+        //map[6][17] = 50;
+        //map[6][18] = 60;
 
         //나무 울타리
 
