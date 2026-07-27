@@ -98,6 +98,12 @@ bool StatueManager::TryAttachAmulet(Character* player,Map& map,std::vector<Amule
     bool& done
 )
 {
+
+    if (map.GetCurrentMap() != MapType::Field)
+    {
+        return false;
+    }
+
     if (done)
     {
         return false;
