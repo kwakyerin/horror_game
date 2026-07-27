@@ -240,6 +240,7 @@ public:
     void changeMap(MapType newMap);
     void Maptransform(Character& character);
     bool IsBlocked(float x, float y);
+    bool IsTempleBlocked(float x, float y) const;
 
     MapType GetCurrentMap() const;
 
@@ -484,5 +485,7 @@ private:
     GameImage Status_YellowImage;
     GameImage Status_BlackImage;
     GameImage Status_WhiteImage;
+
+    GameImage TempleImage;
 
 };
