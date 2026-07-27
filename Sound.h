@@ -13,6 +13,15 @@ public:
     void PlayRain();
     void StopRain();
 
+    void PlayQuizBGM();
+    void StopQuizBGM();
+
+    void PlayCorrect();
+    void PlayWrong();
+
+    void PlayTitleBGM();
+    void StopTitleBGM();
+
 private:
     bool isRainPlaying;
 };

@@ -1,6 +1,7 @@
 #include "QuizGhost.h"
 #include "Character.h"
 #include "Dialogue.h"
+#include "Sound.h"
 
 #include <gdiplus.h>
 #include <string>
@@ -302,7 +303,8 @@ bool QuizGhost::IsPlayerNear(
 
 void QuizGhost::HandleInteraction(
     Character& character,
-    Dialogue& dialogue)
+    Dialogue& dialogue,
+    Sound& sound)
 {
     if (!isVisible)
     {
@@ -318,6 +320,9 @@ void QuizGhost::HandleInteraction(
         {
             return;
         }
+
+        sound.StopRain();
+        sound.PlayQuizBGM();
 
         dialogue.Open(
             L"퀴즈 괴물",
@@ -354,7 +359,7 @@ void QuizGhost::HandleInteraction(
     // 문제 선택 중 K키를 누르면 답 확정
     case QuizState::Selecting:
     {
-        CheckAnswer(character, dialogue);
+        CheckAnswer(character, dialogue, sound);
         break;
     }
 
@@ -368,7 +373,7 @@ void QuizGhost::HandleInteraction(
         {
             if (lastAnswerCorrect)
             {
-                MoveToNextQuestion(dialogue);
+                MoveToNextQuestion(dialogue, sound);
             }
             else
             {
@@ -464,7 +469,10 @@ void QuizGhost::MoveSelectionDown()
     }
 }
 
-void QuizGhost::CheckAnswer( Character& character,Dialogue& dialogue)
+void QuizGhost::CheckAnswer(
+    Character& character,
+    Dialogue& dialogue,
+    Sound& sound)
 {
     if (quizState != QuizState::Selecting)
     {
@@ -486,6 +494,8 @@ void QuizGhost::CheckAnswer( Character& character,Dialogue& dialogue)
     {
         lastAnswerCorrect = true;
 
+        sound.PlayCorrect();
+
         dialogue.Open(
             L"퀴즈 괴물",
             L"정답이다. 제법이군."
@@ -500,6 +510,8 @@ void QuizGhost::CheckAnswer( Character& character,Dialogue& dialogue)
             L"멍청하군. 그냥 죽어"
         );
 
+        sound.PlayWrong();
+
         waitingForDeath = true;
         deathStartTime = GetTickCount64();
 
@@ -508,15 +520,22 @@ void QuizGhost::CheckAnswer( Character& character,Dialogue& dialogue)
     quizState = QuizState::Result;
 }
 
-void QuizGhost::MoveToNextQuestion(Dialogue& dialogue)
+void QuizGhost::MoveToNextQuestion( Dialogue& dialogue,Sound& sound)
 {
     currentQuestionIndex++;
     selectedChoiceIndex = 0;
+
+    sound.StopQuizBGM();
+    sound.PlayRain();
 
     // 세 문제를 모두 맞힌 경우
     if (currentQuestionIndex >=
         static_cast<int>(questions.size()))
     {
+
+        sound.StopQuizBGM();
+        sound.PlayRain();
+
         dialogue.Open(
             L"퀴즈 괴물",
             {

@@ -20,7 +20,7 @@
 #include "Amulet.h"
 #include "DayNightManager.h"
 #include "StatueManager.h"
-
+#include "Sound.h"
 
 #pragma comment(lib, "gdiplus.lib")
 
@@ -54,6 +54,9 @@ bool nightStarted = false;
 //화면 빨개지는 엔딩 후 다시 시작화면
 bool endingTransitionStarted = false;
 ULONGLONG endingTransitionStartTime = 0;
+
+//소리
+Sound gameSound;
 
 Character* player = nullptr;
 MonsterSpawner* oniSpawner = nullptr;
@@ -319,6 +322,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
         QueryPerformanceFrequency(&frequency);
         QueryPerformanceCounter(&previousTime);
+
+        gameSound.PlayTitleBGM();
 
         SetTimer(hWnd, 1, 20, nullptr);
 
@@ -691,6 +696,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
                         if (elapsed >= 9000)
                         {
+                            gameSound.StopRain();
+                            gameSound.PlayTitleBGM();
+
                             gameState = GameState::Title;
                         }
 
@@ -956,7 +964,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             {
                 quizGhost->HandleInteraction(
                     *player,
-                    dialogue
+                    dialogue,
+                    gameSound
                 );
 
                 InvalidateRect(
@@ -1015,6 +1024,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 endingTransitionStartTime = 0;
 
                 CreateMapBuffer(hWnd);
+
+                gameSound.StopTitleBGM();
+                gameSound.PlayRain();
 
                 gameState = GameState::Playing;
                 introDialoguePlayed = false;

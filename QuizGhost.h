@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include "Character.h"
+#include "sound.h"
 
 class Character;
 class Dialogue;
@@ -58,13 +59,11 @@ private:
 
 private:
     // 현재 문제를 대화창에 표시
-    void CheckAnswer(Character& character, Dialogue& dialogue);
+    void CheckAnswer(Character& character, Dialogue& dialogue,Sound& sound);
 
-    // 현재 선택한 답을 검사
-    void CheckAnswer(Dialogue& dialogue);
+    //다음 문제로 이동
+    void MoveToNextQuestion(Dialogue& dialogue, Sound& sound);
 
-    // 다음 문제로 이동
-    void MoveToNextQuestion(Dialogue& dialogue);
 
 public:
     QuizGhost(
@@ -89,8 +88,8 @@ public:
     // K키로 상호작용하거나 선택 확정
     void HandleInteraction(
         Character& character,
-        Dialogue& dialogue
-    );
+        Dialogue& dialogue,
+        Sound& sound);
 
     // W키로 위쪽 선택지
     void MoveSelectionUp();
