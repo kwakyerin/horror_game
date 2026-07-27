@@ -34,7 +34,7 @@ enum class GameState
     End
 };
 std::vector<Amulet> amulets;
-GameState gameState = GameState::Playing;//상태 바꾸려면 여기서 바꾸면 된다.
+GameState gameState = GameState::Title;//상태 바꾸려면 여기서 바꾸면 된다.
 
 Map VillageMap;
 
@@ -51,6 +51,9 @@ bool introDialoguePlayed = false;
 bool clientMet = false;
 bool nightStarted = false;
 
+//화면 빨개지는 엔딩 후 다시 시작화면
+bool endingTransitionStarted = false;
+ULONGLONG endingTransitionStartTime = 0;
 
 Character* player = nullptr;
 MonsterSpawner* oniSpawner = nullptr;
@@ -66,6 +69,9 @@ RECT wallRect =
 {
     300,200,450,350
 };
+
+bool allStatuesCompleted = false;
+bool endingGuideDialoguePlayed = false;
 
 LARGE_INTEGER frequency;
 LARGE_INTEGER previousTime;
@@ -85,15 +91,38 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 //부적 다 모았는지 확인
 bool AllAmuletsCollected()
 {
+    if (amulets.empty())
+    {
+        return false;
+    }
+
     for (const Amulet& amulet : amulets)
     {
         if (!amulet.IsCollected())
         {
             return false;
         }
-
-        return true;
     }
+    return true;
+}
+
+// 부적 5개를 조각상에 모두 붙였는지 확인
+bool AllAmuletsUsed()
+{
+    if (amulets.size() < 5)
+    {
+        return false;
+    }
+
+    for (const Amulet& amulet : amulets)
+    {
+        if (!amulet.IsUsed())
+        {
+            return false;
+        }
+    }
+
+    return true;
 }
 
 void CreateMapBuffer(HWND hWnd)
@@ -412,6 +441,58 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
             ui->Draw(graphics, player, amulets,VillageMap.GetCurrentMap());//부적이랑 하트
 
+            // 엔딩 화면 전환 연출
+            if (endingTransitionStarted)
+            {
+                ULONGLONG elapsed =
+                    GetTickCount64() - endingTransitionStartTime;
+
+                // 2초 후부터 빨간색이 점점 진해짐
+                if (elapsed >= 2000 && elapsed < 4500)
+                {
+                    int redAlpha =
+                        static_cast<int>((elapsed - 2000) * 180 / 1500);
+
+                    if (redAlpha > 180)
+                    {
+                        redAlpha = 180;
+                    }
+
+                    SolidBrush redBrush(
+                        Color(
+                            static_cast<BYTE>(redAlpha),
+                            255,
+                            0,
+                            0
+                        )
+                    );
+
+                    graphics.FillRectangle(
+                        &redBrush,
+                        0,
+                        0,
+                        rt.right,
+                        rt.bottom
+                    );
+                }
+
+                // 4.5초 후부터 완전히 검은 화면
+                if (elapsed >= 4500)
+                {
+                    SolidBrush blackBrush(
+                        Color(255, 0, 0, 0)
+                    );
+
+                    graphics.FillRectangle(
+                        &blackBrush,
+                        0,
+                        0,
+                        rt.right,
+                        rt.bottom
+                    );
+                }
+            }
+
             break;
         }
         case GameState::End: {
@@ -537,6 +618,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     canMove = false;
                 }
 
+                if (endingTransitionStarted)
+                {
+                    canMove = false;
+                }
+
                 // 퀴즈 중에도 이동 불가
                 if (dayNight.IsNight() &&
                     quizGhost != nullptr &&
@@ -588,6 +674,32 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     CreateMapBuffer(hWnd);
                 }
                 player->UpdateDeath(deltaTime);
+
+                // 엔딩 연출 후 시작 화면으로 돌아가기
+                if (endingTransitionStarted)
+                {
+                    ULONGLONG elapsed =
+                        GetTickCount64() - endingTransitionStartTime;
+
+                    // 검은 화면을 약 1.5초 보여준 뒤 타이틀로
+                    if (elapsed >= 6000)
+                    {
+                        dialogue.Close();
+
+                        endingTransitionStarted = false;
+                        endingTransitionStartTime = 0;
+
+                        gameState = GameState::Title;
+
+                        InvalidateRect(
+                            hWnd,
+                            nullptr,
+                            FALSE
+                        );
+
+                        return 0;
+                    }
+                }
 
                 // 죽음 애니메이션이 끝나면 End 화면
                 if (player->IsDeathAnimationFinished())
@@ -743,8 +855,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     }
                 }
             }
-            //조각상 머리 변경 테스트
-            if (statueManager != nullptr)
+            // 조각상 머리 변경
+            if (statueManager != nullptr &&
+                player != nullptr)
             {
                 bool changed =
                     statueManager->Interact(
@@ -756,6 +869,18 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 if (changed)
                 {
                     CreateMapBuffer(hWnd);
+
+                    if (!endingGuideDialoguePlayed &&
+                        AllAmuletsUsed())
+                    {
+                        allStatuesCompleted = true;
+                        endingGuideDialoguePlayed = true;
+
+                        dialogue.Open({
+                            L"모든 조각상에 부적을 붙였다.",
+                            L"이제 의뢰자에게 돌아가 말을 걸어보자."
+                            });
+                    }
 
                     InvalidateRect(
                         hWnd,
@@ -781,14 +906,32 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
                 if (nearbyNPC != -1)
                 {
-                    npcManager.Talk(
-                        nearbyNPC,
-                        dialogue
-                    );
-
-                    if (nearbyNPC == 182)
+                    // 의뢰자에게 돌아온 상태
+                    if (nearbyNPC == 182 &&
+                        allStatuesCompleted)
                     {
-                        clientMet = true;
+                        dialogue.Open({
+                            L"크크큭... 진짜 부적을 다 붙였네....",
+                            L"하지만 이미 늦었다...",
+                            L"우린 사실 그 부적은 사실 봉인부적이 아닌 소환부적이다....",
+                            L"넌 여기서 절대 탈출 못해...",
+                            L"절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대"
+                            });
+
+                        endingTransitionStarted = true;
+                        endingTransitionStartTime = GetTickCount64();
+                    }
+                    else
+                    {
+                        npcManager.Talk(
+                            nearbyNPC,
+                            dialogue
+                        );
+
+                        if (nearbyNPC == 182)
+                        {
+                            clientMet = true;
+                        }
                     }
 
                     InvalidateRect(
@@ -862,10 +1005,15 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             if (titleScreen->IsStartClicked(pt.x, pt.y))
             {
                 ResetGame();
-                CreateMapBuffer(hWnd);
-                
-                gameState = GameState::Playing;
 
+                allStatuesCompleted = false;
+                endingGuideDialoguePlayed = false;
+                endingTransitionStarted = false;
+                endingTransitionStartTime = 0;
+
+                CreateMapBuffer(hWnd);
+
+                gameState = GameState::Playing;
                 introDialoguePlayed = false;
             }
 
