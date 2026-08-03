@@ -273,7 +273,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
         statueManager = new StatueManager();
 
-        allStatuesCompleted = true;  //엔딩 테스트용
+        //allStatuesCompleted = true;  //엔딩 테스트용
 
         if (!VillageMap.LoadImages())
         {
@@ -941,11 +941,18 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                         allStatuesCompleted)
                     {
                         dialogue.Open({
-                            L"크크큭... 진짜 부적을 다 붙였네....",
-                            L"하지만 이미 늦었다...",
-                            L"우린 사실 그 부적은 사실 봉인부적이 아닌 소환부적이다....",
-                            L"넌 여기서 절대 탈출 못해...",
-                            L"절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대"
+                            L"사실 그 부적은...",
+                            L"봉인 부적이 아니라...",
+                            L"...",
+                            L"오방색 종이젤리였다.",
+                            L"...",
+                            L"맛있냐?",
+                            L"농담이다.",
+                            L"사찰 지하에서 진실을 확인해라.",
+                            L"그 곳엔 이 마을의 엄청난 비밀이 숨겨져있다..",
+                            L"- 2부에 계속 -",
+                            L"※ 스포 주의",
+                            L"2부 아직 구현 안함 ㅋ"
                             });
 
                         waitingForEndingDialogue = true;
