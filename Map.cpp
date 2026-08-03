@@ -1761,6 +1761,8 @@ void Map::changeMap(MapType newMap)
 
     case Govillage:
 
+        //sound.PlayLaughing();
+
         //±æ
         for (int i = 5; i < 25; i++) {
             map[4][i] = TILE_ROAD;

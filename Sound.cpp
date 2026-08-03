@@ -54,7 +54,7 @@ void Sound::PlayCorrect()
 void Sound::PlayWrong()
 {
     PlaySound(
-        L"Sound\\Wrong.wav",
+        L"Sound\\False.wav",
         nullptr,
         SND_FILENAME | SND_ASYNC);
 }
@@ -101,5 +101,14 @@ void Sound::StopFailEndingBGM()
         nullptr,
         nullptr,
         0
+    );
+}
+
+void Sound::PlayLaughing()
+{
+    PlaySound(
+        L"Sound\\laughing.wav",
+        NULL,
+        SND_ASYNC | SND_FILENAME | SND_LOOP
     );
 }

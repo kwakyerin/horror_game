@@ -33,11 +33,11 @@ QuizGhost::QuizGhost(
     // 첫 번째 문제
     questions.push_back(
         {
-            L"오징어 다리는 몇 개지?",
+            L"원주율은 소수 몇째 자리까지 끝없이 이어질까?",
             {
-                L"10개",
-                L"8개",
-                L"12개"
+                L"끝이 없다",
+                L"100자리",
+                L"1000자리"
             },
             0 //정답
         }
@@ -52,7 +52,7 @@ QuizGhost::QuizGhost(
                 L"너",
                 L"우리"
             },
-            0 // 첫 번째 선택지인 부적이 정답
+            0
         }
     );
 
@@ -468,6 +468,7 @@ void QuizGhost::MoveSelectionDown()
     // 마지막에서 아래로 가면 첫 번째 선택지로 이동
     if (selectedChoiceIndex >= choiceCount)
     {
+
         selectedChoiceIndex = 0;
     }
 }
@@ -523,18 +524,17 @@ void QuizGhost::CheckAnswer(
     quizState = QuizState::Result;
 }
 
-void QuizGhost::MoveToNextQuestion( Dialogue& dialogue,Sound& sound)
+void QuizGhost::MoveToNextQuestion(
+    Dialogue& dialogue,
+    Sound& sound)
 {
     currentQuestionIndex++;
     selectedChoiceIndex = 0;
 
-    // 세 문제를 모두 맞힌 경우
+    // 모든 문제를 맞힌 경우에만 퀴즈 BGM 종료
     if (currentQuestionIndex >=
         static_cast<int>(questions.size()))
     {
-        waitingForDeath = false;
-        deathStartTime = 0;
-
         sound.StopQuizBGM();
         sound.PlayRain();
 
@@ -551,7 +551,7 @@ void QuizGhost::MoveToNextQuestion( Dialogue& dialogue,Sound& sound)
     }
     else
     {
-        // 다음 문제 선택 상태
+        // 다음 문제로 넘어가도 퀴즈 BGM은 계속 재생
         quizState = QuizState::Selecting;
     }
 }

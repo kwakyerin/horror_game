@@ -34,7 +34,7 @@ enum class GameState
     End
 };
 std::vector<Amulet> amulets;
-GameState gameState = GameState::Title;//상태 바꾸려면 여기서 바꾸면 된다.
+GameState gameState = GameState::Playing;//상태 바꾸려면 여기서 바꾸면 된다.
 
 Map VillageMap;
 
@@ -54,6 +54,7 @@ bool nightStarted = false;
 //화면 빨개지는 엔딩 후 다시 시작화면
 bool endingTransitionStarted = false;
 ULONGLONG endingTransitionStartTime = 0;
+bool waitingForEndingDialogue = false;
 
 //소리
 Sound gameSound;
@@ -272,6 +273,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
         statueManager = new StatueManager();
 
+        allStatuesCompleted = true;  //엔딩 테스트용
+
         if (!VillageMap.LoadImages())
         {
             // MessageBox(hWnd, L"맵 이미지 로드 실패", L"Error", MB_OK);
@@ -453,10 +456,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     GetTickCount64() - endingTransitionStartTime;
 
                 // 2초 후부터 빨간색이 점점 진해짐
-                if (elapsed >= 3000 && elapsed < 7000)
+                if (elapsed < 4000)
                 {
                     int redAlpha =
-                        static_cast<int>((elapsed - 3000) * 180 / 4000);
+                        static_cast<int>(elapsed * 180 / 4000);
 
                     if (redAlpha > 180)
                     {
@@ -481,8 +484,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     );
                 }
 
-                // 4.5초 후부터 완전히 검은 화면
-                if (elapsed >= 7000)
+                //검은 화면
+                if (elapsed >= 4000)
                 {
                     SolidBrush blackBrush(
                         Color(255, 0, 0, 0)
@@ -656,6 +659,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
                 VillageMap.Maptransform( *player );
 
+                if (waitingForEndingDialogue &&!dialogue.IsOpen())
+                {
+                    waitingForEndingDialogue = false;
+
+                    endingTransitionStarted = true;
+                    endingTransitionStartTime = GetTickCount64();
+                }
+
                 //밤 되면 몬스터 생성
                 if (dayNight.IsDay() && AllAmuletsCollected())
                 {
@@ -693,21 +704,20 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     ULONGLONG elapsed =
                         GetTickCount64() - endingTransitionStartTime;
 
-                    // 검은 화면을 약 1.5초 보여준 뒤 타이틀로
-                    if (elapsed >= 6000)
+                    // 빨간 화면 4초 + 검은 화면 5초 후 타이틀
+                    if (elapsed >= 7000)
                     {
                         dialogue.Close();
 
                         endingTransitionStarted = false;
                         endingTransitionStartTime = 0;
+                        waitingForEndingDialogue = false;
 
-                        if (elapsed >= 9000)
-                        {
-                            gameSound.StopRain();
-                            gameSound.PlayTitleBGM();
+                        gameSound.StopEndingBGM();
+                        gameSound.StopRain();
+                        gameSound.PlayTitleBGM();
 
-                            gameState = GameState::Title;
-                        }
+                        gameState = GameState::Title;
 
                         InvalidateRect(
                             hWnd,
@@ -938,8 +948,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                             L"절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대절대"
                             });
 
-                        endingTransitionStarted = true;
-                        endingTransitionStartTime = GetTickCount64();
+                        waitingForEndingDialogue = true;
+
                         gameSound.StopRain();
                         gameSound.PlayEndingBGM();
                     }

@@ -28,6 +28,8 @@ public:
     void PlayFailEndingBGM();
     void StopFailEndingBGM();
 
+    void PlayLaughing();
+
 
 private:
     bool isRainPlaying;
